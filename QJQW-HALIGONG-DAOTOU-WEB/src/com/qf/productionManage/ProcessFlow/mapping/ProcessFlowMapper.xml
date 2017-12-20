@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.ProcessFlow.dao.ProcessFlowMapper">
+
+
+	<!-- 查询机床列表   -->
+	<select id="queryProcessFlowList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ProcessFlow, NoProcessFlow, CompanyProcessFlow, NameProcessFlow, PartNameProcessFlow, PartNumberProcessFlow,
+			   PartNoMaterialProcessFlow, PartCategoryMaterialProcessFlow, PartAssemblyProcessFlow, PartNoAssemblyProcessFlow, PartTypeProcessFlow
+		from ProcessFlow
+		where 1 = 1
+		<if test="NoProcessFlow !=null  and NoProcessFlow !='' "> and NoProcessFlow like '%${NoProcessFlow}%'</if>
+		<if test="CompanyProcessFlow !=null and CompanyProcessFlow !='' "> and CompanyProcessFlow like '%${CompanyProcessFlow}%'</if>
+		<if test="NameProcessFlow !=null  and NameProcessFlow !='' "> and NameProcessFlow like '%${NameProcessFlow}%'</if>
+		<if test="PartNameProcessFlow !=null  and PartNameProcessFlow !='' "> and PartNameProcessFlow like '%${PartNameProcessFlow}%'</if>
+		<if test="PartNumberProcessFlow !=null  and PartNumberProcessFlow !='' "> and PartNumberProcessFlow like '%${PartNumberProcessFlow}%'</if>
+		order by id_ProcessFlow desc
+	</select>
+	
+	<select id="queryPicturePartProcessFlowList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PicturePartProcessFlow, id_ProcessFlow, url_PicturePartProcessFlow
+		from PicturePartProcessFlow
+		where id_ProcessFlow = #{id_ProcessFlow}
+	</select>
+
+	<select id="queryWorkingProcedureList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_WorkingProcedure, id_ProcessFlow, NoProcedureProcessFlow,NameProcedureProcessFlow,ContentProcedureProcessFlow,
+		EquipmentType, TimeProcessFlow, MachineProcessFlow,MachineProcessCode,CuttingFluidProcessFlow,RemarkProcessFlow
+		from WorkingProcedure
+		where id_ProcessFlow = #{id_ProcessFlow}
+		order by id_ProcessFlow desc
+	</select>
+	
+	<select id="queryProcessFlowServiceList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureProcessFlow, id_WorkingProcedure, url_PictureProcessFlow
+		from PictureProcessFlow
+		where id_WorkingProcedure = #{id_WorkingProcedure}
+	</select>
+	
+	<!-- 删除  -->
+	<delete id="deleteProcessFlowList"   parameterType="java.util.HashMap">
+    	delete from ProcessFlow
+        where id_ProcessFlow = #{id_ProcessFlow}
+    </delete>
+    
+    <!-- 删除  -->
+	<delete id="cleanPicturePartProcessFlow"   parameterType="java.util.HashMap">
+    	delete from PicturePartProcessFlow
+        where id_ProcessFlow = #{id_ProcessFlow}
+    </delete>
+	
+	<!-- 删除  -->
+	<delete id="cleanPictureProcessFlow"   parameterType="java.util.HashMap">
+    	delete from PictureProcessFlow
+        where id_WorkingProcedure = #{id_WorkingProcedure}
+    </delete>
+    
+    <!-- 删除  -->
+	<delete id="deleteWorkingProcedure"   parameterType="java.util.HashMap">
+    	delete from WorkingProcedure
+        where id_ProcessFlow = #{id_ProcessFlow}
+    </delete>
+	
+	<!-- 查询机床列表   -->
+	<select id="queryProcessFlowListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from ProcessFlow where id_ProcessFlow = #{id_ProcessFlow}
+	</select>
+	
+	
+	<update id="updataProcessFlow" parameterType="java.util.HashMap">
+		update ProcessFlow set
+	    		NoProcessFlow = #{NoProcessFlow},
+	    		CompanyProcessFlow = #{CompanyProcessFlow},
+	    		NameProcessFlow = #{NameProcessFlow},
+	    		PartNameProcessFlow = #{PartNameProcessFlow},
+	    		PartNumberProcessFlow = #{PartNumberProcessFlow},
+	    		PartNoMaterialProcessFlow = #{PartNoMaterialProcessFlow},
+	    		PartCategoryMaterialProcessFlow = #{PartCategoryMaterialProcessFlow},
+	    		PartAssemblyProcessFlow = #{PartAssemblyProcessFlow},
+	    		PartNoAssemblyProcessFlow = #{PartNoAssemblyProcessFlow},
+	    		PartTypeProcessFlow = #{PartTypeProcessFlow}
+	    		
+		where id_ProcessFlow = #{id_ProcessFlow}
+	</update>
+	
+	<insert id="saveProcessFlow" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ProcessFlow"  resultType="int">
+    		select ifnull((select (id_ProcessFlow+1) id_ProcessFlow from ProcessFlow order by id_ProcessFlow desc limit 1) ,1) id_ProcessFlow from dual
+    	</selectKey>
+	    insert into ProcessFlow (
+	    	id_ProcessFlow, NoProcessFlow, CompanyProcessFlow, NameProcessFlow, PartNameProcessFlow, PartNumberProcessFlow, PartNoMaterialProcessFlow,
+	    	PartCategoryMaterialProcessFlow, PartAssemblyProcessFlow, PartNoAssemblyProcessFlow, PartTypeProcessFlow
+        )
+		values (  
+			#{id_ProcessFlow}, #{NoProcessFlow}, #{CompanyProcessFlow}, #{NameProcessFlow},
+			#{PartNameProcessFlow}, #{PartNumberProcessFlow}, #{PartNoMaterialProcessFlow}, #{PartCategoryMaterialProcessFlow},
+			#{PartAssemblyProcessFlow}, #{PartNoAssemblyProcessFlow}, #{PartTypeProcessFlow}
+	    )
+	</insert>
+	
+	<delete id="cleanWorkingProcedure" parameterType="int">
+		delete from WorkingProcedure
+        where id_ProcessFlow = #{id_ProcessFlow}
+	</delete>
+	
+	<insert id="saveWorkingProcedure" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_WorkingProcedure"  resultType="int">
+    		select ifnull((select (id_WorkingProcedure+1) id_WorkingProcedure from WorkingProcedure order by id_WorkingProcedure desc limit 1) ,1) id_WorkingProcedure from dual
+    	</selectKey>
+	    insert into WorkingProcedure (
+	    	id_WorkingProcedure, id_ProcessFlow, NoProcedureProcessFlow, NameProcedureProcessFlow,ContentProcedureProcessFlow, EquipmentType, 
+	    	TimeProcessFlow, MachineProcessFlow,MachineProcessCode, CuttingFluidProcessFlow, RemarkProcessFlow
+        )
+		values (  
+			#{id_WorkingProcedure}, #{id_ProcessFlow}, #{NoProcedureProcessFlow}, #{NameProcedureProcessFlow},
+			#{ContentProcedureProcessFlow}, #{EquipmentType}, #{TimeProcessFlow}, #{MachineProcessFlow},
+			#{MachineProcessCode}, #{CuttingFluidProcessFlow}, #{RemarkProcessFlow}
+	    )
+	</insert>
+	
+	<insert id="saveIdAndWorkingProcedure" parameterType="java.util.HashMap" >
+	    insert into WorkingProcedure (
+	    	id_WorkingProcedure, id_ProcessFlow, NoProcedureProcessFlow, NameProcedureProcessFlow,ContentProcedureProcessFlow, EquipmentType, 
+	    	TimeProcessFlow, MachineProcessFlow,MachineProcessCode, CuttingFluidProcessFlow, RemarkProcessFlow
+        )
+		values (  
+			#{id_WorkingProcedure}, #{id_ProcessFlow}, #{NoProcedureProcessFlow}, #{NameProcedureProcessFlow},
+			#{ContentProcedureProcessFlow}, #{EquipmentType}, #{TimeProcessFlow}, #{MachineProcessFlow},
+			#{MachineProcessCode}, #{CuttingFluidProcessFlow}, #{RemarkProcessFlow}
+	    )
+	</insert>
+	
+	<!-- 删除  -->
+	<delete id="clearPicturePartProcessFlow"   parameterType="java.util.HashMap">
+    	delete from PicturePartProcessFlow
+        where id_ProcessFlow = #{id_ProcessFlow}
+    </delete>
+	
+	<!-- 保存图  -->
+	<insert id="savePicturePartProcessFlow" parameterType="java.util.HashMap" >
+	    insert into PicturePartProcessFlow (
+			id_ProcessFlow, url_PicturePartProcessFlow
+        )
+		values (  
+			#{id_ProcessFlow}, #{url_PicturePartProcessFlow}
+		)
+	</insert>
+	
+	<!-- 删除  -->
+	<delete id="clearPictureProcessFlow"   parameterType="java.util.HashMap">
+    	delete from PictureProcessFlow
+        where id_WorkingProcedure = #{id_WorkingProcedure}
+    </delete>
+
+	<!-- 保存图（工序）  -->
+	<insert id="savePictureProcessFlow" parameterType="java.util.HashMap" >
+	    insert into PictureProcessFlow (
+			id_WorkingProcedure, url_PictureProcessFlow
+        )
+		values (  
+			#{id_WorkingProcedure}, #{url_PictureProcessFlow}
+		)
+	</insert>
+
+
+
+
+
+</mapper>

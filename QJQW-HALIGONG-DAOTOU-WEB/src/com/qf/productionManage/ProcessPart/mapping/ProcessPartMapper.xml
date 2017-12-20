@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.ProcessPart.dao.ProcessPartMapper">
+
+
+	<!-- 查询机床列表   -->
+	<select id="queryProcessPartList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ProcessPart, NameProcessPart, NumberProcessPart, TypeProcessPart, AssemblyProcessPart, NoAssemblyProcessPart,
+			   CompanyProcessPart, IndustryProcessPart, NumberMaterialProcessPart, CategoryMaterialProcessPart, RemarkProcessPart
+		from ProcessPart
+		where 1 = 1
+		<if test="NameProcessPart !=null  and NameProcessPart !='' "> and NameProcessPart like '%${NameProcessPart}%'</if>
+		<if test="NumberProcessPart !=null and NumberProcessPart !='' "> and NumberProcessPart like '%${NumberProcessPart}%'</if>
+		<if test="TypeProcessPart !=null  and TypeProcessPart !='' "> and TypeProcessPart like '%${TypeProcessPart}%'</if>
+		<if test="AssemblyProcessPart !=null  and AssemblyProcessPart !='' "> and AssemblyProcessPart like '%${AssemblyProcessPart}%'</if>
+		<if test="NoAssemblyProcessPart !=null  and NoAssemblyProcessPart !='' "> and NoAssemblyProcessPart like '%${NoAssemblyProcessPart}%'</if>
+		order by id_ProcessPart desc
+	</select>
+	
+	<select id="queryPictureProcessPartList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ProcessPartFile, id_ProcessPart, url_ProcessPartFile,name_ProcessPartFile,ascription
+		from ProcessPartFile
+		where id_ProcessPart = #{id_ProcessPart} and ascription = #{ascription}
+	</select>
+	
+	<select id="queryInformProcessPartList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ProcessPartFile, id_ProcessPart, url_ProcessPartFile,name_ProcessPartFile,ascription
+		from ProcessPartFile
+		where id_ProcessPart = #{id_ProcessPart} and ascription = #{ascription}
+	</select>
+
+	<select id="queryPartProcessPartList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ProcessPartFile, id_ProcessPart, url_ProcessPartFile,name_ProcessPartFile,ascription
+		from ProcessPartFile
+		where id_ProcessPart = #{id_ProcessPart} and ascription = #{ascription}
+	</select>
+
+    <select id="queryCategoryTypeProcessPartList" resultType="java.util.HashMap">
+		select id_CategoryTypeProcessPart, name_CategoryTypeProcessPart 
+		from CategoryTypeProcessPart
+		order by id_CategoryTypeProcessPart
+	</select>
+	
+	<select id="queryCategoryIndustryProcessPartList" resultType="java.util.HashMap">
+		select id_CategoryIndustryProcessPart, name_CategoryIndustryProcessPart 
+		from CategoryIndustryProcessPart
+		order by id_CategoryIndustryProcessPart
+	</select>
+	
+	<!-- 删除  -->
+	<delete id="deleteProcessPartList"   parameterType="java.util.HashMap">
+    	delete from ProcessPart
+        where id_ProcessPart = #{id_ProcessPart}
+    </delete>
+    
+    <!-- 删除  -->
+	<delete id="clearProcessPartFileById"   parameterType="java.util.HashMap">
+    	delete from ProcessPartFile
+        where id_ProcessPart = #{id_ProcessPart}
+    </delete>
+
+	 
+	<!-- 查询机床列表   -->
+	<select id="queryProcessPartListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from ProcessPart where id_ProcessPart = #{id_ProcessPart}
+	</select>
+	
+
+	<!--  修改   -->
+	<update id="updateProcessPart" parameterType="java.util.HashMap">
+		update ProcessPart
+	    	<set> 
+	    		NameProcessPart = #{NameProcessPart},
+	    		NumberProcessPart = #{NumberProcessPart},
+	    		TypeProcessPart = #{TypeProcessPart},
+	    		AssemblyProcessPart = #{AssemblyProcessPart},
+	    		NoAssemblyProcessPart = #{NoAssemblyProcessPart},
+	    		CompanyProcessPart = #{CompanyProcessPart},
+	    		IndustryProcessPart = #{IndustryProcessPart},
+	    		NumberMaterialProcessPart = #{NumberMaterialProcessPart},
+	    		CategoryMaterialProcessPart = #{CategoryMaterialProcessPart},
+	    		RemarkProcessPart = #{RemarkProcessPart}
+			</set>
+		where id_ProcessPart = #{id_ProcessPart}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveProcessPart" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ProcessPart"  resultType="int">
+    		select ifnull((select (id_ProcessPart+1) id_ProcessPart from ProcessPart order by id_ProcessPart desc limit 1) ,1) id_ProcessPart from dual
+    	</selectKey>
+	    insert into ProcessPart (
+	    	id_ProcessPart, NameProcessPart, NumberProcessPart, TypeProcessPart, AssemblyProcessPart, CategoryMaterialProcessPart,
+	    	NoAssemblyProcessPart, CompanyProcessPart, IndustryProcessPart, NumberMaterialProcessPart, RemarkProcessPart
+        )
+		values (  
+			#{id_ProcessPart}, #{NameProcessPart}, #{NumberProcessPart}, #{TypeProcessPart}, #{AssemblyProcessPart},#{CategoryMaterialProcessPart}, 
+			#{NoAssemblyProcessPart}, #{CompanyProcessPart}, #{IndustryProcessPart},#{NumberMaterialProcessPart}, #{RemarkProcessPart}
+	    )
+	</insert>
+	
+	<!-- 保存图  -->
+	<insert id="savePictureProcessPart" parameterType="java.util.HashMap" >
+	    insert into ProcessPartFile (
+			id_ProcessPart, url_ProcessPartFile , ascription
+        )
+		values (  
+			#{id_ProcessPart}, #{url_ProcessPartFile} ,#{ascription}
+		)
+	</insert>
+	
+	<!-- 保存详细信息  -->
+	<insert id="saveInformProcessPart" parameterType="java.util.HashMap" >
+	    insert into ProcessPartFile (
+			id_ProcessPart, url_ProcessPartFile, name_ProcessPartFile, ascription
+        )
+		values (  
+			#{id_ProcessPart}, #{url_ProcessPartFile}, #{name_ProcessPartFile},#{ascription}
+		)
+	</insert>
+	
+	<!-- 保存part  -->
+	<insert id="savePartProcessPart" parameterType="java.util.HashMap" >
+	    insert into ProcessPartFile (
+			id_ProcessPart, url_ProcessPartFile, name_ProcessPartFile, ascription
+        )
+		values (  
+			#{id_ProcessPart}, #{url_ProcessPartFile}, #{name_ProcessPartFile},#{ascription}
+		)
+	</insert>
+
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryTypeProcessPartByName" resultType="java.util.HashMap">
+		select id_CategoryTypeProcessPart, name_CategoryTypeProcessPart 
+		from CategoryTypeProcessPart
+		where name_CategoryTypeProcessPart = #{name_CategoryTypeProcessPart}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryTypeProcessPart" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryTypeProcessPart"  resultType="int">
+    		select ifnull((select (id_CategoryTypeProcessPart+1) id_CategoryTypeProcessPart from CategoryTypeProcessPart order by id_CategoryTypeProcessPart desc limit 1) ,1) id_CategoryTypeProcessPart from dual
+    	</selectKey>
+	    insert into CategoryTypeProcessPart (
+	    	id_CategoryTypeProcessPart, name_CategoryTypeProcessPart
+        )
+		values (  
+			#{id_CategoryTypeProcessPart}, #{name_CategoryTypeProcessPart}
+	    )
+	</insert>
+
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryIndustryProcessPartByName" resultType="java.util.HashMap">
+		select id_CategoryIndustryProcessPart, name_CategoryIndustryProcessPart 
+		from CategoryIndustryProcessPart
+		where name_CategoryIndustryProcessPart = #{name_CategoryIndustryProcessPart}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryIndustryProcessPart" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryIndustryProcessPart"  resultType="int">
+    		select ifnull((select (id_CategoryIndustryProcessPart+1) id_CategoryIndustryProcessPart from CategoryIndustryProcessPart order by id_CategoryIndustryProcessPart desc limit 1) ,1) id_CategoryIndustryProcessPart from dual
+    	</selectKey>
+	    insert into CategoryIndustryProcessPart (
+	    	id_CategoryIndustryProcessPart, name_CategoryIndustryProcessPart
+        )
+		values (  
+			#{id_CategoryIndustryProcessPart}, #{name_CategoryIndustryProcessPart}
+	    )
+	</insert>
+
+
+
+
+</mapper>

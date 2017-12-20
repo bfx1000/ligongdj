@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.toolPlan.designToolBTAdrill.dao.DesignToolBTAdrillMapper">
+
+	<!-- 查询刀柄设计   -->
+	<select id="queryDesignToolBTAdrillList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_DesignToolBTAdrill, DesignNumberBTADrill, DesignNameBTADrill, DesignDiameterBTADrill, DesignCompanyBTADrill
+			 , DesignBreakerBTADrill, DesignFeatureBTADrill, P, C,ZI,One,Two
+		from DesignToolBTAdrill
+		where 1 = 1
+		<if test="DesignNumberBTADrill !=null  and DesignNumberBTADrill !='' "> and DesignNumberBTADrill like '%${DesignNumberBTADrill}%'</if>
+		<if test="DesignNameBTADrill !=null  and DesignNameBTADrill !='' "> and DesignNameBTADrill like '%${DesignNameBTADrill}%'</if>
+		<if test="DesignDiameterBTADrill !=null  and DesignDiameterBTADrill !='' "> and DesignDiameterBTADrill = #{DesignDiameterBTADrill}</if>
+		<if test="DesignCompanyBTADrill !=null  and DesignCompanyBTADrill !='' "> and DesignCompanyBTADrill like '%${DesignCompanyBTADrill}%'</if>
+		order by id_DesignToolBTAdrill desc
+	</select>
+	
+	<!--  查询刀柄设计图片列表   -->
+	<select id="queryPictureDesignToolBTAdrillList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_DesignPictureBTADrill, id_DesignToolBTAdrill, url_DesignToolBTAdrill
+		from PictureDesignToolBTAdrill
+		where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+	</select>
+	
+	<!--  查询详细信息列表  -->
+	<select id="queryInformDetailDesignToolBTAdrillList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_DesignInformDetailBTADrill, id_DesignToolBTAdrill, url_DesignInformDetailBTADrill,name_DesignInformDetailBTADrill
+		from InformDetailDesignToolBTAdrill
+		where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+	</select>
+	
+	<!--  查询part  -->
+	<select id="queryPartDesignToolBTAdrillList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_DesignPartBTADrill, id_DesignToolBTAdrill, url_DesignPartBTADrill, name_DesignPartBTADrill
+		from PartDesignToolBTAdrill
+		where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+	</select>
+
+	<!--  查询partAll  -->
+	<select id="queryPartAllList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_DesignToolBTAdrill, url_DesignBTADrillPartAll, name_DesignBTADrillPartAll, ascription
+		from DesignBTADrillPartAll
+		where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+	</select>
+	
+	<!-- 清空图片路径  -->
+	<delete id="clearPictureDesignToolBTAdrillById"   parameterType="java.util.HashMap">
+    	delete from PictureDesignToolBTAdrill
+        where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+    </delete>
+	
+	<!-- 清空详细信息路径  -->
+	<delete id="clearInformDetailDesignToolBTAdrillById"   parameterType="java.util.HashMap">
+    	delete from InformDetailDesignToolBTAdrill
+        where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+    </delete>
+    
+	<!-- 清空part路径  -->
+	<delete id="clearPartDesignToolBTAdrillById"   parameterType="java.util.HashMap">
+    	delete from PartDesignToolBTAdrill
+        where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+    </delete>
+    
+    <!-- 清空partAll  -->
+	<delete id="clearPartAllById"   parameterType="java.util.HashMap">
+    	delete from DesignBTADrillPartAll
+        where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+    </delete>
+    
+    
+    <!-- 删除车刀数据-刀柄数据  -->
+	<delete id="deleteDesignToolBTAdrill"   parameterType="java.util.HashMap">
+    	delete from DesignToolBTAdrill
+        where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+    </delete>
+
+	<!-- 查询深孔钻设计（用于go添加页面）   -->
+	<select id="queryDesignToolBTAdrillById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_DesignToolBTAdrill, DesignNumberBTADrill, DesignNameBTADrill, DesignDiameterBTADrill, DesignCompanyBTADrill
+			 , DesignBreakerBTADrill, DesignFeatureBTADrill, P, C,ZI,One,Two
+		from DesignToolBTAdrill
+		where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+	</select>
+
+	
+	
+	
+	<!--  修改   -->
+	<update id="updateDesignToolBTAdrill" parameterType="java.util.HashMap">
+		update DesignToolBTAdrill
+	    	<set> 
+	    		DesignNumberBTADrill = #{DesignNumberBTADrill},
+	    		DesignNameBTADrill = #{DesignNameBTADrill},
+	    		DesignDiameterBTADrill = #{DesignDiameterBTADrill},
+	    		DesignCompanyBTADrill = #{DesignCompanyBTADrill},
+	    		DesignBreakerBTADrill = #{DesignBreakerBTADrill},
+	    		DesignFeatureBTADrill = #{DesignFeatureBTADrill},
+	    		P = #{P},
+	    		C = #{C},
+	    		ZI = #{ZI},
+	    		One = #{One},
+	    		Two = #{Two},
+			</set>
+		where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveDesignToolBTAdrill" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_DesignToolBTAdrill"  resultType="int">
+    		select ifnull((select (id_DesignToolBTAdrill+1) id_DesignToolBTAdrill from DesignToolBTAdrill order by id_DesignToolBTAdrill desc limit 1) ,1) id_DesignToolBTAdrill from dual
+    	</selectKey>
+	    insert into DesignToolBTAdrill (
+	    	id_DesignToolBTAdrill, DesignNumberBTADrill, DesignNameBTADrill, DesignDiameterBTADrill, DesignCompanyBTADrill, 
+	    	DesignBreakerBTADrill, DesignFeatureBTADrill, P, C, ZI, One, Two
+        )
+		values (  
+			#{id_DesignToolBTAdrill}, #{DesignNumberBTADrill}, #{DesignNameBTADrill}, #{DesignDiameterBTADrill}, #{DesignCompanyBTADrill}, 
+	    	#{DesignBreakerBTADrill}, #{DesignFeatureBTADrill}, #{P}, #{C}, #{ZI}, #{One}, #{Two}
+	    )
+	</insert>
+	
+	<!-- 保存图  -->
+	<insert id="savePictureDesignToolBTAdrill" parameterType="java.util.HashMap" >
+	    insert into PictureDesignToolBTAdrill (
+			id_DesignToolBTAdrill, url_DesignToolBTAdrill
+        )
+		values (  
+			#{id_DesignToolBTAdrill}, #{url_DesignToolBTAdrill}
+		)
+	</insert>
+	
+	<!-- 保存详细信息  -->
+	<insert id="saveInformDetailDesignToolBTAdrill" parameterType="java.util.HashMap" >
+	    insert into InformDetailDesignToolBTAdrill (
+			id_DesignToolBTAdrill, url_DesignInformDetailBTADrill, name_DesignInformDetailBTADrill
+        )
+		values (  
+			#{id_DesignToolBTAdrill}, #{url_DesignInformDetailBTADrill}, #{name_DesignInformDetailBTADrill}
+		)
+	</insert>
+	
+	<!-- 保存part  -->
+	<insert id="savePartDesignToolBTAdrill" parameterType="java.util.HashMap" >
+	    insert into PartDesignToolBTAdrill (
+			id_DesignToolBTAdrill, url_DesignPartBTADrill, name_DesignPartBTADrill
+        )
+		values (  
+			#{id_DesignToolBTAdrill}, #{url_DesignPartBTADrill}, #{name_DesignPartBTADrill}
+		)
+	</insert>
+
+	<!-- 保存partAll  -->
+	<insert id="savePartAll" parameterType="java.util.HashMap" >
+	    insert into DesignBTADrillPartAll (
+			id_DesignToolBTAdrill, url_DesignBTADrillPartAll, name_DesignBTADrillPartAll, ascription
+        )
+		values (  
+			#{id_DesignToolBTAdrill}, #{url_DesignBTADrillPartAll}, #{name_DesignBTADrillPartAll}, #{ascription}
+		)
+	</insert>
+
+	<!-- 清空图片路径  -->
+	<delete id="cleanPartAllDesignToolBTAdrillById"   parameterType="java.util.HashMap">
+    	delete from DesignBTADrillPartAll
+        where id_DesignToolBTAdrill = #{id_DesignToolBTAdrill}
+    </delete>
+	
+
+
+
+
+
+
+
+
+
+</mapper>

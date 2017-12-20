@@ -1,0 +1,187 @@
+@charset "utf-8";
+.blue{
+	color:#069dd5;
+}
+.red{
+	color:#f00;
+}
+.font_normal{
+	font-weight:normal;
+}
+.fontsize_min{
+	font-size:12px;
+}
+.font_bold{
+	font-weight:bold;
+}
+
+.main_about{
+    width: 1280px;
+    height:auto;
+    background-color:#fff;/*ececec*/
+    position: relative;
+    margin: 0 auto;
+    font-family: 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    font-size: 14px;
+	padding:0 0 44px 0;
+}
+a{
+    text-decoration: none;
+    font-family: 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: black;
+    font-size: 14px;
+}
+/* banner 处理样式 */
+.banner_contactus{
+	width:1280px;
+	height:250px;
+	margin-top:37px;
+}
+/*内容部分*/
+/*开启*/
+.user_corpus_content{
+    position: relative;
+    margin-top:0;
+    width: 1280px;
+    height: auto;
+}
+.about_content{
+	clear:both;
+    width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    margin-top:20px;
+    color:#000;
+}
+/* 内容部分 */
+.about_content{
+	width:100%;
+    height:auto;
+}
+.about_content_left{
+	width:1000px;
+	background:#fff;
+	height:auto;
+	min-height:800px;
+	margin:0px auto;
+}
+.wenji_left_container{
+	width: 651px;
+}
+/*文章名称*/
+.article_title{
+	font:bold 16px 'Microsoft YaHei';
+	 color: #333333;
+	 margin-bottom: 30px;
+}
+.content{
+	padding:0 50px;
+	line-height:48px;
+	font-size:14px;
+	color:#666;
+	font-family:"宋体";
+}
+.content>h4{
+	color:#333;
+	margin:0;
+	padding:0 0 0 15px;
+	background:url(../images/img_about/srmy_title_log.png) no-repeat left 17px;
+}
+.content>ul{
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+.content .hr{
+	margin:20px 0 10px
+	;border-bottom:1px solid #ccc;
+}
+/*文章名称*/
+.box_content .article_title{
+    font:bold 20px 'Microsoft YaHei';
+    color: #333333;
+    margin-bottom: 30px;
+	border-bottom:1px solid #d8e0e4;
+	padding:10px 0 10px 20px;
+}
+.box_content p{
+	padding:0;
+	margin-bottom:20px;
+	text-indent:2em;
+	line-height:48px;
+	font-size:14px;
+	color:#666;
+	font-family:"宋体";
+}
+.clear{ 
+	clear:both;
+}
+/* 提示 */
+.opinion_text{
+	border:1px solid #ccc;
+	background:#f7f7f7;
+	width:100%;
+	height:120px;
+	line-height:30px;
+}
+.prompt{
+	text-align:left;
+	font-size:12px;
+	color:#069dd5;
+	line-height:12px;
+	padding-left:0px;
+}
+/* 提交按钮 */
+.box_submit{ margin-left:0px; margin-top:20px;}
+.box_submit .button{
+	width: 80px;
+    height: 30px;
+	border:none;
+	cursor:pointer;
+    background-color: #4097ca;
+    color: white;
+    text-align: center;
+    font: 14px 'Microsoft YaHei';
+    line-height:20px;
+    border-radius: 4px;
+    behavior: url(path/PIE.htc);
+}
+/* 添加反馈图像 */
+.feedback_thumbnail_container{
+	border:1px solid #ccc;
+	background:#f7f7f7;
+	margin:5px 0 5px 0;
+	width:894px;
+	height:auto;
+	min-height:80px;
+	padding-left:10px;
+	padding-top:5px;
+}
+.feedback_thumbnail_container span{
+	position:relative;
+	right:0;
+	top:0;
+	width:80px;
+	height:80px;
+	display:inline-table;
+}
+.feedback_thumbnail_container span img{
+	width:80px;
+	height:80px;
+	margin:10px 4px 0 4px;
+	border:1px solid #ddd;
+	background:#fff;
+}
+.feedback_thumbnail_container .delete{
+	width:14px;
+	height:14px;
+	line-height:14px;
+	position:absolute;
+	right:2px;
+	top:5px;
+	background:url(../images/img_about/delete.png) no-repeat;
+}
+/* 二级菜单 */
+.corpus_second_menu {
+    margin: 58px 0 0 -1px;
+}

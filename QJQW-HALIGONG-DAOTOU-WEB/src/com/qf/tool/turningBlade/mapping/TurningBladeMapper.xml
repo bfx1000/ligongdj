@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.tool.turningBlade.dao.TurningBladeMapper">
+	
+	<!-- 查询刀片列表   -->
+	<select id="queryTurningBladeList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_TurningBlade, NumberTurningBlade, TypeBTADrill, NameTurningBlade, ISOBladeTurning, 
+			   ToolCoatBladeTurning, ToolMaterialBladeTurning, MachiningTypeBladeTurning, ToolBladeFeatureTurning, CompanyTurningBlade, 
+			   QianjiaoBladeTurning, HoujiaoBladeTurning, HoujisojiaoBladeTurning, NoseRadiusTurning, BreakerBladeTurning, 
+			   MateriaBladeTurning, isPMKNS, ISOPBladeTurning, ISOPTextBladeTurning, ISOMBladeTurning, 
+			   ISOMTextBladeTurning, ISOKBladeTurning, ISOKTextBladeTurning, ISONBladeTurning, ISONTextBladeTurning, 
+			   ISOSBladeTurning, ISOSTextBladeTurning, HolderInfo, add_time, user_id
+		from TurningBlade
+		where 1 = 1
+		<if test="NumberTurningBlade !=null  and NumberTurningBlade !='' "> and NumberTurningBlade like '%${NumberTurningBlade}%'</if>
+		<if test="TypeBTADrill !=null and TypeBTADrill !='' "> and TypeBTADrill like '%${TypeBTADrill}%'</if>
+		<if test="ISOBladeTurning !=null  and ISOBladeTurning !='' "> and ISOBladeTurning like '%${ISOBladeTurning}%'</if>
+		<if test="ToolCoatBladeTurning !=null  and ToolCoatBladeTurning !='' "> and ToolCoatBladeTurning like '%${ToolCoatBladeTurning}%'</if>
+		<if test="ToolMaterialBladeTurning !=null  and ToolMaterialBladeTurning !='' "> and ToolMaterialBladeTurning like '%${ToolMaterialBladeTurning}%'</if>
+		<if test="MachiningTypeBladeTurning !=null  and MachiningTypeBladeTurning !='' "> and MachiningTypeBladeTurning like '%${MachiningTypeBladeTurning}%'</if>
+		<if test="ToolBladeFeatureTurning !=null  and ToolBladeFeatureTurning !='' "> and ToolBladeFeatureTurning like '%${ToolBladeFeatureTurning}%'</if>
+		<if test="CompanyTurningBlade !=null  and CompanyTurningBlade !='' "> and CompanyTurningBlade like '%${CompanyTurningBlade}%'</if>
+		<if test="MateriaBladeTurning !=null  and MateriaBladeTurning !='' "> and MateriaBladeTurning like '%${MateriaBladeTurning}%'</if>
+		order by id_TurningBlade desc
+	</select>
+	
+	<!--  查询刀具图片列表 PictureBladeTurningList  -->
+	<select id="queryPictureBladeTurningList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureBladeTurning, id_TurningBlade, url_PictureBladeTurning
+		from PictureBladeTurning
+		where id_TurningBlade = #{id_TurningBlade}
+	</select>
+	
+	<!--  查询详细图片列表 PictureDetailBladeTurningList  -->
+	<select id="queryPictureDetailBladeTurningList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureDetailBladeTurning, id_TurningBlade, url_PictureDetailBladeTurning
+		from PictureDetailBladeTurning
+		where id_TurningBlade = #{id_TurningBlade}
+	</select>
+	
+	<!--  查询详细信息列表 InformDetailBladeTurningList  -->
+	<select id="queryInformDetailBladeTurningList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailBladeTurning, id_TurningBlade, url_InformDetailBladeTurning, name_InformDetailBladeTurning
+		from InformDetailBladeTurning
+		where id_TurningBlade = #{id_TurningBlade}
+	</select>
+	
+	<!-- 查询应用实例列表 ApplicationBladeTurningList   -->
+	<select id="queryApplicationBladeTurningList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ApplicationBladeTurning, id_TurningBlade, url_ApplicationBladeTurning, name_ApplicationBladeTurning
+		from  ApplicationBladeTurning
+		where id_TurningBlade = #{id_TurningBlade}
+	</select>
+	
+	
+	<!--  查询刀片详细信息   -->
+	<select id="queryTurningBladeById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_TurningBlade, NumberTurningBlade, TypeBTADrill, NameTurningBlade, ISOBladeTurning, 
+			   ToolCoatBladeTurning, ToolMaterialBladeTurning, MachiningTypeBladeTurning, ToolBladeFeatureTurning, CompanyTurningBlade, 
+			   QianjiaoBladeTurning, HoujiaoBladeTurning, HoujisojiaoBladeTurning, NoseRadiusTurning, BreakerBladeTurning, 
+			   MateriaBladeTurning, isPMKNS, ISOPBladeTurning, ISOPTextBladeTurning, ISOMBladeTurning, 
+			   ISOMTextBladeTurning, ISOKBladeTurning, ISOKTextBladeTurning, ISONBladeTurning, ISONTextBladeTurning, 
+			   ISOSBladeTurning, ISOSTextBladeTurning, HolderInfo ,add_time, user_id
+		from TurningBlade
+		where id_TurningBlade = #{id_TurningBlade}
+	</select>
+	
+	<!--  修改   -->
+	<update id="updateTurningBlade" parameterType="java.util.HashMap">
+		update TurningBlade
+	    	<set> 
+				NumberTurningBlade = #{NumberTurningBlade},
+				TypeBTADrill = #{TypeBTADrill},
+				NameTurningBlade = #{NameTurningBlade},
+				ISOBladeTurning = #{ISOBladeTurning},
+				ToolCoatBladeTurning = #{ToolCoatBladeTurning},
+				ToolMaterialBladeTurning = #{ToolMaterialBladeTurning},
+				MachiningTypeBladeTurning = #{MachiningTypeBladeTurning},
+				ToolBladeFeatureTurning = #{ToolBladeFeatureTurning},
+				CompanyTurningBlade = #{CompanyTurningBlade},
+				QianjiaoBladeTurning = #{QianjiaoBladeTurning},
+				HoujiaoBladeTurning = #{HoujiaoBladeTurning},
+				HoujisojiaoBladeTurning = #{HoujisojiaoBladeTurning},
+				NoseRadiusTurning = #{NoseRadiusTurning},
+				BreakerBladeTurning = #{BreakerBladeTurning},
+				MateriaBladeTurning = #{MateriaBladeTurning},
+				isPMKNS = #{isPMKNS},
+				ISOPBladeTurning = #{ISOPBladeTurning},
+				ISOPTextBladeTurning = #{ISOPTextBladeTurning},
+				ISOMBladeTurning = #{ISOMBladeTurning},
+				ISOMTextBladeTurning = #{ISOMTextBladeTurning},
+				ISOKBladeTurning = #{ISOKBladeTurning},
+				ISOKTextBladeTurning = #{ISOKTextBladeTurning},
+				ISONBladeTurning = #{ISONBladeTurning},
+				ISONTextBladeTurning = #{ISONTextBladeTurning},
+				ISOSBladeTurning = #{ISOSBladeTurning},
+				ISOSTextBladeTurning = #{ISOSTextBladeTurning},
+				HolderInfo = #{HolderInfo}
+			</set>
+		where id_TurningBlade = #{id_TurningBlade}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveTurningBlade" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_TurningBlade"  resultType="int">
+    		select ifnull((select (id_TurningBlade+1) id_TurningBlade from TurningBlade order by id_TurningBlade desc limit 1) ,1) id_TurningBlade from dual
+    	</selectKey>
+	    insert into TurningBlade (
+	    	id_TurningBlade, NumberTurningBlade, TypeBTADrill, NameTurningBlade, ISOBladeTurning, 
+	    	ToolCoatBladeTurning, ToolMaterialBladeTurning, MachiningTypeBladeTurning, ToolBladeFeatureTurning, CompanyTurningBlade, 
+	    	QianjiaoBladeTurning, HoujiaoBladeTurning, HoujisojiaoBladeTurning, NoseRadiusTurning, BreakerBladeTurning, 
+	    	MateriaBladeTurning, isPMKNS, ISOPBladeTurning, ISOPTextBladeTurning, ISOMBladeTurning, 
+	    	ISOMTextBladeTurning, ISOKBladeTurning, ISOKTextBladeTurning, ISONBladeTurning, ISONTextBladeTurning, 
+	    	ISOSBladeTurning, ISOSTextBladeTurning,HolderInfo, add_time, user_id  )
+		values (  
+			#{id_TurningBlade}, #{NumberTurningBlade}, #{TypeBTADrill}, #{NameTurningBlade}, #{ISOBladeTurning}, 
+	    	#{ToolCoatBladeTurning}, #{ToolMaterialBladeTurning}, #{MachiningTypeBladeTurning}, #{ToolBladeFeatureTurning}, #{CompanyTurningBlade}, 
+	    	#{QianjiaoBladeTurning}, #{HoujiaoBladeTurning}, #{HoujisojiaoBladeTurning}, #{NoseRadiusTurning}, #{BreakerBladeTurning}, 
+	    	#{MateriaBladeTurning}, #{isPMKNS}, #{ISOPBladeTurning}, #{ISOPTextBladeTurning}, #{ISOMBladeTurning}, 
+	    	#{ISOMTextBladeTurning}, #{ISOKBladeTurning}, #{ISOKTextBladeTurning}, #{ISONBladeTurning}, #{ISONTextBladeTurning}, 
+	    	#{ISOSBladeTurning}, #{ISOSTextBladeTurning},#{HolderInfo}, #{add_time}, #{user_id} 
+		)
+	</insert>
+	
+	<!-- 保存刀具图片  -->
+	<insert id="savePictureBladeTurning" parameterType="java.util.HashMap" >
+	    insert into PictureBladeTurning (
+	    	id_TurningBlade, url_PictureBladeTurning
+        )
+		values (  
+			#{id_TurningBlade}, #{url_PictureBladeTurning})
+	</insert>
+	
+	<!-- 清空刀具图片路径  -->
+	<delete id="clearPictureBladeTurningByIdTurningBlade"   parameterType="java.util.HashMap">
+    	delete from PictureBladeTurning
+        where id_TurningBlade = #{id_TurningBlade}
+    </delete>
+    
+    <!-- 保存详细图片  -->
+	<insert id="savePictureDetailBladeTurning" parameterType="java.util.HashMap" >
+	    insert into PictureDetailBladeTurning (
+	    	id_TurningBlade, url_PictureDetailBladeTurning
+        )
+		values (  
+			#{id_TurningBlade}, #{url_PictureDetailBladeTurning})
+	</insert>
+	
+	<!-- 清空详细图片路径  -->
+	<delete id="clearPictureDetailBladeTurningByIdTurningBlade"   parameterType="java.util.HashMap">
+    	delete from PictureDetailBladeTurning
+        where id_TurningBlade = #{id_TurningBlade}
+    </delete>
+    
+    <!-- 保存应用实例  -->
+	<insert id="saveApplicationBladeTurning" parameterType="java.util.HashMap" >
+	    insert into ApplicationBladeTurning (
+	    	id_TurningBlade, url_ApplicationBladeTurning, name_ApplicationBladeTurning
+        )
+		values (  
+			#{id_TurningBlade}, #{url_ApplicationBladeTurning}, #{name_ApplicationBladeTurning})
+	</insert>
+	
+	<!-- 清空应用实例路径  -->
+	<delete id="clearApplicationBladeTurningByIdTurningBlade"   parameterType="java.util.HashMap">
+    	delete from ApplicationBladeTurning
+        where id_TurningBlade = #{id_TurningBlade}
+    </delete>
+    
+    <!-- 保存详细信息  -->
+	<insert id="saveInformDetailBladeTurning" parameterType="java.util.HashMap" >
+	    insert into InformDetailBladeTurning (
+	    	id_TurningBlade, url_InformDetailBladeTurning, name_InformDetailBladeTurning
+        )
+		values (  
+			#{id_TurningBlade}, #{url_InformDetailBladeTurning}, #{name_InformDetailBladeTurning})
+	</insert>
+	
+	<!-- 清空详细信息路径  -->
+	<delete id="clearInformDetailBladeTurningByIdTurningBlade"   parameterType="java.util.HashMap">
+    	delete from InformDetailBladeTurning
+        where id_TurningBlade = #{id_TurningBlade}
+    </delete>
+    
+    <!--  删除刀片数据  -->
+	<delete id="deleteTurningBlade"   parameterType="java.util.HashMap">
+    	delete from TurningBlade
+        where id_TurningBlade = #{id_TurningBlade}
+    </delete>
+</mapper>

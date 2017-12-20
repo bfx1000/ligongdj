@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.CuttingFluid.CuttingFluidMaterial.dao.CuttingFluidMaterialMapping">
+
+	<!-- 查询涂层材料列表   -->
+	<select id="queryCuttingFluidMaterialList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_CuttingFluidMaterial, NameCuttingFluid, NumberCuttingFluid, CategoryCuttingFluid, CompanyCuttingFluid, 
+		   	   FormulaCuttingFluid, CharacterCuttingFluid, TechnicalCuttingFluid, add_time, user_id
+		from CuttingFluidMaterial
+		where 1 = 1
+		<if test="NameCuttingFluid !=null  and NameCuttingFluid !='' "> and NameCuttingFluid like '%${NameCuttingFluid}%'</if>
+		<if test="NumberCuttingFluid !=null  and NumberCuttingFluid !='' "> and NumberCuttingFluid like '%${NumberCuttingFluid}%'</if>
+		<if test="CategoryCuttingFluid !=null  and CategoryCuttingFluid !='' "> and CategoryCuttingFluid like '%${CategoryCuttingFluid}%'</if>
+		<if test="CompanyCuttingFluid !=null  and CompanyCuttingFluid !='' "> and CompanyCuttingFluid like '%${CompanyCuttingFluid}%'</if>
+		order by id_CuttingFluidMaterial desc
+	</select>
+
+	<!--  查询涂层材料图片列表 PictureCoatingMaterial  -->
+	<select id="queryPictureCuttingFluidMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureCuttingFluid, id_CuttingFluidMaterial, url_PictureCuttingFluid
+		from PictureCuttingFluid
+		where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+	</select>
+	
+	<!--  查询涂层详细信息列表 InformDetailCoatingMaterial  -->
+	<select id="queryInformDetailCuttingFluidMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailCuttingFluid, id_CuttingFluidMaterial, url_InformDetailCuttingFluid, name_InformDetailCuttingFluid
+		from InformDetailCuttingFluid
+		where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+	</select>
+	
+	<!--  查询涂层应用实例列表 ApplicationCoatingMaterial  -->
+	<select id="queryApplicationCuttingFluidMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ApplicationCuttingFluid, id_CuttingFluidMaterial, url_ApplicationCuttingFluid, name_ApplicationCuttingFluid
+		from ApplicationCuttingFluid
+		where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+	</select>
+
+	<!-- 查询涂层材料类别列表   -->
+    <select id="queryCategoryCuttingFluidMaterialList" resultType="java.util.HashMap">
+		select id_CategoryCuttingFluid, name_CategoryCuttingFluid 
+		from CategoryCuttingFluid
+		order by id_CategoryCuttingFluid
+	</select>
+
+	<!-- 查询涂层材料数据byId（用于去新增页面）   -->
+	<select id="queryCuttingFluidMaterialById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_CuttingFluidMaterial, NameCuttingFluid, NumberCuttingFluid, CategoryCuttingFluid, CompanyCuttingFluid, 
+		   	   FormulaCuttingFluid, CharacterCuttingFluid, TechnicalCuttingFluid, add_time, user_id
+		from CuttingFluidMaterial
+		where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+	</select>
+	
+	<!-- 清空涂层材料图片路径 -->
+	<delete id="clearPictureCuttingFluidMaterialById"   parameterType="java.util.HashMap">
+    	delete from PictureCuttingFluid
+        where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+    </delete>
+    
+    <!-- 清空详细信息 -->
+	<delete id="clearInformDetailCuttingFluidMaterialById"   parameterType="java.util.HashMap">
+    	delete from InformDetailCuttingFluid
+        where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+    </delete>
+    
+    <!-- 清空应用实例 -->
+	<delete id="clearApplicationCuttingFluidMaterialById"   parameterType="java.util.HashMap">
+    	delete from ApplicationCuttingFluid
+        where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+    </delete>
+
+	<!-- 删除涂层材料  -->
+	<delete id="deleteCuttingFluidMaterial"   parameterType="java.util.HashMap">
+    	delete from CuttingFluidMaterial
+        where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+    </delete>
+
+	<!-- 根据名称查询材料类别 -->
+	<select id="queryCategoryCuttingFluidMaterialByName" resultType="java.util.HashMap">
+		select id_CategoryCuttingFluid, name_CategoryCuttingFluid 
+		from CategoryCuttingFluid
+		where name_CategoryCuttingFluid = #{name_CategoryCuttingFluid}
+	</select>
+	
+	<!-- 保存新的材料类别 -->
+	<insert id="saveCategoryCuttingFluidMaterial" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryCuttingFluid"  resultType="int">
+    		select ifnull((select (id_CategoryCuttingFluid+1) id_CategoryCuttingFluid from CategoryCuttingFluid order by id_CategoryCuttingFluid desc limit 1) ,1) id_CategoryCuttingFluid from dual
+    	</selectKey>
+	    insert into CategoryCuttingFluid (
+	    	id_CategoryCuttingFluid, name_CategoryCuttingFluid
+        )
+		values (  
+			#{id_CategoryCuttingFluid}, #{name_CategoryCuttingFluid}
+	    )
+	</insert>
+	
+	<!-- 修改  -->
+	<update id="updateCuttingFluidMaterial" parameterType="java.util.HashMap">
+		update CuttingFluidMaterial set
+	    		NameCuttingFluid = #{NameCuttingFluid},
+	    		NumberCuttingFluid = #{NumberCuttingFluid},
+	    		CategoryCuttingFluid = #{CategoryCuttingFluid},
+	    		CompanyCuttingFluid = #{CompanyCuttingFluid},
+	    		FormulaCuttingFluid = #{FormulaCuttingFluid},
+	    		CharacterCuttingFluid = #{CharacterCuttingFluid},
+	    		TechnicalCuttingFluid = #{TechnicalCuttingFluid}
+	    		
+		where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+	</update>
+	
+	<!-- 新增 -->
+	<insert id="saveCuttingFluidMaterial" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CuttingFluidMaterial"  resultType="int">
+    		select ifnull((select (id_CuttingFluidMaterial+1) id_CuttingFluidMaterial from CuttingFluidMaterial order by id_CuttingFluidMaterial desc limit 1) ,1) id_CuttingFluidMaterial from dual
+    	</selectKey>
+	    insert into CuttingFluidMaterial (
+	    	id_CuttingFluidMaterial, NameCuttingFluid, NumberCuttingFluid, CategoryCuttingFluid, CompanyCuttingFluid, 
+		   	FormulaCuttingFluid, CharacterCuttingFluid, TechnicalCuttingFluid, add_time, user_id
+        )
+		values (  
+			#{id_CuttingFluidMaterial}, #{NameCuttingFluid}, #{NumberCuttingFluid}, #{CategoryCuttingFluid}, #{CompanyCuttingFluid}, 
+		   	#{FormulaCuttingFluid}, #{CharacterCuttingFluid}, #{TechnicalCuttingFluid}, #{add_time}, #{user_id}
+	    )
+	</insert>
+	
+	<!-- 保存图片 -->
+	<insert id="savePictureCuttingFluidMaterial" parameterType="java.util.HashMap" >
+	    insert into PictureCuttingFluid (
+			id_CuttingFluidMaterial, url_PictureCuttingFluid
+        )
+		values (  
+			#{id_CuttingFluidMaterial}, #{url_PictureCuttingFluid}
+		)
+	</insert>
+	
+	<!-- 保存详细信息 -->
+	<insert id="saveInformDetailCuttingFluidMaterial" parameterType="java.util.HashMap" >
+	    insert into InformDetailCuttingFluid (
+			id_CuttingFluidMaterial, url_InformDetailCuttingFluid, name_InformDetailCuttingFluid
+        )
+		values (  
+			#{id_CuttingFluidMaterial}, #{url_InformDetailCuttingFluid}, #{name_InformDetailCuttingFluid}
+		)
+	</insert>
+	
+	<!-- 保存应用实例 -->
+	<insert id="saveApplicationCuttingFluidMaterial" parameterType="java.util.HashMap" >
+	    insert into ApplicationCuttingFluid (
+			id_CuttingFluidMaterial, url_ApplicationCuttingFluid, name_ApplicationCuttingFluid
+        )
+		values (  
+			#{id_CuttingFluidMaterial}, #{url_ApplicationCuttingFluid}, #{name_ApplicationCuttingFluid}
+		)
+	</insert>
+	
+
+	<!-- 查询切削液应用   -->
+	<select id="queryCuttingFluidApplyList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		SELECT u.id_UsingCuttingFluid,u.WorkpieceMaterial,u.MachiningMethod,u.MachiningPrecision,c.NameCuttingFluid,c.NumberCuttingFluid 
+		FROM UsingCuttingFluid u,CuttingFluidMaterial c WHERE u.id_CuttingFluidMaterial=c.id_CuttingFluidMaterial
+		<if test="WorkpieceMaterial !=null  and WorkpieceMaterial !='' "> and WorkpieceMaterial like '%${WorkpieceMaterial}%'</if>
+		<if test="MachiningMethod !=null  and MachiningMethod !='' "> and MachiningMethod like '%${MachiningMethod}%'</if>
+		<if test="MachiningPrecision !=null  and MachiningPrecision !='' "> and MachiningPrecision like '%${MachiningPrecision}%'</if>
+		order by id_UsingCuttingFluid desc
+	</select>
+
+
+	<!-- 查询切削液应用   -->
+	<select id="queryUsingCuttingFluidList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		SELECT * from UsingCuttingFluid where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+		order by id_UsingCuttingFluid desc
+	</select>
+
+	<!-- 清空切削液应用 -->
+	<delete id="cleanUsingCuttingFluidById"   parameterType="java.util.HashMap">
+    	delete from UsingCuttingFluid
+        where id_CuttingFluidMaterial = #{id_CuttingFluidMaterial}
+    </delete>
+	
+	<!-- 保存切削液应用 -->
+	<insert id="saveUsingCuttingFluid" parameterType="java.util.HashMap" >
+	    insert into UsingCuttingFluid (
+			WorkpieceMaterial, MachiningMethod, MachiningPrecision,id_CuttingFluidMaterial
+        )
+		values (  
+			#{WorkpieceMaterial}, #{MachiningMethod}, #{MachiningPrecision},#{id_CuttingFluidMaterial}
+		)
+	</insert>
+
+
+
+</mapper>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>测试折线图</title>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+    	var options ={
+        	chart: {
+            	renderTo: 'container',
+                defaultSeriesType: 'spline' // 定义报表类型 例如：line ，spline ，colume
+            },
+            title: {//主标题
+                text: '我是主标题'
+            },
+            subtitle: {//副标题
+                text: '我是副标题'
+            },
+            exporting: {//右上角的导出与打印
+                enabled:false
+            },
+            credits: {//右下角不显示LOGO
+                enabled: false
+            },
+            xAxis: {
+//              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                tickmarkPlacement: 'on' //刻度正位于刻度线下方（“between”：将会位于两两刻度线之间，默认为“between”）
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (°C)'  //纵坐标名称
+                },
+                plotLines: [{
+                    value: 0,
+                    lineWidth:1,
+                    width: 1,
+                    color: '#808080'
+                }]
+
+            },
+            tooltip: {
+                formatter: function() {
+                    //当鼠标悬置数据点时的格式化提示
+                    return '('+ this.x + ',' + this.y + ')';
+                }
+            },
+            legend: {
+                layout: 'vertical',//图例显示的样式：水平（horizontal）/垂直（vertical）
+                align: 'right',//图例水平对齐方式
+                verticalAlign: 'middle',//图例垂直对齐方式
+                borderWidth: 0
+            },
+
+            //折线数组
+            series: [{
+                name: 'Tokyo',
+                data: [[-200,-200],[-100,-100],[0,100],[100,200],[200,400],[400,600],[600,1000],[800,300],[1000,200]]
+            }]
+        };
+
+        $(document).ready(function(){
+            var chart = new Highcharts.Chart(options);//执行绘图方法
+        });
+
+    </script>
+</head>
+<body>
+<script src="code/highcharts.js"></script>
+<script src="code/js/modules/exporting.js"></script>
+
+<div id="container" style="width: 400px; height: 400px; margin: 0 auto"></div>
+</body>
+</html>

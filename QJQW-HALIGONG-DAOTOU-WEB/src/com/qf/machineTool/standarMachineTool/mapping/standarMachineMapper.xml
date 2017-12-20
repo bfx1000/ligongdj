@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.machineTool.standarMachineTool.dao.standarMachineMapper">
+	
+	<!-- 查询机床列表   -->
+	<select id="queryStandarMachineList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_MachineInform, NumberMachine, NameMachine, TypeMachine, ControlSystemMachine, 
+			   SpindleSpeedMachine, CompanyMachine, CuttingDiameterMachine, MaxweightMachine, TypeTurningHolderMachine, 
+			  add_time, user_id, TypeCustomMachineInform
+		from MachineInform
+		where 1 = 1
+		<if test="NumberMachine !=null  and NumberMachine !='' "> and NumberMachine like '%${NumberMachine}%'</if>
+		<if test="NameMachine !=null and NameMachine !='' "> and NameMachine like '%${NameMachine}%'</if>
+		<if test="TypeMachine !=null  and TypeMachine !='' "> and TypeMachine like '%${TypeMachine}%'</if>
+		<if test="ControlSystemMachine !=null  and ControlSystemMachine !='' "> and ControlSystemMachine like '%${ControlSystemMachine}%'</if>
+		<if test="SpindleSpeedMachine !=null  and SpindleSpeedMachine !='' "> and SpindleSpeedMachine like '%${SpindleSpeedMachine}%'</if>
+		<if test="CompanyMachine !=null  and CompanyMachine !='' "> and CompanyMachine like '%${CompanyMachine}%'</if>
+		<if test="CuttingDiameterMachine !=null  and CuttingDiameterMachine !='' "> and CuttingDiameterMachine like '%${CuttingDiameterMachine}%'</if>
+		<if test="MaxweightMachine !=null  and MaxweightMachine !='' "> and MaxweightMachine like '%${MaxweightMachine}%'</if>
+		<if test="TypeTurningHolderMachine !=null  and TypeTurningHolderMachine !='' "> and TypeTurningHolderMachine like '%${TypeTurningHolderMachine}%'</if>
+		order by id_MachineInform desc
+	</select>
+	
+	<!--  查询标准机床图片列表 PictureMachineInform  -->
+	<select id="queryPictureMachineInformList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureMachineInform, id_MachineInform, url_PictureMachineInform
+		from PictureMachineInform
+		where id_MachineInform = #{id_MachineInform}
+	</select>
+	
+	<!--  查询保准机床详细信息列表 InformDetailMachineInform  -->
+	<select id="queryInformDetailMachineInformList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailMachineInform, id_MachineInform, url_InformDetailMachineInform, name_InformDetailMachineInform
+		from InformDetailMachineInform
+		where id_MachineInform = #{id_MachineInform}
+	</select>
+	
+	<!-- 查询标准机床信息（通过ID、用于去新增页面）   -->
+	<select id="queryMachineInformById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_MachineInform, NumberMachine, NameMachine, TypeMachine, ControlSystemMachine
+			 , SpindleSpeedMachine, CompanyMachine, CuttingDiameterMachine, MaxweightMachine, TypeTurningHolderMachine, TypeCustomMachineInform
+		from MachineInform
+		where id_MachineInform = #{id_MachineInform}
+	</select>
+	
+	<!--  修改   -->
+	<update id="updateMachineInform" parameterType="java.util.HashMap">
+		update MachineInform
+	    	<set> 
+	    		NumberMachine = #{NumberMachine},
+	    		NameMachine = #{NameMachine},
+	    		TypeMachine = #{TypeMachine},
+	    		ControlSystemMachine = #{ControlSystemMachine},
+	    		SpindleSpeedMachine = #{SpindleSpeedMachine},
+	    		CompanyMachine = #{CompanyMachine},
+	    		CuttingDiameterMachine = #{CuttingDiameterMachine},
+	    		MaxweightMachine = #{MaxweightMachine},
+	    		TypeTurningHolderMachine = #{TypeTurningHolderMachine},
+	    		add_time = #{add_time},
+	    		user_id = #{user_id},
+	    		TypeCustomMachineInform = #{TypeCustomMachineInform},
+			</set>
+		where id_MachineInform = #{id_MachineInform}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveMachineInform" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_MachineInform"  resultType="int">
+    		select ifnull((select (id_MachineInform+1) id_MachineInform from MachineInform order by id_MachineInform desc limit 1) ,1) id_MachineInform from dual
+    	</selectKey>
+	    insert into MachineInform (
+	    	id_MachineInform, NumberMachine, NameMachine, TypeMachine, ControlSystemMachine, 
+	    	SpindleSpeedMachine, CompanyMachine, CuttingDiameterMachine, MaxweightMachine, 
+	    	TypeTurningHolderMachine, add_time, user_id, TypeCustomMachineInform
+        )
+		values (  
+			#{id_MachineInform}, #{NumberMachine}, #{NameMachine}, #{TypeMachine}, #{ControlSystemMachine}, 
+	    	#{SpindleSpeedMachine}, #{CompanyMachine}, #{CuttingDiameterMachine}, #{MaxweightMachine}, 
+	    	#{TypeTurningHolderMachine}, #{add_time}, #{user_id}, #{TypeCustomMachineInform}
+	    )
+	</insert>
+	
+	<!-- 保存机床图片  -->
+	<insert id="savePictureMachineInform" parameterType="java.util.HashMap" >
+	    insert into PictureMachineInform (
+			id_MachineInform, url_PictureMachineInform
+        )
+		values (  
+			#{id_MachineInform}, #{url_PictureMachineInform}
+		)
+	</insert>
+	
+	<!-- 保存详细信息  -->
+	<insert id="saveInformDetailMachineInform" parameterType="java.util.HashMap" >
+	    insert into InformDetailMachineInform (
+			id_MachineInform, url_InformDetailMachineInform, name_InformDetailMachineInform
+        )
+		values (  
+			#{id_MachineInform}, #{url_InformDetailMachineInform}, #{name_InformDetailMachineInform}
+		)
+	</insert>
+	
+	<!-- 删除标准机床信息  -->
+	<delete id="deleteMachineInform"   parameterType="java.util.HashMap">
+    	delete from MachineInform
+        where id_MachineInform = #{id_MachineInform}
+    </delete>
+    
+    <!-- 删除标准机床图片  -->
+	<delete id="clearPictureMachineInformByIdMachineInform"   parameterType="java.util.HashMap">
+    	delete from PictureMachineInform
+        where id_MachineInform = #{id_MachineInform}
+    </delete>
+    
+    <!-- 删除标准机床详细信息  -->
+	<delete id="clearInformDetailMachineInformByIdMachineInform"   parameterType="java.util.HashMap">
+    	delete from InformDetailMachineInform
+        where id_MachineInform = #{id_MachineInform}
+    </delete>
+	
+	<!-- 查询类别列表   -->
+    <select id="queryCategoryMachineInformList" resultType="java.util.HashMap">
+		select id_CategoryMachineInform, name_CategoryMachineInform 
+		from CategoryMachineInform
+		order by id_CategoryMachineInform
+	</select>
+	
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryMachineInformByName" resultType="java.util.HashMap">
+		select id_CategoryMachineInform, name_CategoryMachineInform 
+		from CategoryMachineInform
+		where name_CategoryMachineInform = #{name_CategoryMachineInform}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryMachineInform" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryMachineInform"  resultType="int">
+    		select ifnull((select (id_CategoryMachineInform+1) id_CategoryMachineInform from CategoryMachineInform order by id_CategoryMachineInform desc limit 1) ,1) id_CategoryMachineInform from dual
+    	</selectKey>
+	    insert into CategoryMachineInform (
+	    	id_CategoryMachineInform, name_CategoryMachineInform
+        )
+		values (  
+			#{id_CategoryMachineInform}, #{name_CategoryMachineInform}
+	    )
+	</insert>
+	
+	
+</mapper>
+
+

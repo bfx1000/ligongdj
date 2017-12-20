@@ -1,0 +1,42 @@
+html,body{
+	padding:0;
+	margin:0;
+}
+ul,li{
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+
+
+/* Ò³ÂëÑùÊ½ */
+
+.list-page{
+	display:block;
+	width:600px;
+	min-width:520px;
+	max-width:600px;
+	height:30px;
+	margin:20px 0;
+}
+.list-page li{
+	float:left;
+	width:65px; 
+	height:30px;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	behavior: url(path/PIE.htc);
+	margin-right: 5px;
+	text-align: center;
+ 	list-style: none;
+  	font: 13px 'Microsoft Yahei';
+  	line-height: 30px;
+  	color: #333;
+}
+.list-page li a{
+	display:block;
+}
+.list-page li:hover a{
+	background-color:#f7f7f7;
+	color:#fd844e;
+}

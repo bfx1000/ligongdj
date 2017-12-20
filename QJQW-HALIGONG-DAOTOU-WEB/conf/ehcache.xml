@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd">
+	<!-- http://ehcache.org/ehcache.xml -->
+	<diskStore path="java.io.tmpdir/ehcache/qf" />
+	<!-- DefaultCache setting. -->
+	<defaultCache maxEntriesLocalHeap="10000" eternal="false"
+		timeToIdleSeconds="300" timeToLiveSeconds="600" overflowToDisk="true"
+		maxEntriesLocalDisk="100000" />
+
+	<!-- Special objects setting. -->
+	<!-- Refresh demoCache every hour，按Cache实际大小而不是Element数量进行限制，超过限制后不保存到磁盘。 -->
+    <!--area 地区缓存  -->
+	<cache name="areaCache" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+    <!-- 城市缓存 -->
+	<cache name="areaCacheCity" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<!-- 省缓存 -->
+	<cache name="areaCachePro" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<!-- 权限列表缓存  -->
+	<cache name="roleCaChe" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<!-- 指定用户管理权限缓存 -->
+	<cache name="roleCaCheMU" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+	<cache name="roleCaCheER" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+	<cache name="roleCaCheAPPER" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />	
+	<cache name="roleCaCheY" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />	
+	<cache name="roleCaCheG" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />		
+	<cache name="roleCaCheKeFu" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+	<cache name="roleCaCheId" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+	<cache name="menuCaChe" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />	
+	<cache name="menuCaCheSub" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />	
+	
+	<!-- 缓存微信accessToken 减少请求次数 -->
+	<cache name="weixinAccessTokenCache" maxElementsInMemory="10" eternal="false" 
+		timeToLiveSeconds="7200" timeToIdleSeconds="7200" overflowToDisk="false"/>
+</ehcache>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.toolPlan.designTurningHolder.dao.designTurningHolderMapper">
+
+	<!-- 查询刀柄设计   -->
+	<select id="queryDesignTurningHolderList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_DesignTurningHolder, DesignNumberTurningHolder, DesignNameTurningHolder, DesignTypeTurningHolder, DesignISOBladeTurning
+			 , DesignBladecategoryTurningHolder, DesignEdgeAngleTurningHolder, DesignFeatureTurningHolder, DesignCompanyTurningHolder,DesignTypeCustomBlade
+		from DesignTurningHolder
+		where 1 = 1
+		<if test="DesignNumberTurningHolder !=null  and DesignNumberTurningHolder !='' "> and DesignNumberTurningHolder like '%${DesignNumberTurningHolder}%'</if>
+		<if test="DesignNameTurningHolder !=null  and DesignNameTurningHolder !='' "> and DesignNameTurningHolder like '%${DesignNameTurningHolder}%'</if>
+		<if test="DesignTypeTurningHolder !=null  and DesignTypeTurningHolder !='' "> and DesignTypeTurningHolder = #{DesignTypeTurningHolder}</if>
+		<if test="DesignISOBladeTurning !=null  and DesignISOBladeTurning !='' "> and DesignISOBladeTurning like '%${DesignISOBladeTurning}%'</if>
+		<if test="DesignBladecategoryTurningHolder !=null  and DesignBladecategoryTurningHolder !='' "> and DesignBladecategoryTurningHolder like '%${DesignBladecategoryTurningHolder}%'</if>
+		<if test="DesignEdgeAngleTurningHolder !=null  and DesignEdgeAngleTurningHolder !='' "> and DesignEdgeAngleTurningHolder = #{DesignEdgeAngleTurningHolder}</if>
+		<if test="DesignCompanyTurningHolder !=null  and DesignCompanyTurningHolder !='' "> and DesignCompanyTurningHolder like '%${DesignCompanyTurningHolder}%'</if>
+		order by id_DesignTurningHolder desc
+	</select>
+	
+	<!--  查询刀柄设计图片列表   -->
+	<select id="queryPictureDesignTurningHolderList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureDesignTurningHolder, id_DesignTurningHolder, url_PictureDesignTurningHolder
+		from PictureDesignTurningHolder
+		where id_DesignTurningHolder = #{id_DesignTurningHolder}
+	</select>
+	
+	<!--  查询详细信息列表  -->
+	<select id="queryInformDetailDesignTurningHolderList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailDesignTurningHolder, id_DesignTurningHolder, url_InformDetailDesignTurningHolder,name_InformDetailDesignTurningHolder
+		from InformDetailDesignTurningHolder
+		where id_DesignTurningHolder = #{id_DesignTurningHolder}
+	</select>
+	
+	<!--  查询part  -->
+	<select id="queryPartDesignTurningHolderList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PartDesignTurningHolder, id_DesignTurningHolder, url_PartDesignTurningHolder, name_PartDesignTurningHolder
+		from PartDesignTurningHolder
+		where id_DesignTurningHolder = #{id_DesignTurningHolder}
+	</select>
+
+	<!-- 查询类别列表   -->
+    <select id="queryCategoryDesignTurningHolderList" resultType="java.util.HashMap">
+		select id_CategoryDesignTurningHolder, name_CategoryDesignTurningHolder 
+		from CategoryDesignTurningHolder
+		order by id_CategoryDesignTurningHolder
+	</select>
+	
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryDesignTurningHolderByName" resultType="java.util.HashMap">
+		select id_CategoryDesignTurningHolder, name_CategoryDesignTurningHolder 
+		from CategoryDesignTurningHolder
+		where name_CategoryDesignTurningHolder = #{name_CategoryDesignTurningHolder}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryDesignTurningHolder" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryDesignTurningHolder"  resultType="int">
+    		select ifnull((select (id_CategoryDesignTurningHolder+1) id_CategoryDesignTurningHolder from CategoryDesignTurningHolder order by id_CategoryDesignTurningHolder desc limit 1) ,1) id_CategoryDesignTurningHolder from dual
+    	</selectKey>
+	    insert into CategoryDesignTurningHolder (
+	    	id_CategoryDesignTurningHolder, name_CategoryDesignTurningHolder
+        )
+		values (  
+			#{id_CategoryDesignTurningHolder}, #{name_CategoryDesignTurningHolder}
+	    )
+	</insert>
+
+	<!-- 查询车刀数据-刀柄数据   -->
+	<select id="queryDesignTurningHolderById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_DesignTurningHolder, DesignNumberTurningHolder, DesignNameTurningHolder, DesignTypeTurningHolder, DesignISOBladeTurning
+			 , DesignBladecategoryTurningHolder, DesignEdgeAngleTurningHolder, DesignFeatureTurningHolder, DesignCompanyTurningHolder, DesignTypeCustomBlade 
+		from DesignTurningHolder
+		where id_DesignTurningHolder = #{id_DesignTurningHolder}
+	</select>
+	
+	<!--  修改   -->
+	<update id="updateDesignTurningHolder" parameterType="java.util.HashMap">
+		update DesignTurningHolder
+	    	<set> 
+	    		DesignNumberTurningHolder = #{DesignNumberTurningHolder},
+	    		DesignNameTurningHolder = #{DesignNameTurningHolder},
+	    		DesignTypeTurningHolder = #{DesignTypeTurningHolder},
+	    		DesignISOBladeTurning = #{DesignISOBladeTurning},
+	    		DesignBladecategoryTurningHolder = #{DesignBladecategoryTurningHolder},
+	    		DesignEdgeAngleTurningHolder = #{DesignEdgeAngleTurningHolder},
+	    		DesignFeatureTurningHolder = #{DesignFeatureTurningHolder},
+	    		DesignCompanyTurningHolder = #{DesignCompanyTurningHolder},
+	    		add_time = #{add_time},
+	    		user_id = #{user_id},
+	    		DesignTypeCustomBlade = #{DesignTypeCustomBlade},
+			</set>
+		where id_DesignTurningHolder = #{id_DesignTurningHolder}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveDesignTurningHolder" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_DesignTurningHolder"  resultType="int">
+    		select ifnull((select (id_DesignTurningHolder+1) id_DesignTurningHolder from DesignTurningHolder order by id_DesignTurningHolder desc limit 1) ,1) id_DesignTurningHolder from dual
+    	</selectKey>
+	    insert into DesignTurningHolder (
+	    	id_DesignTurningHolder, DesignNumberTurningHolder, DesignNameTurningHolder, DesignTypeTurningHolder, DesignISOBladeTurning, 
+	    	DesignBladecategoryTurningHolder, DesignEdgeAngleTurningHolder, DesignFeatureTurningHolder, DesignCompanyTurningHolder, add_time, user_id, 
+	    	DesignTypeCustomBlade
+        )
+		values (  
+			#{id_DesignTurningHolder}, #{DesignNumberTurningHolder}, #{DesignNameTurningHolder}, #{DesignTypeTurningHolder}, #{DesignISOBladeTurning}, 
+	    	#{DesignBladecategoryTurningHolder}, #{DesignEdgeAngleTurningHolder}, #{DesignFeatureTurningHolder}, #{DesignCompanyTurningHolder}, #{add_time}, #{user_id}, 
+	    	#{DesignTypeCustomBlade}
+	    )
+	</insert>
+	
+	<!-- 保存刀柄图片  -->
+	<insert id="savePictureDesignTurningHolder" parameterType="java.util.HashMap" >
+	    insert into PictureDesignTurningHolder (
+			id_DesignTurningHolder, url_PictureDesignTurningHolder
+        )
+		values (  
+			#{id_DesignTurningHolder}, #{url_PictureDesignTurningHolder}
+		)
+	</insert>
+	
+	<!-- 清空刀柄图片路径  -->
+	<delete id="clearPictureDesignTurningHolderById"   parameterType="java.util.HashMap">
+    	delete from PictureDesignTurningHolder
+        where id_DesignTurningHolder = #{id_DesignTurningHolder}
+    </delete>
+	
+    <!-- 保存详细图片  -->
+	<insert id="savePartDesignTurningHolder" parameterType="java.util.HashMap" >
+	    insert into PartDesignTurningHolder (
+			id_DesignTurningHolder, url_PartDesignTurningHolder,name_PartDesignTurningHolder
+        )
+		values (  
+			#{id_DesignTurningHolder}, #{url_PartDesignTurningHolder},#{name_PartDesignTurningHolder}
+		)
+	</insert>
+	
+	<!-- 清空详细图片路径  -->
+	<delete id="clearPartDesignTurningHolderById"   parameterType="java.util.HashMap">
+    	delete from PartDesignTurningHolder
+        where id_DesignTurningHolder = #{id_DesignTurningHolder}
+    </delete>
+    
+    <!-- 保存详细信息  -->
+	<insert id="saveInformDetailDesignTurningHolder" parameterType="java.util.HashMap" >
+	    insert into InformDetailDesignTurningHolder (
+			id_DesignTurningHolder, url_InformDetailDesignTurningHolder, name_InformDetailDesignTurningHolder
+        )
+		values (  
+			#{id_DesignTurningHolder}, #{url_InformDetailDesignTurningHolder}, #{name_InformDetailDesignTurningHolder}
+		)
+	</insert>
+	
+	<!-- 清空详细信息路径  -->
+	<delete id="clearInformDetailDesignTurningHolderById"   parameterType="java.util.HashMap">
+    	delete from InformDetailDesignTurningHolder
+        where id_DesignTurningHolder = #{id_DesignTurningHolder}
+    </delete>
+    
+    
+    
+    <!-- 删除车刀数据-刀柄数据  -->
+	<delete id="deleteDesignTurningHolder"   parameterType="java.util.HashMap">
+    	delete from DesignTurningHolder
+        where id_DesignTurningHolder = #{id_DesignTurningHolder}
+    </delete>
+
+
+	<!--  查询ISO基准刀片 json   -->
+	<select id="queryISOList"   parameterType="java.util.HashMap"  resultType="string">
+		select DesignISOBladeTurning from DesignTurningHolder
+	</select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

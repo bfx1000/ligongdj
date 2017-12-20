@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.ManufactureResult.dao.ManufactureResultMapper">
+
+	<!-- 查询列表   -->
+	<select id="queryManufactureResultList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ManufactureResult, NoManufRS, QuantityManufRS, DateStartManufRS, DateFinishManufRS, 
+		   	   RemarkManufRS, PartNoManufRS, NameManufRS, NumberMaterialManufRS, CategoryMaterialManufRS,
+		   	   DeviceManufRS, IDDeviceManufRS, NoProcessManufRS, NameProcessManufRS, NoProcessStepManufRS, 
+		   	   NameProcessStepManufRS, MachiningTypeManufRS, MachiningLevelManufRS, CuttingFluidManufRS, CutterSpeedManufRS,
+		   	   SpindleSpeedManufRS,FeedManufRS,CuttingDepthManufRS,CuttingWidthManufRS,FeedSpeedManufRS,ToolHolderManufRS,
+		   	   ToolbladeManufRS,ToolMaterialManufRS,CutterManufRS,ToollifeManufRS,ToolWearManufRS, RemovalRateManufRS,
+		   	   MachiningSize,SizePrecision,MachiningTime,SurfaceRoughnessManufRS, SurfaceHardnessManufRS,SurfaceStressManufRS,
+		   	   SurfaceMorphologyManufRS, ChipShapeManufRS, ManufRSDefined1, ManufRSDefined1Value, ManufRSDefined2,
+		   	   ManufRSDefined2Value, ManufRSDefined3, ManufRSDefined3Value
+		from ManufactureResult
+		where 1 = 1
+		<if test="NoManufRS !=null  and NoManufRS !='' "> and NoManufRS like '%${NoManufRS}%'</if>
+		<if test="PartNoManufRS !=null  and PartNoManufRS !='' "> and PartNoManufRS like '%${PartNoManufRS}%'</if>
+		<if test="NameManufRS !=null  and NameManufRS !='' "> and NameManufRS like '%${NameManufRS}%'</if>
+		<if test="NumberMaterialManufRS !=null  and NumberMaterialManufRS !='' "> and NumberMaterialManufRS like '%${NumberMaterialManufRS}%'</if>
+		<if test="CategoryMaterialManufRS !=null  and CategoryMaterialManufRS !='' "> and CategoryMaterialManufRS like '%${CategoryMaterialManufRS}%'</if>
+		<if test="NoProcessManufRS !=null  and NoProcessManufRS !='' "> and NoProcessManufRS like '%${NoProcessManufRS}%'</if>
+		<if test="NoProcessStepManufRS !=null  and NoProcessStepManufRS !='' "> and NoProcessStepManufRS like '%${NoProcessStepManufRS}%'</if>
+		order by id_ManufactureResult desc
+	</select>
+
+	<select id="queryFileList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_FileManufactureResult, id_ManufactureResult, url_FileManufactureResult, name_FileManufactureResult, ascription
+		from FileManufactureResult
+		where id_ManufactureResult = #{id_ManufactureResult}
+	</select>
+	
+	<delete id="cleanFileManufactureResultById"   parameterType="java.util.HashMap">
+    	delete from FileManufactureResult
+        where id_ManufactureResult = #{id_ManufactureResult}
+    </delete>
+    
+	<delete id="deleteManufactureResultList"   parameterType="java.util.HashMap">
+    	delete from ManufactureResult
+        where id_ManufactureResult = #{id_ManufactureResult}
+    </delete>
+	
+	<select id="queryManufactureResultById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select *
+		from ManufactureResult
+		where id_ManufactureResult = #{id_ManufactureResult}
+	</select>
+	
+	<!-- 修改  -->
+	<update id="updateManufactureResult" parameterType="java.util.HashMap">
+		update ManufactureResult set
+	    		NoManufRS = #{NoManufRS},	 
+	    		QuantityManufRS = #{QuantityManufRS},	
+	    		DateStartManufRS = #{DateStartManufRS},	
+	    		DateFinishManufRS = #{DateFinishManufRS},	
+	    		RemarkManufRS = #{RemarkManufRS},
+	    		PartNoManufRS = #{PartNoManufRS},
+		   	    NameManufRS = #{NameManufRS},
+		   	    NumberMaterialManufRS = #{NumberMaterialManufRS},
+		   	    CategoryMaterialManufRS = #{CategoryMaterialManufRS},
+		   	    DeviceManufRS = #{DeviceManufRS},
+		   	    IDDeviceManufRS = #{IDDeviceManufRS},
+		   	    NoProcessManufRS = #{NoProcessManufRS},
+		   	    NameProcessManufRS = #{NameProcessManufRS},
+		   	    NoProcessStepManufRS = #{NoProcessStepManufRS},
+		   	    NameProcessStepManufRS	= #{NameProcessStepManufRS} ,
+		   	    MachiningTypeManufRS = #{MachiningTypeManufRS},	 
+	    		MachiningLevelManufRS = #{MachiningLevelManufRS},	
+	    		CuttingFluidManufRS = #{CuttingFluidManufRS},	
+	    		CutterSpeedManufRS = #{CutterSpeedManufRS},	
+	    		SpindleSpeedManufRS = #{SpindleSpeedManufRS},
+	    		FeedManufRS = #{FeedManufRS},
+		   	    CuttingDepthManufRS = #{CuttingDepthManufRS},
+		   	    CuttingWidthManufRS = #{CuttingWidthManufRS},
+		   	    FeedSpeedManufRS = #{FeedSpeedManufRS},
+		   	    ToolHolderManufRS = #{ToolHolderManufRS},
+		   	    ToolbladeManufRS = #{ToolbladeManufRS},
+		   	    ToolMaterialManufRS = #{ToolMaterialManufRS},
+		   	    CutterManufRS = #{CutterManufRS},
+		   	    ToollifeManufRS = #{ToollifeManufRS},
+		   	    ToolWearManufRS	= #{ToolWearManufRS} ,
+		   	    RemovalRateManufRS = #{RemovalRateManufRS},	 
+	    		MachiningSize = #{MachiningSize},	
+	    		SizePrecision = #{SizePrecision},	
+	    		MachiningTime = #{MachiningTime},	
+	    		SurfaceRoughnessManufRS = #{SurfaceRoughnessManufRS},
+	    		SurfaceHardnessManufRS = #{SurfaceHardnessManufRS},
+		   	    SurfaceStressManufRS = #{SurfaceStressManufRS},
+		   	    SurfaceMorphologyManufRS = #{SurfaceMorphologyManufRS},
+		   	    ChipShapeManufRS = #{ChipShapeManufRS},
+		   	    ManufRSDefined1 = #{ManufRSDefined1},
+		   	    ManufRSDefined1Value = #{ManufRSDefined1Value},
+		   	    ManufRSDefined2 = #{ManufRSDefined2},
+		   	    ManufRSDefined2Value = #{ManufRSDefined2Value},
+		   	    ManufRSDefined3 = #{ManufRSDefined3},
+		   	    ManufRSDefined3Value	= #{ManufRSDefined3Value} 
+	    		  		
+		where id_ManufactureResult = #{id_ManufactureResult}
+	</update>
+	
+	<!-- 新增 -->
+	<insert id="saveManufactureResult" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ManufactureResult"  resultType="int">
+    		select ifnull((select (id_ManufactureResult+1) id_ManufactureResult from ManufactureResult order by id_ManufactureResult desc limit 1) ,1) id_ManufactureResult from dual
+    	</selectKey>
+	    insert into ManufactureResult (
+	       id_ManufactureResult, NoManufRS, QuantityManufRS, DateStartManufRS, DateFinishManufRS, 
+	   	   RemarkManufRS, PartNoManufRS, NameManufRS, NumberMaterialManufRS, CategoryMaterialManufRS,
+	   	   DeviceManufRS, IDDeviceManufRS, NoProcessManufRS, NameProcessManufRS, NoProcessStepManufRS, 
+	   	   NameProcessStepManufRS, MachiningTypeManufRS, MachiningLevelManufRS, CuttingFluidManufRS, CutterSpeedManufRS,
+	   	   SpindleSpeedManufRS,FeedManufRS,CuttingDepthManufRS,CuttingWidthManufRS,FeedSpeedManufRS,ToolHolderManufRS,
+	   	   ToolbladeManufRS,ToolMaterialManufRS,CutterManufRS,ToollifeManufRS,ToolWearManufRS, RemovalRateManufRS,
+	   	   MachiningSize,SizePrecision,MachiningTime,SurfaceRoughnessManufRS, SurfaceHardnessManufRS,SurfaceStressManufRS,
+	   	   SurfaceMorphologyManufRS, ChipShapeManufRS, ManufRSDefined1, ManufRSDefined1Value, ManufRSDefined2,
+	   	   ManufRSDefined2Value, ManufRSDefined3, ManufRSDefined3Value
+        )
+		values (  
+			#{id_ManufactureResult}, #{NoManufRS}, #{QuantityManufRS}, #{DateStartManufRS}, #{DateFinishManufRS}, 
+		   	#{RemarkManufRS}, #{PartNoManufRS}, #{NameManufRS}, #{NumberMaterialManufRS}, #{CategoryMaterialManufRS},
+		   	#{DeviceManufRS}, #{IDDeviceManufRS}, #{NoProcessManufRS}, #{NameProcessManufRS}, #{NoProcessStepManufRS},
+		   	#{NameProcessStepManufRS}, #{MachiningTypeManufRS}, #{MachiningLevelManufRS}, #{CuttingFluidManufRS}, #{CutterSpeedManufRS},
+		   	#{SpindleSpeedManufRS}, #{FeedManufRS}, #{CuttingDepthManufRS}, #{CuttingWidthManufRS}, #{FeedSpeedManufRS},#{ToolHolderManufRS},
+		   	#{ToolbladeManufRS}, #{ToolMaterialManufRS}, #{CutterManufRS}, #{ToollifeManufRS}, #{ToolWearManufRS},
+		   	#{RemovalRateManufRS}, #{MachiningSize}, #{SizePrecision}, #{MachiningTime}, #{SurfaceRoughnessManufRS}, #{SurfaceHardnessManufRS}, 
+		   	#{SurfaceStressManufRS},#{SurfaceMorphologyManufRS}, #{ChipShapeManufRS}, #{ManufRSDefined1}, #{ManufRSDefined1Value}, #{ManufRSDefined2}, 
+		   	#{ManufRSDefined2Value}, #{ManufRSDefined3},#{ManufRSDefined3Value}
+	    )
+	</insert>
+	
+	<insert id="saveFileManufactureResult" parameterType="java.util.HashMap" >
+	    insert into FileManufactureResult (
+			id_ManufactureResult, url_FileManufactureResult,name_FileManufactureResult,ascription
+        )
+		values (  
+			#{id_ManufactureResult}, #{url_FileManufactureResult}, #{name_FileManufactureResult},#{ascription}
+		)
+	</insert>
+	
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.system.user.dao.SystemUserMapper">
+  	
+  	<select id="findMonUser" parameterType="java.lang.Long" resultType="java.util.HashMap">
+ 		select count(*) as users , FROM_UNIXTIME(user_add_time,'%e') as times from qjqw_user a
+		where a.user_add_time >= #{time}
+		group by times
+		order by -times desc
+  	</select>
+	
+	<!-- 查询用户列表   -->
+	<select id="queryUserList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select user.user_id, user_account, user_pwd, user_add_time, user_activation, user_type, user_nick_name, user_type.`name` user_type_str
+		from user
+		left join user_type on `user`.user_type = user_type.id
+		where 1=1
+		<if test="user_type != 1 and user_type != 9"><!-- 开发商 -->
+			and user_id = #{user_id}
+		</if>
+		order by user_type, user_id desc
+	</select>
+	
+	
+	<!-- 通过user_name获取数据 -->
+	<select id="findByUId" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select user_id, user_account, user_nick_name, user_pwd, FROM_UNIXTIME(user_add_time,'%Y-%m-%d %H:%i:%s') user_add_time, user_activation, user_type
+		from user
+		where 
+			user_account = #{user_account}
+			<if test="user_id != null and user_id != ''">
+				and user_id != #{user_id}
+			</if>
+	</select>
+	
+	
+	<insert id="saveUser" parameterType="java.util.HashMap">
+		insert into user (
+			user_account, 
+			user_nick_name,
+			user_pwd, 
+			user_add_time, 
+			user_activation,
+			user_type
+		) values (
+			#{user_account},
+			#{user_nick_name},
+			#{user_pwd},
+			#{user_add_time},
+			#{user_activation},
+			#{user_type}
+		)
+	</insert>
+	
+	
+	<select id="queryUserById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select user_id, user_account, user_nick_name, user_pwd, FROM_UNIXTIME(user_add_time,'%Y-%m-%d %H:%i:%s') user_add_time, user_activation, user_type
+		from user
+		where user_id = #{user_id}
+	</select>
+	
+	<update id="editU" parameterType="java.util.HashMap">
+		update  user
+			set user_account = #{user_account},
+				user_nick_name = #{user_nick_name},
+				user_activation = #{user_activation},
+				user_type = #{user_type} 					
+			where 
+				user_id = #{user_id}
+	</update>
+	
+	
+	
+	
+	<!-- 角色菜单授权列表  -->
+    <select id="queryMenuListForUser"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select menu.menu_id, menu_name, menu_url, parent_id, menu_order, menu_type, user.user_type, menu.level, user.user_id, user_type_id
+			 , (case when user_menu.user_menu_id is null then 0 else 1 end ) ismenu
+		from user_type_menu
+		left join user on user.user_type = user_type_menu.user_type_id and user.user_id = #{user_id}
+		left join menu on menu.menu_id = user_type_menu.menu_id
+		left join user_menu on user_menu.menu_id = user_type_menu.menu_id and user_menu.user_id = #{user_id}
+		where user_type_menu.user_type_id = #{user_type}
+		order by menu_order
+	</select>
+	
+	
+	<!-- 将此用户所有可下载文件清空 -->
+	<insert id="saveMenuListForUser" parameterType="java.util.HashMap">
+		insert into user_menu (
+			user_id, menu_id
+		) values (
+			#{user_id}, #{menu_id}
+		)
+	</insert>
+	
+	<!-- 清空此角色的授权信息  -->
+	<delete id="clearMenuListForUser"   parameterType="java.util.HashMap">
+    	delete from user_menu
+        where user_id = #{user_id}
+    </delete>
+	
+</mapper>

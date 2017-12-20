@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.document.document.dao.documentMapping">
+
+	<!-- 查询机床列表   -->
+	<select id="queryDocumentList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_Document, title, text
+		from Document
+		where 1 = 1
+		<if test="title !=null  and title !='' "> and title like '%${title}%'</if>
+		order by id_Document desc
+	</select>
+	
+	<!-- 删除  -->
+	<delete id="deleteDocumentList"   parameterType="java.util.HashMap">
+    	delete from Document
+        where id_Document = #{id_Document}
+    </delete>
+    
+	<!-- 查询机床列表   -->
+	<select id="queryDocumentListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from Document where id_Document = #{id_Document}
+	</select>
+	
+
+	<!--  修改   -->
+	<update id="updateDocument" parameterType="java.util.HashMap">
+		update Document
+	    	<set> 
+	    		title = #{title},
+	    		text = #{text},
+			</set>
+		where id_Document = #{id_Document}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveDocument" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_Document"  resultType="int">
+    		select ifnull((select (id_Document+1) id_Document from Document order by id_Document desc limit 1) ,1) id_Document from dual
+    	</selectKey>
+	    insert into Document (
+	    	id_Document, title, text
+        )
+		values (  
+			#{id_Document}, #{title}, #{text}
+	    )
+	</insert>
+
+
+
+
+
+
+
+
+
+</mapper>

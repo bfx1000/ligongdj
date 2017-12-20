@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.material.cuttingToolMaterial.dao.CuttingToolMaterialMapper">
+	
+	<select id="queryCuttingToolMaterialList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_CuttingToolMaterialD, NameToolMaterial, NumberToolMaterial, CategoryToolMaterial, CompanyToolMaterial, 
+			   ISOCuttingMaterial, MachineableMaterial, DensityToolMaterial, HardnessToolMaterial, BendingStrengthToolMaterial,
+			   ImpactToughnessToolMaterial, ModulusToolMaterial, HeatResistanceToolMaterial, ConductivityToolMaterial, ThermalexpansionToolMaterial
+ 		from CuttingToolMaterialD
+		where 1 = 1
+		<if test="NameToolMaterial !=null  and NameToolMaterial !='' "> and NameToolMaterial like '%${NameToolMaterial}%'</if>
+		<if test="NumberToolMaterial !=null  and NumberToolMaterial !='' "> and NumberToolMaterial like '%${NumberToolMaterial}%'</if>
+		<if test="CategoryToolMaterial !=null  and CategoryToolMaterial !='' "> and CategoryToolMaterial like '%${CategoryToolMaterial}%'</if>
+		<if test="CompanyToolMaterial !=null  and CompanyToolMaterial !='' "> and CompanyToolMaterial like '%${CompanyToolMaterial}%'</if>
+		
+		order by id_CuttingToolMaterialD desc
+	</select>
+	
+	
+	<select id="queryPictureToolMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureToolMaterial, id_CuttingToolMaterialD, url_PictureToolMaterial
+ 		from PictureToolMaterialD
+		where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+	</select>
+	<select id="queryInformToolMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformToolMaterial, id_CuttingToolMaterialD, url_InformToolMaterial, name_InformToolMaterial
+ 		from InformToolMaterialD
+		where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+	</select>
+	
+	<select id="queryApplicationToolMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ApplicationToolMaterial, id_CuttingToolMaterialD, url_ApplicationToolMaterial, name_ApplicationToolMaterial
+ 		from ApplicationToolMaterialD
+		where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+	</select>
+	
+	<select id="queryCuttingToolMaterialById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_CuttingToolMaterialD, NameToolMaterial, NumberToolMaterial, CategoryToolMaterial, CompanyToolMaterial, 
+			   ISOCuttingMaterial, MachineableMaterial, DensityToolMaterial, HardnessToolMaterial, BendingStrengthToolMaterial,
+			   ImpactToughnessToolMaterial, ModulusToolMaterial, HeatResistanceToolMaterial, ConductivityToolMaterial, ThermalexpansionToolMaterial
+ 		from CuttingToolMaterialD
+		where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+	</select>
+	
+	
+	
+	<update id="updateCuttingToolMaterial" parameterType="java.util.HashMap">
+		update CuttingToolMaterialD set
+				NameToolMaterial = #{NameToolMaterial}, 
+				NumberToolMaterial = #{NumberToolMaterial}, 
+				CategoryToolMaterial = #{CategoryToolMaterial}, 
+				CompanyToolMaterial = #{CompanyToolMaterial}, 
+			   	ISOCuttingMaterial = #{ISOCuttingMaterial}, 
+			   	MachineableMaterial = #{MachineableMaterial}, 
+			   	DensityToolMaterial = #{DensityToolMaterial}, 
+			   	HardnessToolMaterial = #{HardnessToolMaterial}, 
+			   	BendingStrengthToolMaterial = #{BendingStrengthToolMaterial},
+			   	ImpactToughnessToolMaterial = #{ImpactToughnessToolMaterial}, 
+			   	ModulusToolMaterial = #{ModulusToolMaterial}, 
+			   	HeatResistanceToolMaterial = #{HeatResistanceToolMaterial}, 
+			   	ConductivityToolMaterial = #{ConductivityToolMaterial}, 
+			   	ThermalexpansionToolMaterial = #{ThermalexpansionToolMaterial}
+		where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+	</update>
+	
+	
+	<insert id="saveCuttingToolMaterial" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CuttingToolMaterialD"  resultType="int">
+    		select ifnull((select (id_CuttingToolMaterialD+1) id_CuttingToolMaterialD from CuttingToolMaterialD order by id_CuttingToolMaterialD desc limit 1) ,1) id_CuttingToolMaterialD from dual
+    	</selectKey>
+	    insert into CuttingToolMaterialD (
+	    	id_CuttingToolMaterialD, NameToolMaterial, NumberToolMaterial, CategoryToolMaterial, CompanyToolMaterial, 
+			ISOCuttingMaterial, MachineableMaterial, DensityToolMaterial, HardnessToolMaterial, BendingStrengthToolMaterial,
+			ImpactToughnessToolMaterial, ModulusToolMaterial, HeatResistanceToolMaterial, ConductivityToolMaterial, ThermalexpansionToolMaterial
+        )
+		values (  
+			#{id_CuttingToolMaterialD}, #{NameToolMaterial}, #{NumberToolMaterial}, #{CategoryToolMaterial}, #{CompanyToolMaterial}, 
+			#{ISOCuttingMaterial}, #{MachineableMaterial}, #{DensityToolMaterial}, #{HardnessToolMaterial}, #{BendingStrengthToolMaterial},
+			#{ImpactToughnessToolMaterial}, #{ModulusToolMaterial}, #{HeatResistanceToolMaterial}, #{ConductivityToolMaterial}, #{ThermalexpansionToolMaterial}
+	    )
+	</insert>
+	
+	<delete id="clearPictureToolMaterialByIdCuttingToolMaterial"   parameterType="java.util.HashMap">
+    	delete from PictureToolMaterialD
+        where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+    </delete>
+    
+	<insert id="savePictureToolMaterial" parameterType="java.util.HashMap" >
+	    insert into PictureToolMaterialD (
+			id_CuttingToolMaterialD, url_PictureToolMaterial
+        )
+		values (  
+			#{id_CuttingToolMaterialD}, #{url_PictureToolMaterial}
+		)
+	</insert>
+	
+	<delete id="clearInformToolMaterialByIdCuttingToolMaterial"   parameterType="java.util.HashMap">
+    	delete from InformToolMaterialD
+        where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+    </delete>
+	
+	
+	<insert id="saveInformToolMaterial" parameterType="java.util.HashMap" >
+	    insert into InformToolMaterialD (
+			id_CuttingToolMaterialD, url_InformToolMaterial, name_InformToolMaterial
+        )
+		values (  
+			#{id_CuttingToolMaterialD}, #{url_InformToolMaterial}, #{name_InformToolMaterial}
+		)
+	</insert>
+	
+	<delete id="clearApplicationToolMaterialByIdCuttingToolMaterial"   parameterType="java.util.HashMap">
+    	delete from ApplicationToolMaterialD
+        where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+    </delete>
+	
+	<insert id="saveApplicationToolMaterial" parameterType="java.util.HashMap" >
+	    insert into ApplicationToolMaterialD (
+			id_CuttingToolMaterialD, url_ApplicationToolMaterial, name_ApplicationToolMaterial
+        )
+		values (  
+			#{id_CuttingToolMaterialD}, #{url_ApplicationToolMaterial}, #{name_ApplicationToolMaterial}
+		)
+	</insert>
+	
+	
+	<delete id="deleteCuttingToolMaterial"   parameterType="java.util.HashMap">
+    	delete from CuttingToolMaterialD
+        where id_CuttingToolMaterialD = #{id_CuttingToolMaterialD}
+    </delete>
+	
+	<!-- 查询涂层材料类别列表   -->
+    <select id="queryCategoryToolMaterialList" resultType="java.util.HashMap">
+		select id_CategoryToolMaterial, name_CategoryToolMaterial 
+		from CategoryToolMaterialD
+		order by id_CategoryToolMaterial
+	</select>
+	
+	<!-- 根据名称查询材料类别 -->
+	<select id="queryCategoryToolMaterialByName" resultType="java.util.HashMap">
+		select id_CategoryToolMaterial, name_CategoryToolMaterial 
+		from CategoryToolMaterialD
+		where name_CategoryToolMaterial = #{name_CategoryToolMaterial}
+	</select>
+	
+	<!-- 保存新的材料类别 -->
+	<insert id="saveCategoryToolMaterial" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryToolMaterial"  resultType="int">
+    		select ifnull((select (id_CategoryToolMaterial+1) id_CategoryToolMaterial from CategoryToolMaterialD order by id_CategoryToolMaterial desc limit 1) ,1) id_CategoryToolMaterial from dual
+    	</selectKey>
+	    insert into CategoryToolMaterialD (
+	    	id_CategoryToolMaterial, name_CategoryToolMaterial
+        )
+		values (  
+			#{id_CategoryToolMaterial}, #{name_CategoryToolMaterial}
+	    )
+	</insert>
+	
+	
+</mapper>

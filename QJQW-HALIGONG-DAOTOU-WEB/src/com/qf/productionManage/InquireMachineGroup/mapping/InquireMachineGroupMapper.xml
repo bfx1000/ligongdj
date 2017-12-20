@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.InquireMachineGroup.dao.InquireMachineGroupMapper">
+
+
+	<!-- 查询机床列表   -->
+	<select id="queryInquireMachineGroupList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_InquireMachineGroup, NumberMachGrNode, ModelMachGrNode, TypeMachGrNode, DepartmentMachGrNode, WorkshopMachGrNode,
+			   PositionMachGrNode, NameMachineGroup, PartNoMachGr,PartNameMachGr,SetMachGrStatus ,InquireMachGrStatus,displayMachGrStatus,id_ManufacturePlan
+		from InquireMachineGroup
+		where 1 = 1
+		<if test="NumberMachGrNode !=null  and NumberMachGrNode !='' "> and NumberMachGrNode like '%${NumberMachGrNode}%'</if>
+		<if test="ModelMachGrNode !=null and ModelMachGrNode !='' "> and ModelMachGrNode like '%${ModelMachGrNode}%'</if>
+		<if test="TypeMachGrNode !=null  and TypeMachGrNode !='' "> and TypeMachGrNode like '%${TypeMachGrNode}%'</if>
+		<if test="DepartmentMachGrNode !=null  and DepartmentMachGrNode !='' "> and DepartmentMachGrNode like '%${DepartmentMachGrNode}%'</if>
+		<if test="name !=null and !name.isEmpty()" > and NameMachineGroup in 
+			<foreach collection="name" item="item" index="index"  open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		order by id_InquireMachineGroup desc
+	</select>
+	
+	<!-- 删除  -->
+	<delete id="deleteInquireMachineGroupList"   parameterType="java.util.HashMap">
+    	delete from InquireMachineGroup
+        where id_InquireMachineGroup = #{id_InquireMachineGroup}
+    </delete>
+    
+	<!-- 查询机床列表   -->
+	<select id="queryInquireMachineGroupById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from InquireMachineGroup where id_InquireMachineGroup = #{id_InquireMachineGroup}
+	</select>
+	
+
+	<!--  修改   -->
+	<update id="updateInquireMachineGroup" parameterType="java.util.HashMap">
+		update InquireMachineGroup
+	    	<set> 
+	    		NumberMachGrNode = #{NumberMachGrNode},
+	    		ModelMachGrNode = #{ModelMachGrNode},
+	    		TypeMachGrNode = #{TypeMachGrNode},
+	    		DepartmentMachGrNode = #{DepartmentMachGrNode},
+	    		WorkshopMachGrNode = #{WorkshopMachGrNode},
+	    		PositionMachGrNode = #{PositionMachGrNode},
+	    		NameMachineGroup = #{NameMachineGroup},
+	    		PartNoMachGr = #{PartNoMachGr},
+	    		PartNameMachGr = #{PartNameMachGr},
+	    		SetMachGrStatus = #{SetMachGrStatus},
+	    		InquireMachGrStatus = #{InquireMachGrStatus},
+	    		displayMachGrStatus = #{displayMachGrStatus},
+	    		id_ManufacturePlan = #{id_ManufacturePlan}
+			</set>
+		where id_InquireMachineGroup = #{id_InquireMachineGroup}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveInquireMachineGroup" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_InquireMachineGroup"  resultType="int">
+    		select ifnull((select (id_InquireMachineGroup+1) id_InquireMachineGroup from InquireMachineGroup order by id_InquireMachineGroup desc limit 1) ,1) id_InquireMachineGroup from dual
+    	</selectKey>
+	    insert into InquireMachineGroup (
+	    	id_InquireMachineGroup, NumberMachGrNode, ModelMachGrNode, TypeMachGrNode, DepartmentMachGrNode, WorkshopMachGrNode,
+	    	PositionMachGrNode, NameMachineGroup, PartNoMachGr,  PartNameMachGr,SetMachGrStatus, InquireMachGrStatus, displayMachGrStatus,
+			id_ManufacturePlan	    	
+        )
+		values (  
+			#{id_InquireMachineGroup}, #{NumberMachGrNode}, #{ModelMachGrNode}, #{TypeMachGrNode}, #{DepartmentMachGrNode},#{WorkshopMachGrNode}, 
+			#{PositionMachGrNode}, #{NameMachineGroup}, #{PartNoMachGr},#{PartNameMachGr}, #{SetMachGrStatus}, #{InquireMachGrStatus} ,#{displayMachGrStatus},
+			#{id_ManufacturePlan}
+	    )
+	</insert>
+	
+	<!-- 查询机床列表   -->
+	<select id="queryManufacturePlanListByNum"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select * from ManufacturePlan
+		where IDDeviceManufPlan = #{IDDeviceManufPlan}
+	</select>
+
+	<select id="querySuperiorMachineGroupList" parameterType="string"  resultType="java.util.HashMap" >
+		select * from MachineGroup 
+		where SuperiorMachineGroup = #{NameMachineGroup}
+	</select>
+
+	<select id="queryInquireMachineGroupAllList"  parameterType="java.util.HashMap"  resultType="java.util.HashMap" >
+		select * from InquireMachineGroup
+	</select>
+
+	
+	<!--  修改状态 -->
+	<update id="updataStatus" parameterType="string">
+		update InquireMachineGroup
+	    	<set> 
+	    		InquireMachGrStatus = #{InquireMachGrStatus},
+	    		displayMachGrStatus = #{displayMachGrStatus}
+			</set>
+		where id_InquireMachineGroup = #{id_InquireMachineGroup}
+	</update>
+
+</mapper>

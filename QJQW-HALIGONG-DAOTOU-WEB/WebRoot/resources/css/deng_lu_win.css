@@ -1,0 +1,219 @@
+a{
+    text-decoration: none;
+}
+.loading_bg{
+    /*display: none;*/
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:100;
+    -moz-opacity: 0.6;
+    opacity:.60;
+    filter: alpha(opacity=60);
+    z-index:999999999999;
+}
+.loading_content{
+    /*display: none;*/
+    width: 530px;
+    height: 390px;
+    border-radius:5px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin: -185px 0 0 -265px;
+    z-index:101;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid #d8e0e4;
+    z-index:9999999999999;
+}
+.loading_logo{
+    width: 350px;
+    height: 50px;
+    margin: -10px auto;
+    padding: 30px 0  50px 0;
+    border-bottom: 1px solid #d8e0e4;
+}
+.loading_title{
+    width: 186px;
+    height:20px ;
+    background-color: white;
+    margin: 0 auto;
+    text-align: center;
+    font: 16px 'Microsoft YaHei';
+    line-height: 20px;
+    color: #aaa;
+}
+.loading_name,.loading_pwd{
+    width: 350px;
+    height: 51px;
+    margin: 0 auto;
+    border-bottom: 1px solid #e9ecee;
+}
+.loading_name div,.loading_pwd div{
+    float: left;
+}
+.loading_name img,.loading_pwd img{
+    margin: 15px 20px 0 0;
+}
+.loading_name input,.loading_pwd input{
+    font: 16px 'Microsoft YaHei';
+    margin: 12px 0 0 0;
+    width: 280px;
+    border: none;
+}
+.loading_content input:focus{
+    outline: none;
+}
+
+
+
+.loaging_btn{
+    width: 350px;
+    height: 45px;
+    background-color: #5abbf4;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+    font: 16px 'Microsoft YaHei';
+    line-height: 45px;
+    margin: 21px auto 0;
+}
+.loading_choose{
+    width: 360px;
+    height:85px;
+    margin: 0 auto;
+}
+.loading_choose div{
+    float: left;
+    height: 66px;
+}
+.use_fu_ka{
+    font: 14px 'Microsoft YaHei';
+    line-height: 66px;
+}
+.use_fu_ka>div>input{
+	margin:22px 0 0 0;
+}
+.zhu_ce_message,.have_num{
+    font: 13px 'Microsoft YaHei';
+    line-height: 66px;
+    color: #777;
+    width: 135px;
+    text-align: center;
+}
+.rem_psd_check{
+	float:left;
+	margin:27px 0 0 5px;
+}
+.rem_psd{
+	display:block;
+	float:left;
+	font: 13px 'Microsoft YaHei';
+	line-height:66px;
+    color: #5abbf4;
+}
+.forget_pwd{
+    padding: 0 5px 0 10px;
+}
+.forget_pwd a,.feel_zhu_ce,.return_loading{
+    font: 13px 'Microsoft YaHei';
+    line-height: 66px;
+    color: #5abbf4;
+    cursor: pointer;
+}
+.line{
+    width: 350px;
+    margin: 0 auto;
+    border-bottom: 1px solid #d8e0e4;
+}
+.use_third_load{
+    width: 186px;
+    height:20px ;
+    background-color: white;
+    margin: -10px auto;
+    text-align: center;
+    font: 16px 'Microsoft YaHei';
+    line-height: 20px;
+    color: #aaa;
+}
+.third_img{
+    width: 300px;
+    height: 44px;
+    margin: 20px auto;
+    padding: 10px 0 0 0;
+}
+
+
+
+/*  зЂВс  */
+.zhu_ce_bg{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:100;
+    -moz-opacity: 0.6;
+    opacity:.60;
+    filter: alpha(opacity=60);
+    z-index: 999999999999999;
+}
+.zhu_ce_content{
+    display: none;
+    width: 530px;
+    height:500px;
+    border-radius:5px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin: -220px 0 0 -265px;
+    z-index:101;
+    overflow: auto;
+    background-color: white;
+    z-index: 999999999999999;
+}
+.loading_choose div.return_loading , .loading_choose div.have_num{
+    float: right;
+}
+.zhu_ce_choose{
+    width: 350px;
+}
+.have_num{
+    width: 100px;
+}
+.pan_zheng_ma{
+    width: 350px;
+    height: 60px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+.pan_zheng_ma div{
+    float: left;
+}
+.hq_btn{
+    width: 140px;
+    height: 34px;
+    background-color: #55baf6;
+    color: white;
+    text-align: center;
+    font: 16px 'Microsoft YaHei';
+    line-height: 34px;
+    border: none;
+    border-radius: 4px;
+}
+.input_tel input,.input_send{
+    margin:13px 0 0 0;
+}
+.input_tel input{
+	width:159px;
+    height:28px;
+    border:1px solid  #cecece;
+    margin-right: 39px;
+    font: 14px 'Microsoft YaHei';
+}

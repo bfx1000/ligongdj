@@ -1,0 +1,254 @@
+@charset "utf-8";
+body{ 
+	padding:0;
+	margin:0;
+	background-color:#f7f7f7;
+	font-family:"Microsoft YaHei";
+}
+ul,li,h3,h4{ 
+	list-style:none;
+	padding:0;
+	margin:0;
+	padding:0;
+}
+i{
+	font-style:normal;
+}
+a{ 
+	text-decoration:none;
+	border:none;
+	display:block;
+}
+
+.clear{ 
+	clear:both;
+}
+
+img{ 
+	border:none;
+}
+
+.body_container{ 
+	width:100%;
+	height:100%;
+/*	text-align:center;*/
+	padding:0;
+	margin:0;
+}
+
+
+/*    我是合伙人   分享   手机端下载    */
+/*  视频或图片  */
+.box_video{ 
+	width:100%;
+	height:auto;
+	line-height:100%;
+	background:#0099CC;
+	text-align:center;
+	display:block;
+}
+.img_video{
+	width:100%;
+	height:auto;
+}
+/*  文字介绍  */
+.content_container{
+	width:90%;
+	height:auto;
+	padding:0;
+	margin:0 auto;
+}
+/*.video_title{
+	font-size:36px;
+	margin:30px 0;
+	text-align:left;
+	line-height:2em;
+}*/
+.video_text{
+	font-size:14px;
+	color:#333;
+	text-align:left;
+	line-height:2em;
+}
+/*  下载链接  */
+.box_download{
+	 position:fixed;
+	 bottom:0;
+	 left:0;
+	 width:100%;
+	 height:60px;
+	 text-align:left;
+	 z-index:1;
+}
+.app_ico{
+	position:absolute;
+	left:20px;
+	top:10px;
+	width:60px;
+}
+.app_ico img{
+	width:40px;
+	height:40px;
+}
+.box_app_text{
+	width:75%;
+	color:#fff;
+	margin-left:80px;
+	padding-top:12px;
+}
+.app_text{
+	width:75%;
+	margin:0; 
+	padding:0;
+	font-size:14px;
+	text-overflow: ellipsis;
+    overflow: hidden;
+	white-space: nowrap;
+}
+.app_xiagnxi{
+	width:75%;
+	margin:0; 
+	padding:0;
+	font-size:12px;
+	margin-top:6px;
+	text-overflow: ellipsis;
+    overflow: hidden;
+	white-space: nowrap;
+}
+.button_none{
+	position:absolute;
+	right:5%;
+	top:15px;
+}
+.bg_box_download{
+	position:fixed;
+	bottom:0;
+	left:0;
+	width:100%;
+	height:60px;
+	background:#000;
+	filter:alpha(opacity=60); 
+	opacity:0.6;
+	z-index:0;
+}
+
+
+
+
+/*    我是合伙人  关于   瑟克赛思基金    */
+/*  标题  */
+.about_title{
+	font-size:30px;
+	line-height:40px;
+	color:#000;
+	text-align:center;
+	padding-top:20px;
+	font-weight:normal;
+}
+/*  文字介绍  */
+.content_about_jijin{
+	width:80%;
+	height:auto;
+	padding:0;
+	margin:0 auto;
+}
+p.xinxi{
+	font-size:16px;
+	text-indent:2em;
+	line-height:40px;
+	color:#333;
+	line-height:2em;
+	padding:0;
+	margin:10px 0;
+	text-align:left;
+}
+/*  背景图片  */
+.bg_about_jijin{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+	z-index:-1;
+}
+
+
+
+
+/*    我是合伙人  关于     */
+/*  标题  */
+.about_hhr_title{
+	font-size:30px;
+	line-height:40px;
+	color:#000;
+	text-align:center;
+	padding-top:20px;
+	font-weight:normal;
+}
+.box_logo{
+	margin:50px 0;
+}
+.box_logo .logo{
+	width: 50%;
+    height: auto;
+}
+
+/*  文字介绍  */
+.content_about_hhr{
+	width:90%;
+	height:auto;
+	padding:0;
+	margin:0 auto;
+}
+p.hhr_xinxi{
+	font-size:16px;
+	text-indent:2em;
+	line-height:40px;
+	color:#333;
+	line-height:2em;
+	padding:0;
+	margin:10px 0;
+	text-align:left;
+}
+/*  播出时间  */
+.time{
+	font-size:16px;
+	line-height:40px;
+	color:#333;
+	line-height:2em;
+	text-align:left;
+	margin:20px 0 0;
+}
+/*  背景图片  */
+.bg_about_hhr{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+	z-index:-1;
+}
+/*    我是合伙人  关于    祈福    */
+.about_qf_box{
+	background-color:#157dfb;
+	display:block;
+	font-size:12px;
+	color:#fff;
+	text-align:left;
+	border-radius:3px;
+}
+.about_qf_box:hover{background:#0b6bdf;border:none;}
+.about_qf_box span{font-size:16px;font-weight:bold;}
+.bg_about_qf_a{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+	z-index:0;
+}
+.color1{
+	color:#157dfb;
+	white-space:nowrap;
+}
+/* html,body{overflow-x:hidden;overflow-y:hidden;} */

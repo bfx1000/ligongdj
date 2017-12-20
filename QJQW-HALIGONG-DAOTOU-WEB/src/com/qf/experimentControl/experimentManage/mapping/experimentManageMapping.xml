@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.experimentControl.experimentManage.dao.experimentManageMapping">
+
+	<!-- 查看编号是否为重复 -->
+	<select id="judgeExperimentNoRepeat" parameterType="string"  resultType="int">
+		select count(*) from ExperimentManage where ExperimentNo = #{ExperimentNo_userForm}
+	</select>
+
+	<!-- 查询类别 -->
+	<select id="CategoryExperimentType" resultType="java.util.HashMap">
+		select id_ExperimentType, name_ExperimentType from CategoryExperimentType 
+	</select>
+
+	<!-- 查询加工形式（用于下拉辅助输入效果） -->
+	<select id="ExperimentContentList" resultType="string">
+		select ExperimentContent from ExperimentManage 
+	</select>
+
+
+
+	<!-- 新增 -->
+	<insert id="saveExperimentManage" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ExperimentManage"  resultType="int">
+    		select ifnull((select (id_ExperimentManage+1) id_ExperimentManage from ExperimentManage order by id_ExperimentManage desc limit 1) ,1) id_ExperimentManage from dual
+    	</selectKey>
+	    insert into ExperimentManage (
+	    	id_ExperimentManage, ExperimentNo, ExperimentName, ExperimentType, ExperimentMachine, 
+		   	ExperimentPerson, ExperimentTeacher, ExperimentPart, NumberMaterialExperimentPart, CategoryMaterialExperimentPart, 
+	     	ExperimentTool, ExperimentToolMaterial, ExperimentCuttingFluid, ExperimentMachiningType, ExperimentContent, 
+		   	ExperimentTime, ExperimentCondition, ExperimentRemark
+        )
+		values (  
+			#{id_ExperimentManage}, #{ExperimentNo}, #{ExperimentName}, #{ExperimentType}, #{ExperimentMachine}, 
+		   	#{ExperimentPerson}, #{ExperimentTeacher}, #{ExperimentPart}, #{NumberMaterialExperimentPart}, #{CategoryMaterialExperimentPart}, 
+	     	#{ExperimentTool}, #{ExperimentToolMaterial}, #{ExperimentCuttingFluid}, #{ExperimentMachiningType}, #{ExperimentContent}, 
+		   	#{ExperimentTime}, #{ExperimentCondition}, #{ExperimentRemark}
+	    )
+	</insert>
+	
+	<!-- 保存刀柄图片 -->
+	<insert id="saveExperimentReport" parameterType="java.util.HashMap" >
+	    insert into ExperimentReport (
+			id_ExperimentManage, url_ExperimentReport, name_ExperimentReport
+        )
+		values (  
+			#{id_ExperimentManage}, #{url_ExperimentReport}, #{name_ExperimentReport}
+		)
+	</insert>
+
+	<!-- 根据名称查询材料类别 -->
+	<select id="queryCategoryExperimentTypeById" resultType="java.util.HashMap">
+		select id_ExperimentType, name_ExperimentType 
+		from CategoryExperimentType
+		where name_ExperimentType = #{name_ExperimentType}
+	</select>
+	
+	<!-- 保存新的材料类别 -->
+	<insert id="saveCategoryExperimentType" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ExperimentType"  resultType="int">
+    		select ifnull((select (id_ExperimentType+1) id_ExperimentType from CategoryExperimentType order by id_ExperimentType desc limit 1) ,1) id_ExperimentType from dual
+    	</selectKey>
+	    insert into CategoryExperimentType (
+	    	id_ExperimentType, name_ExperimentType
+        )
+		values (  
+			#{id_ExperimentType}, #{name_ExperimentType}
+	    )
+	</insert>
+
+
+	<select id="queryExperimentManageById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from ExperimentManage
+		where id_ExperimentManage = #{id_ExperimentManage}
+		order by id_ExperimentManage desc
+	</select>
+	
+	<update id="updateExperimentManage" parameterType="java.util.HashMap">
+		update ExperimentManage set
+	    		ExperimentNo = #{ExperimentNo},
+	    		ExperimentName = #{ExperimentName},
+	    		ExperimentType = #{ExperimentType},
+	    		ExperimentMachine = #{ExperimentMachine},
+	    		ExperimentPerson = #{ExperimentPerson},
+	    		ExperimentTeacher = #{ExperimentTeacher},
+	    		ExperimentPart = #{ExperimentPart},
+	    		NumberMaterialExperimentPart = #{NumberMaterialExperimentPart},
+	    		CategoryMaterialExperimentPart = #{CategoryMaterialExperimentPart},
+	    		ExperimentTool = #{ExperimentTool},
+	    		ExperimentToolMaterial = #{ExperimentToolMaterial},
+	    		ExperimentCuttingFluid = #{ExperimentCuttingFluid},
+	    		ExperimentMachiningType = #{ExperimentMachiningType},
+	    		ExperimentContent = #{ExperimentContent},
+	    		ExperimentTime = #{ExperimentTime},
+	    		ExperimentCondition = #{ExperimentCondition},
+	    		ExperimentRemark = #{ExperimentRemark}
+	    		
+		where id_ExperimentManage = #{id_ExperimentManage}
+	</update>
+	
+	<!-- 清空文件 -->
+	<delete id="cleanExperimentReport"   parameterType="java.util.HashMap">
+    	delete from ExperimentReport
+        where id_ExperimentManage = #{id_ExperimentManage}
+    </delete>
+    
+    <!-- 删除涂层材料  -->
+	<delete id="deleteExperimentManage"   parameterType="java.util.HashMap">
+    	delete from ExperimentManage
+        where id_ExperimentManage = #{id_ExperimentManage}
+    </delete>
+    
+    
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.DepartmentManufacture.dao.DepartmentManufactureMapper">
+
+
+	<!-- 查询机床列表   -->
+	<select id="queryDepartmentManufactureList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_DepartmentManufacture, SuperiorDepartmentManuf, NameDepartmentManuf, NoDepartmentManuf, AddressDepartmentManuf, TeleNoDepartmentManuf,
+			   PrincipalDepartmentManuf, RemarkDepartmentManuf ,LevelDepartmentManuf
+		from DepartmentManufacture
+		where 1 = 1
+		<if test="SuperiorDepartmentManuf !=null  and SuperiorDepartmentManuf !='' "> and SuperiorDepartmentManuf like '%${SuperiorDepartmentManuf}%'</if>
+		<if test="NameDepartmentManuf !=null and NameDepartmentManuf !='' "> and NameDepartmentManuf like '%${NameDepartmentManuf}%'</if>
+		<if test="NoDepartmentManuf !=null  and NoDepartmentManuf !='' "> and NoDepartmentManuf like '%${NoDepartmentManuf}%'</if>
+		<if test="AddressDepartmentManuf !=null  and AddressDepartmentManuf !='' "> and AddressDepartmentManuf like '%${AddressDepartmentManuf}%'</if>
+		order by id_DepartmentManufacture desc
+	</select>
+	
+	<!-- 删除  -->
+	<delete id="deleteDepartmentManufactureList"   parameterType="java.util.HashMap">
+    	delete from DepartmentManufacture
+        where id_DepartmentManufacture = #{id_DepartmentManufacture}
+    </delete>
+    
+	<!-- 查询机床列表   -->
+	<select id="queryDepartmentManufactureListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from DepartmentManufacture where id_DepartmentManufacture = #{id_DepartmentManufacture}
+	</select>
+	
+
+	<!--  修改   -->
+	<update id="updateDepartmentManufacture" parameterType="java.util.HashMap">
+		update DepartmentManufacture
+	    	<set> 
+	    		SuperiorDepartmentManuf = #{SuperiorDepartmentManuf},
+	    		NameDepartmentManuf = #{NameDepartmentManuf},
+	    		NoDepartmentManuf = #{NoDepartmentManuf},
+	    		AddressDepartmentManuf = #{AddressDepartmentManuf},
+	    		TeleNoDepartmentManuf = #{TeleNoDepartmentManuf},
+	    		PrincipalDepartmentManuf = #{PrincipalDepartmentManuf},
+	    		RemarkDepartmentManuf = #{RemarkDepartmentManuf},
+	    		LevelDepartmentManuf = #{LevelDepartmentManuf}
+			</set>
+		where id_DepartmentManufacture = #{id_DepartmentManufacture}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveDepartmentManufacture" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_DepartmentManufacture"  resultType="int">
+    		select ifnull((select (id_DepartmentManufacture+1) id_DepartmentManufacture from DepartmentManufacture order by id_DepartmentManufacture desc limit 1) ,1) id_DepartmentManufacture from dual
+    	</selectKey>
+	    insert into DepartmentManufacture (
+	    	id_DepartmentManufacture, SuperiorDepartmentManuf, NameDepartmentManuf, NoDepartmentManuf, AddressDepartmentManuf, TeleNoDepartmentManuf,
+	    	PrincipalDepartmentManuf, RemarkDepartmentManuf ,LevelDepartmentManuf
+        )
+		values (  
+			#{id_DepartmentManufacture}, #{SuperiorDepartmentManuf}, #{NameDepartmentManuf}, #{NoDepartmentManuf}, #{AddressDepartmentManuf},#{TeleNoDepartmentManuf}, 
+			#{PrincipalDepartmentManuf}, #{RemarkDepartmentManuf} ,#{LevelDepartmentManuf}
+	    )
+	</insert>
+	
+	<!-- 查询机床列表   -->
+	<select id="loadingDepartmentManufacture"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_DepartmentManufacture,SuperiorDepartmentManuf,NameDepartmentManuf,LevelDepartmentManuf from DepartmentManufacture 
+	</select>
+	
+	<select id="loadingChildDepartmentManufacture"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select NameDepartmentManuf,LevelDepartmentManuf from DepartmentManufacture 
+		where 1 = 1
+		<if test="NameDepartmentManuf !=null  and NameDepartmentManuf !='' "> and SuperiorDepartmentManuf like '%${NameDepartmentManuf}%'</if>
+	</select>
+	
+	
+</mapper>
+
+
+
+

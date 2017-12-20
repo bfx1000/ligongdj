@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.experimentControl.experimentItem.dao.experimentItemMapping">
+
+
+<!-- 查询机床列表   -->
+	<select id="queryExperimentItemList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_experimentPart, nameExperimentPart, numberExperimentPart, typeExperimentPart, numberMaterialExperimentPart, 
+			   categoryMaterialExperimentPart, remarkExperimentPart, add_time, user_id
+		from experimentPart
+		where 1 = 1
+		<if test="nameExperimentPart !=null  and nameExperimentPart !='' "> and nameExperimentPart like '%${nameExperimentPart}%'</if>
+		<if test="numberExperimentPart !=null and numberExperimentPart !='' "> and numberExperimentPart like '%${numberExperimentPart}%'</if>
+		<if test="typeExperimentPart !=null  and typeExperimentPart !='' "> and typeExperimentPart like '%${typeExperimentPart}%'</if>
+		<if test="numberMaterialExperimentPart !=null  and numberMaterialExperimentPart !='' "> and numberMaterialExperimentPart like '%${numberMaterialExperimentPart}%'</if>
+		<if test="categoryMaterialExperimentPart !=null  and categoryMaterialExperimentPart !='' "> and categoryMaterialExperimentPart like '%${categoryMaterialExperimentPart}%'</if>
+		<if test="remarkExperimentPart !=null  and remarkExperimentPart !='' "> and remarkExperimentPart like '%${remarkExperimentPart}%'</if>
+		order by id_experimentPart desc
+	</select>
+	
+	<!--  查询标准机床图片列表 PictureMachineInform  -->
+	<select id="queryPictureExperimentItemList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_pictureExperimentPart, id_experimentPart, url_pictureExperimentPart
+		from pictureExperimentPart
+		where id_experimentPart = #{id_experimentPart}
+	</select>
+	
+	<!--  查询保准机床详细信息列表 InformDetailMachineInform  -->
+	<select id="queryInformDetailExperimentItemList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_informDetailExperimentPart, id_experimentPart, url_informDetailExperimentPart, name_informDetailExperimentPart
+		from informDetailExperimentPart
+		where id_experimentPart = #{id_experimentPart}
+	</select>
+
+	<!--  查询保准机床详细信息列表 InformDetailMachineInform  -->
+	<select id="queryPartExperimentPartList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_partExperimentPart, id_experimentPart, url_partExperimentPart, name_partExperimentPart
+		from partExperimentPart
+		where id_experimentPart = #{id_experimentPart}
+	</select>
+
+	<!-- 查询类别列表   -->
+    <select id="queryCategoryExperimentPartList" resultType="java.util.HashMap">
+		select id_typeExperimentPart, name_typeExperimentPart 
+		from CategoryExperimentPart
+		order by id_typeExperimentPart
+	</select>
+	
+	<!-- 查询类别列表2   -->
+    <select id="queryCategoryMaterialExperimentPartList" resultType="java.util.HashMap">
+		select id_CategoryMaterialExperimentPart, name_CategoryMaterialExperimentPart 
+		from CategoryMaterialExperimentPart
+		order by id_CategoryMaterialExperimentPart
+	</select>
+	
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryMaterialExperimentPartListByName" resultType="java.util.HashMap">
+		select id_CategoryMaterialExperimentPart, name_CategoryMaterialExperimentPart 
+		from CategoryMaterialExperimentPart
+		where name_CategoryMaterialExperimentPart = #{name_CategoryMaterialExperimentPart}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryMaterialExperimentPartList" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryMaterialExperimentPart"  resultType="int">
+    		select ifnull((select (id_CategoryMaterialExperimentPart+1) id_CategoryMaterialExperimentPart from CategoryMaterialExperimentPart order by id_CategoryMaterialExperimentPart desc limit 1) ,1) id_CategoryMaterialExperimentPart from dual
+    	</selectKey>
+	    insert into CategoryMaterialExperimentPart (
+	    	id_CategoryMaterialExperimentPart, name_CategoryMaterialExperimentPart
+        )
+		values (  
+			#{id_CategoryMaterialExperimentPart}, #{name_CategoryMaterialExperimentPart}
+	    )
+	</insert>
+	
+	<!-- 删除  -->
+	<delete id="deleteExperimentItemList"   parameterType="java.util.HashMap">
+    	delete from experimentPart
+        where id_experimentPart = #{id_experimentPart}
+    </delete>
+    
+    <!-- 删除  -->
+	<delete id="clearPictureExperimentItemByIdMaterial"   parameterType="java.util.HashMap">
+    	delete from pictureExperimentPart
+        where id_experimentPart = #{id_experimentPart}
+    </delete>
+
+	 <!-- 删除  -->
+	<delete id="clearInformDetailExperimentItemById"   parameterType="java.util.HashMap">
+    	delete from informDetailExperimentPart
+        where id_experimentPart = #{id_experimentPart}
+    </delete>
+    
+     <!-- 删除  -->
+	<delete id="clearPartExperimentPartByIdMaterial"   parameterType="java.util.HashMap">
+    	delete from partExperimentPart
+        where id_experimentPart = #{id_experimentPart}
+    </delete>
+
+	<!-- 查询标准机床信息（通过ID、用于去新增页面）   -->
+	<select id="queryExperimentItemListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_experimentPart, nameExperimentPart, numberExperimentPart, typeExperimentPart, numberMaterialExperimentPart
+			 , categoryMaterialExperimentPart,remarkExperimentPart
+		from experimentPart
+		where id_experimentPart = #{id_experimentPart}
+	</select>
+
+	<!--  修改   -->
+	<update id="updateExperimentPart" parameterType="java.util.HashMap">
+		update experimentPart
+	    	<set> 
+	    		nameExperimentPart = #{nameExperimentPart},
+	    		numberExperimentPart = #{numberExperimentPart},
+	    		typeExperimentPart = #{typeExperimentPart},
+	    		numberMaterialExperimentPart = #{numberMaterialExperimentPart},
+	    		categoryMaterialExperimentPart = #{categoryMaterialExperimentPart},
+	    		remarkExperimentPart = #{remarkExperimentPart},
+	    		add_time = #{add_time},
+	    		user_id = #{user_id},
+			</set>
+		where id_experimentPart = #{id_experimentPart}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveExperimentPart" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_experimentPart"  resultType="int">
+    		select ifnull((select (id_experimentPart+1) id_experimentPart from experimentPart order by id_experimentPart desc limit 1) ,1) id_experimentPart from dual
+    	</selectKey>
+	    insert into experimentPart (
+	    	id_experimentPart, nameExperimentPart, numberExperimentPart, typeExperimentPart, numberMaterialExperimentPart, 
+	    	categoryMaterialExperimentPart, remarkExperimentPart, add_time, user_id
+        )
+		values (  
+			#{id_experimentPart}, #{nameExperimentPart}, #{numberExperimentPart}, #{typeExperimentPart}, #{numberMaterialExperimentPart}, 
+	    	#{categoryMaterialExperimentPart}, #{remarkExperimentPart}, #{add_time}, #{user_id}
+	    )
+	</insert>
+	
+	<!-- 保存图  -->
+	<insert id="savePictureExperimentItem" parameterType="java.util.HashMap" >
+	    insert into pictureExperimentPart (
+			id_experimentPart, url_pictureExperimentPart
+        )
+		values (  
+			#{id_experimentPart}, #{url_pictureExperimentPart}
+		)
+	</insert>
+	
+	<!-- 保存详细信息  -->
+	<insert id="saveInformDetailExperimentItem" parameterType="java.util.HashMap" >
+	    insert into informDetailExperimentPart (
+			id_experimentPart, url_informDetailExperimentPart, name_informDetailExperimentPart
+        )
+		values (  
+			#{id_experimentPart}, #{url_InformDetailMachineNodeInform}, #{name_InformDetailMachineNodeInform}
+		)
+	</insert>
+	
+	<!-- 保存part  -->
+	<insert id="savePartExperimentPart" parameterType="java.util.HashMap" >
+	    insert into partExperimentPart (
+			id_experimentPart, url_partExperimentPart, name_partExperimentPart
+        )
+		values (  
+			#{id_experimentPart}, #{url_partExperimentPart}, #{name_partExperimentPart}
+		)
+	</insert>
+
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryTypeExperimentPartByName" resultType="java.util.HashMap">
+		select id_typeExperimentPart, name_typeExperimentPart 
+		from CategoryExperimentPart
+		where name_typeExperimentPart = #{name_typeExperimentPart}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryTypeExperimentPart" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_typeExperimentPart"  resultType="int">
+    		select ifnull((select (id_typeExperimentPart+1) id_typeExperimentPart from CategoryExperimentPart order by id_typeExperimentPart desc limit 1) ,1) id_typeExperimentPart from dual
+    	</selectKey>
+	    insert into CategoryExperimentPart (
+	    	id_typeExperimentPart, name_typeExperimentPart
+        )
+		values (  
+			#{id_typeExperimentPart}, #{name_typeExperimentPart}
+	    )
+	</insert>
+
+
+</mapper>
+
+
+

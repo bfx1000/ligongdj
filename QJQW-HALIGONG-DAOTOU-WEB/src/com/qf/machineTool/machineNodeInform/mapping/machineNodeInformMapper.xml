@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.machineTool.machineNodeInform.dao.machineNodeInformMapper">
+
+	<!-- 查询机床列表   -->
+	<select id="queryMachineNodeInformList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_MachineNodeInform, NumberMachineNode, NumberMachine, TypeMachineNode, DepartmentMachineNode, 
+			   WorkshopMachineNode, PositionMachineNode, UseFrequencyMachineNode, TimeUseMachineNode, TimeDestroyMachineNode, 
+			  add_time, user_id, TypeCustomMachineNode
+		from MachineNodeInform
+		where 1 = 1
+		<if test="NumberMachineNode !=null  and NumberMachineNode !='' "> and NumberMachineNode like '%${NumberMachineNode}%'</if>
+		<if test="NumberMachine !=null and NumberMachine !='' "> and NumberMachine like '%${NumberMachine}%'</if>
+		<if test="TypeMachineNode !=null  and TypeMachineNode !='' "> and TypeMachineNode like '%${TypeMachineNode}%'</if>
+		<if test="DepartmentMachineNode !=null  and DepartmentMachineNode !='' "> and DepartmentMachineNode like '%${DepartmentMachineNode}%'</if>
+		<if test="WorkshopMachineNode !=null  and WorkshopMachineNode !='' "> and WorkshopMachineNode like '%${WorkshopMachineNode}%'</if>
+		<if test="PositionMachineNode !=null  and PositionMachineNode !='' "> and PositionMachineNode like '%${PositionMachineNode}%'</if>
+		<if test="UseFrequencyMachineNode !=null  and UseFrequencyMachineNode !='' "> and UseFrequencyMachineNode like '%${UseFrequencyMachineNode}%'</if>
+		<if test="TimeUseMachineNode !=null  and TimeUseMachineNode !='' "> and TimeUseMachineNode like '%${TimeUseMachineNode}%'</if>
+		<if test="TimeDestroyMachineNode !=null  and TimeDestroyMachineNode !='' "> and TimeDestroyMachineNode like '%${TimeDestroyMachineNode}%'</if>
+		order by id_MachineNodeInform desc
+	</select>
+	
+	<!--  查询保准机床详细信息列表 InformDetailMachineInform  -->
+	<select id="queryInformDetailMachineNodeInformList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailMachineNodeInform, id_MachineNodeInform, url_InformDetailMachineNodeInform, name_InformDetailMachineNodeInform
+		from InformDetailMachineNodeInform
+		where id_MachineNodeInform = #{id_MachineNodeInform}
+	</select>
+
+	<!-- 删除标准机床信息  -->
+	<delete id="deleteMachineNodeInform"   parameterType="java.util.HashMap">
+    	delete from MachineNodeInform
+        where id_MachineNodeInform = #{id_MachineNodeInform}
+    </delete>
+    
+    <!-- 删除标准机床图片  -->
+	<delete id="clearInformDetailMachineNodeInformById"   parameterType="java.util.HashMap">
+    	delete from InformDetailMachineNodeInform
+        where id_MachineNodeInform = #{id_MachineNodeInform}
+    </delete>
+
+	<!-- 查询标准机床信息（通过ID、用于去新增页面）   -->
+	<select id="queryMachineNodeInformById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_MachineNodeInform, NumberMachineNode, NumberMachine, TypeMachineNode, DepartmentMachineNode
+			 , WorkshopMachineNode, PositionMachineNode, UseFrequencyMachineNode, TimeUseMachineNode, TimeDestroyMachineNode, TypeCustomMachineNode
+		from MachineNodeInform
+		where id_MachineNodeInform = #{id_MachineNodeInform}
+	</select>
+
+	<!--  修改   -->
+	<update id="updateMachineNodeInform" parameterType="java.util.HashMap">
+		update MachineNodeInform
+	    	<set> 
+	    		NumberMachineNode = #{NumberMachineNode},
+	    		NumberMachine = #{NumberMachine},
+	    		TypeMachineNode = #{TypeMachineNode},
+	    		DepartmentMachineNode = #{DepartmentMachineNode},
+	    		WorkshopMachineNode = #{WorkshopMachineNode},
+	    		PositionMachineNode = #{PositionMachineNode},
+	    		UseFrequencyMachineNode = #{UseFrequencyMachineNode},
+	    		TimeUseMachineNode = #{TimeUseMachineNode},
+	    		TimeDestroyMachineNode = #{TimeDestroyMachineNode},
+	    		add_time = #{add_time},
+	    		user_id = #{user_id},
+	    		TypeCustomMachineNode = #{TypeCustomMachineNode},
+			</set>
+		where id_MachineNodeInform = #{id_MachineNodeInform}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveMachineNodeInform" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_MachineNodeInform"  resultType="int">
+    		select ifnull((select (id_MachineNodeInform+1) id_MachineNodeInform from MachineNodeInform order by id_MachineNodeInform desc limit 1) ,1) id_MachineNodeInform from dual
+    	</selectKey>
+	    insert into MachineNodeInform (
+	    	id_MachineNodeInform, NumberMachineNode, NumberMachine, TypeMachineNode, DepartmentMachineNode, 
+	    	WorkshopMachineNode, PositionMachineNode, UseFrequencyMachineNode, TimeUseMachineNode, 
+	    	TimeDestroyMachineNode, add_time, user_id, TypeCustomMachineNode
+        )
+		values (  
+			#{id_MachineNodeInform}, #{NumberMachineNode}, #{NumberMachine}, #{TypeMachineNode}, #{DepartmentMachineNode}, 
+	    	#{WorkshopMachineNode}, #{PositionMachineNode}, #{UseFrequencyMachineNode}, #{TimeUseMachineNode}, 
+	    	#{TimeDestroyMachineNode}, #{add_time}, #{user_id}, #{TypeCustomMachineNode}
+	    )
+	</insert>
+	
+	<!-- 保存详细信息  -->
+	<insert id="saveInformDetailMachineNodeInform" parameterType="java.util.HashMap" >
+	    insert into InformDetailMachineNodeInform (
+			id_MachineNodeInform, url_InformDetailMachineNodeInform, name_InformDetailMachineNodeInform
+        )
+		values (  
+			#{id_MachineNodeInform}, #{url_InformDetailMachineNodeInform}, #{name_InformDetailMachineNodeInform}
+		)
+	</insert>
+
+	<!-- 查询类别列表   -->
+    <select id="queryCategoryMachineNodeInformList" resultType="java.util.HashMap">
+		select id_CategoryMachineNodeInform, name_CategoryMachineNodeInform 
+		from CategoryMachineNodeInform
+		order by id_CategoryMachineNodeInform
+	</select>
+	
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryMachineNodeInformByName" resultType="java.util.HashMap">
+		select id_CategoryMachineNodeInform, name_CategoryMachineNodeInform 
+		from CategoryMachineNodeInform
+		where name_CategoryMachineNodeInform = #{name_CategoryMachineNodeInform}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryMachineNodeInform" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryMachineNodeInform"  resultType="int">
+    		select ifnull((select (id_CategoryMachineNodeInform+1) id_CategoryMachineNodeInform from CategoryMachineNodeInform order by id_CategoryMachineNodeInform desc limit 1) ,1) id_CategoryMachineNodeInform from dual
+    	</selectKey>
+	    insert into CategoryMachineNodeInform (
+	    	id_CategoryMachineNodeInform, name_CategoryMachineNodeInform
+        )
+		values (  
+			#{id_CategoryMachineNodeInform}, #{name_CategoryMachineNodeInform}
+	    )
+	</insert>
+
+	
+	<select id="queryDwList"   parameterType="java.util.HashMap"  resultType="string">
+		select DepartmentMachineNode from MachineNodeInform
+	</select>
+
+
+	<select id="queryCjList"   parameterType="java.util.HashMap"  resultType="string">
+		select WorkshopMachineNode from MachineNodeInform
+	</select>
+	
+	
+</mapper>
+

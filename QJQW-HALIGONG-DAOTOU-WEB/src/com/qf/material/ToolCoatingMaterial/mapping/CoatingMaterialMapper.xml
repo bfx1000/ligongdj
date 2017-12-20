@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.material.ToolCoatingMaterial.dao.CoatingMaterialMapper">
+
+	<!-- 查询涂层材料列表   -->
+	<select id="queryCoatingMaterialList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ToolCoatingMaterial, NameToolCoating, NumberToolCoating, CategoryToolCoating, ProcessingToolCoating, 
+		   	   CompanyToolCoating, ISOToolCoating, ColourToolCoating, HardnessToolCoating, ThicknessToolCoating, 
+	     	   FrictionToolCoating, TemperatureToolCoating, CharacterToolCoating, add_time, user_id
+		from ToolCoatingMaterial
+		where 1 = 1
+		<if test="NameToolCoating !=null  and NameToolCoating !='' "> and NameToolCoating like '%${NameToolCoating}%'</if>
+		<if test="NumberToolCoating !=null  and NumberToolCoating !='' "> and NumberToolCoating like '%${NumberToolCoating}%'</if>
+		<if test="CategoryToolCoating !=null  and CategoryToolCoating !='' "> and CategoryToolCoating like '%${CategoryToolCoating}%'</if>
+		<if test="ProcessingToolCoating !=null  and ProcessingToolCoating !='' "> and ProcessingToolCoating like '%${ProcessingToolCoating}%'</if>
+		<if test="CompanyToolCoating !=null  and CompanyToolCoating !='' "> and CompanyToolCoating like '%${CompanyToolCoating}%'</if>
+		order by id_ToolCoatingMaterial desc
+	</select>
+
+	<!--  查询涂层材料图片列表 PictureCoatingMaterial  -->
+	<select id="queryPictureCoatingMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureToolCoating, id_ToolCoatingMaterial, url_PictureToolCoating
+		from PictureToolCoating
+		where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+	</select>
+	
+	<!--  查询涂层详细信息列表 InformDetailCoatingMaterial  -->
+	<select id="queryInformDetailCoatingMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailToolCoating, id_ToolCoatingMaterial, url_InformDetailToolCoating, name_InformDetailToolCoating
+		from InformDetailToolCoating
+		where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+	</select>
+	
+	<!--  查询涂层应用实例列表 ApplicationCoatingMaterial  -->
+	<select id="queryApplicationCoatingMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ApplicationToolCoating, id_ToolCoatingMaterial, url_ApplicationToolCoating, name_ApplicationToolCoating
+		from ApplicationToolCoating
+		where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+	</select>
+
+	<!-- 查询涂层材料类别列表   -->
+    <select id="queryCategoryToolCoatingList" resultType="java.util.HashMap">
+		select id_CategoryToolCoating, name_CategoryToolCoating 
+		from CategoryToolCoating
+		order by id_CategoryToolCoating
+	</select>
+
+	<!-- 查询涂层材料数据byId（用于去新增页面）   -->
+	<select id="queryCoatingMaterialById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ToolCoatingMaterial, NameToolCoating, NumberToolCoating, CategoryToolCoating, ProcessingToolCoating, 
+		   	   CompanyToolCoating, ISOToolCoating, ColourToolCoating, HardnessToolCoating, ThicknessToolCoating, 
+	     	   FrictionToolCoating, TemperatureToolCoating, CharacterToolCoating, add_time, user_id
+		from ToolCoatingMaterial
+		where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+	</select>
+	
+	<!-- 清空涂层材料图片路径 -->
+	<delete id="clearPictureCoatingMaterialById"   parameterType="java.util.HashMap">
+    	delete from PictureToolCoating
+        where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+    </delete>
+    
+    <!-- 清空详细信息 -->
+	<delete id="clearInformDetailCoatingMaterialById"   parameterType="java.util.HashMap">
+    	delete from InformDetailToolCoating
+        where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+    </delete>
+    
+    <!-- 清空应用实例 -->
+	<delete id="clearApplicationCoatingMaterialById"   parameterType="java.util.HashMap">
+    	delete from ApplicationToolCoating
+        where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+    </delete>
+
+	<!-- 删除涂层材料  -->
+	<delete id="deleteCoatingMaterial"   parameterType="java.util.HashMap">
+    	delete from ToolCoatingMaterial
+        where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+    </delete>
+
+	<!-- 根据名称查询材料类别 -->
+	<select id="queryCategoryToolCoatingByName" resultType="java.util.HashMap">
+		select id_CategoryToolCoating, name_CategoryToolCoating 
+		from CategoryToolCoating
+		where name_CategoryToolCoating = #{name_CategoryToolCoating}
+	</select>
+	
+	<!-- 保存新的材料类别 -->
+	<insert id="saveCategoryToolCoating" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryToolCoating"  resultType="int">
+    		select ifnull((select (id_CategoryToolCoating+1) id_CategoryToolCoating from CategoryToolCoating order by id_CategoryToolCoating desc limit 1) ,1) id_CategoryToolCoating from dual
+    	</selectKey>
+	    insert into CategoryToolCoating (
+	    	id_CategoryToolCoating, name_CategoryToolCoating
+        )
+		values (  
+			#{id_CategoryToolCoating}, #{name_CategoryToolCoating}
+	    )
+	</insert>
+	
+	<!-- 修改  -->
+	<update id="updateCoatingMaterial" parameterType="java.util.HashMap">
+		update ToolCoatingMaterial set
+	    		NameToolCoating = #{NameToolCoating},
+	    		NumberToolCoating = #{NumberToolCoating},
+	    		CategoryToolCoating = #{CategoryToolCoating},
+	    		ProcessingToolCoating = #{ProcessingToolCoating},
+	    		CompanyToolCoating = #{CompanyToolCoating},
+	    		ISOToolCoating = #{ISOToolCoating},
+	    		ColourToolCoating = #{ColourToolCoating},
+	    		HardnessToolCoating = #{HardnessToolCoating},
+	    		ThicknessToolCoating = #{ThicknessToolCoating},
+	    		FrictionToolCoating = #{FrictionToolCoating},
+	    		TemperatureToolCoating = #{TemperatureToolCoating},
+	    		CharacterToolCoating = #{CharacterToolCoating}
+		where id_ToolCoatingMaterial = #{id_ToolCoatingMaterial}
+	</update>
+	
+	<!-- 新增 -->
+	<insert id="saveCoatingMaterial" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ToolCoatingMaterial"  resultType="int">
+    		select ifnull((select (id_ToolCoatingMaterial+1) id_ToolCoatingMaterial from ToolCoatingMaterial order by id_ToolCoatingMaterial desc limit 1) ,1) id_ToolCoatingMaterial from dual
+    	</selectKey>
+	    insert into ToolCoatingMaterial (
+	    	id_ToolCoatingMaterial, NameToolCoating, NumberToolCoating, CategoryToolCoating, ProcessingToolCoating, 
+		   	CompanyToolCoating, ISOToolCoating, ColourToolCoating, HardnessToolCoating, ThicknessToolCoating, 
+	     	FrictionToolCoating, TemperatureToolCoating, CharacterToolCoating, add_time, user_id
+        )
+		values (  
+			#{id_ToolCoatingMaterial}, #{NameToolCoating}, #{NumberToolCoating}, #{CategoryToolCoating}, #{ProcessingToolCoating}, 
+		   	#{CompanyToolCoating}, #{ISOToolCoating}, #{ColourToolCoating}, #{HardnessToolCoating}, #{ThicknessToolCoating}, 
+	     	#{FrictionToolCoating}, #{TemperatureToolCoating}, #{CharacterToolCoating}, #{add_time}, #{user_id}
+	    )
+	</insert>
+	
+	<!-- 保存图片 -->
+	<insert id="savePictureCoatingMaterial" parameterType="java.util.HashMap" >
+	    insert into PictureToolCoating (
+			id_ToolCoatingMaterial, url_PictureToolCoating
+        )
+		values (  
+			#{id_ToolCoatingMaterial}, #{url_PictureToolCoating}
+		)
+	</insert>
+	
+	<!-- 保存详细信息 -->
+	<insert id="saveInformDetailCoatingMaterial" parameterType="java.util.HashMap" >
+	    insert into InformDetailToolCoating (
+			id_ToolCoatingMaterial, url_InformDetailToolCoating, name_InformDetailToolCoating
+        )
+		values (  
+			#{id_ToolCoatingMaterial}, #{url_InformDetailToolCoating}, #{name_InformDetailToolCoating}
+		)
+	</insert>
+	
+	<!-- 保存应用实例 -->
+	<insert id="saveApplicationCoatingMaterial" parameterType="java.util.HashMap" >
+	    insert into ApplicationToolCoating (
+			id_ToolCoatingMaterial, url_ApplicationToolCoating, name_ApplicationToolCoating
+        )
+		values (  
+			#{id_ToolCoatingMaterial}, #{url_ApplicationToolCoating}, #{name_ApplicationToolCoating}
+		)
+	</insert>
+	
+
+	
+</mapper>
+
+
+
+
+
+
+
+

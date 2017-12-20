@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.tool.xidaoBlade.dao.XidaoBladeMapper">
+	
+	<!-- 查询刀片列表   -->
+	<select id="queryXidaoBladeList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_XidaoBlade, NumberXidaoBlade, TypeBTADrill, NameXidaoBlade, ISOBladeXidao, 
+			   ToolCoatBladeXidao, ToolMaterialBladeXidao, MachiningTypeBladeXidao, ToolBladeFeatureXidao, CompanyXidaoBlade, 
+			   QianjiaoBladeXidao, HoujiaoBladeXidao, HoujisojiaoBladeXidao, NoseRadiusXidao, BreakerBladeXidao, 
+			   MateriaBladeXidao, isPMKNS, ISOPBladeXidao, ISOPTextBladeXidao, ISOMBladeXidao, 
+			   ISOMTextBladeXidao, ISOKBladeXidao, ISOKTextBladeXidao, ISONBladeXidao, ISONTextBladeXidao, 
+			   ISOSBladeXidao, ISOSTextBladeXidao, HolderInfo, add_time, user_id
+		from XidaoBlade
+		where 1 = 1
+		<if test="NumberXidaoBlade !=null  and NumberXidaoBlade !='' "> and NumberXidaoBlade like '%${NumberXidaoBlade}%'</if>
+		<if test="TypeBTADrill !=null and TypeBTADrill !='' "> and TypeBTADrill like '%${TypeBTADrill}%'</if>
+		<if test="ISOBladeXidao !=null  and ISOBladeXidao !='' "> and ISOBladeXidao like '%${ISOBladeXidao}%'</if>
+		<if test="ToolCoatBladeXidao !=null  and ToolCoatBladeXidao !='' "> and ToolCoatBladeXidao like '%${ToolCoatBladeXidao}%'</if>
+		<if test="ToolMaterialBladeXidao !=null  and ToolMaterialBladeXidao !='' "> and ToolMaterialBladeXidao like '%${ToolMaterialBladeXidao}%'</if>
+		<if test="MachiningTypeBladeXidao !=null  and MachiningTypeBladeXidao !='' "> and MachiningTypeBladeXidao like '%${MachiningTypeBladeXidao}%'</if>
+		<if test="ToolBladeFeatureXidao !=null  and ToolBladeFeatureXidao !='' "> and ToolBladeFeatureXidao like '%${ToolBladeFeatureXidao}%'</if>
+		<if test="CompanyXidaoBlade !=null  and CompanyXidaoBlade !='' "> and CompanyXidaoBlade like '%${CompanyXidaoBlade}%'</if>
+		<if test="MateriaBladeXidao !=null  and MateriaBladeXidao !='' "> and MateriaBladeXidao like '%${MateriaBladeXidao}%'</if>
+		order by id_XidaoBlade desc
+	</select>
+	
+	<!--  查询刀具图片列表 PictureBladeXidaoList  -->
+	<select id="queryPictureBladeXidaoList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureBladeXidao, id_XidaoBlade, url_PictureBladeXidao
+		from PictureBladeXidao
+		where id_XidaoBlade = #{id_XidaoBlade}
+	</select>
+	
+	<!--  查询详细图片列表 PictureDetailBladeXidaoList  -->
+	<select id="queryPictureDetailBladeXidaoList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureDetailBladeXidao, id_XidaoBlade, url_PictureDetailBladeXidao
+		from PictureDetailBladeXidao
+		where id_XidaoBlade = #{id_XidaoBlade}
+	</select>
+	
+	<!--  查询详细信息列表 InformDetailBladeXidaoList  -->
+	<select id="queryInformDetailBladeXidaoList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailBladeXidao, id_XidaoBlade, url_InformDetailBladeXidao, name_InformDetailBladeXidao
+		from InformDetailBladeXidao
+		where id_XidaoBlade = #{id_XidaoBlade}
+	</select>
+	
+	<!-- 查询应用实例列表 ApplicationBladeXidaoList   -->
+	<select id="queryApplicationBladeXidaoList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ApplicationBladeXidao, id_XidaoBlade, url_ApplicationBladeXidao, name_ApplicationBladeXidao
+		from  ApplicationBladeXidao
+		where id_XidaoBlade = #{id_XidaoBlade}
+	</select>
+	
+	
+	<!--  查询刀片详细信息   -->
+	<select id="queryXidaoBladeById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_XidaoBlade, NumberXidaoBlade, TypeBTADrill, NameXidaoBlade, ISOBladeXidao, 
+			   ToolCoatBladeXidao, ToolMaterialBladeXidao, MachiningTypeBladeXidao, ToolBladeFeatureXidao, CompanyXidaoBlade, 
+			   QianjiaoBladeXidao, HoujiaoBladeXidao, HoujisojiaoBladeXidao, NoseRadiusXidao, BreakerBladeXidao, 
+			   MateriaBladeXidao, isPMKNS, ISOPBladeXidao, ISOPTextBladeXidao, ISOMBladeXidao, 
+			   ISOMTextBladeXidao, ISOKBladeXidao, ISOKTextBladeXidao, ISONBladeXidao, ISONTextBladeXidao, 
+			   ISOSBladeXidao, ISOSTextBladeXidao, HolderInfo ,add_time, user_id
+		from XidaoBlade
+		where id_XidaoBlade = #{id_XidaoBlade}
+	</select>
+	
+	<!--  修改   -->
+	<update id="updateXidaoBlade" parameterType="java.util.HashMap">
+		update XidaoBlade
+	    	<set> 
+				NumberXidaoBlade = #{NumberXidaoBlade},
+				TypeBTADrill = #{TypeBTADrill},
+				NameXidaoBlade = #{NameXidaoBlade},
+				ISOBladeXidao = #{ISOBladeXidao},
+				ToolCoatBladeXidao = #{ToolCoatBladeXidao},
+				ToolMaterialBladeXidao = #{ToolMaterialBladeXidao},
+				MachiningTypeBladeXidao = #{MachiningTypeBladeXidao},
+				ToolBladeFeatureXidao = #{ToolBladeFeatureXidao},
+				CompanyXidaoBlade = #{CompanyXidaoBlade},
+				QianjiaoBladeXidao = #{QianjiaoBladeXidao},
+				HoujiaoBladeXidao = #{HoujiaoBladeXidao},
+				HoujisojiaoBladeXidao = #{HoujisojiaoBladeXidao},
+				NoseRadiusXidao = #{NoseRadiusXidao},
+				BreakerBladeXidao = #{BreakerBladeXidao},
+				MateriaBladeXidao = #{MateriaBladeXidao},
+				isPMKNS = #{isPMKNS},
+				ISOPBladeXidao = #{ISOPBladeXidao},
+				ISOPTextBladeXidao = #{ISOPTextBladeXidao},
+				ISOMBladeXidao = #{ISOMBladeXidao},
+				ISOMTextBladeXidao = #{ISOMTextBladeXidao},
+				ISOKBladeXidao = #{ISOKBladeXidao},
+				ISOKTextBladeXidao = #{ISOKTextBladeXidao},
+				ISONBladeXidao = #{ISONBladeXidao},
+				ISONTextBladeXidao = #{ISONTextBladeXidao},
+				ISOSBladeXidao = #{ISOSBladeXidao},
+				ISOSTextBladeXidao = #{ISOSTextBladeXidao},
+				HolderInfo = #{HolderInfo}
+			</set>
+		where id_XidaoBlade = #{id_XidaoBlade}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveXidaoBlade" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_XidaoBlade"  resultType="int">
+    		select ifnull((select (id_XidaoBlade+1) id_XidaoBlade from XidaoBlade order by id_XidaoBlade desc limit 1) ,1) id_XidaoBlade from dual
+    	</selectKey>
+	    insert into XidaoBlade (
+	    	id_XidaoBlade, NumberXidaoBlade, TypeBTADrill, NameXidaoBlade, ISOBladeXidao, 
+	    	ToolCoatBladeXidao, ToolMaterialBladeXidao, MachiningTypeBladeXidao, ToolBladeFeatureXidao, CompanyXidaoBlade, 
+	    	QianjiaoBladeXidao, HoujiaoBladeXidao, HoujisojiaoBladeXidao, NoseRadiusXidao, BreakerBladeXidao, 
+	    	MateriaBladeXidao, isPMKNS, ISOPBladeXidao, ISOPTextBladeXidao, ISOMBladeXidao, 
+	    	ISOMTextBladeXidao, ISOKBladeXidao, ISOKTextBladeXidao, ISONBladeXidao, ISONTextBladeXidao, 
+	    	ISOSBladeXidao, ISOSTextBladeXidao,HolderInfo, add_time, user_id  )
+		values (  
+			#{id_XidaoBlade}, #{NumberXidaoBlade}, #{TypeBTADrill}, #{NameXidaoBlade}, #{ISOBladeXidao}, 
+	    	#{ToolCoatBladeXidao}, #{ToolMaterialBladeXidao}, #{MachiningTypeBladeXidao}, #{ToolBladeFeatureXidao}, #{CompanyXidaoBlade}, 
+	    	#{QianjiaoBladeXidao}, #{HoujiaoBladeXidao}, #{HoujisojiaoBladeXidao}, #{NoseRadiusXidao}, #{BreakerBladeXidao}, 
+	    	#{MateriaBladeXidao}, #{isPMKNS}, #{ISOPBladeXidao}, #{ISOPTextBladeXidao}, #{ISOMBladeXidao}, 
+	    	#{ISOMTextBladeXidao}, #{ISOKBladeXidao}, #{ISOKTextBladeXidao}, #{ISONBladeXidao}, #{ISONTextBladeXidao}, 
+	    	#{ISOSBladeXidao}, #{ISOSTextBladeXidao},#{HolderInfo}, #{add_time}, #{user_id} 
+		)
+	</insert>
+	
+	<!-- 保存刀具图片  -->
+	<insert id="savePictureBladeXidao" parameterType="java.util.HashMap" >
+	    insert into PictureBladeXidao (
+	    	id_XidaoBlade, url_PictureBladeXidao
+        )
+		values (  
+			#{id_XidaoBlade}, #{url_PictureBladeXidao})
+	</insert>
+	
+	<!-- 清空刀具图片路径  -->
+	<delete id="clearPictureBladeXidaoByIdXidaoBlade"   parameterType="java.util.HashMap">
+    	delete from PictureBladeXidao
+        where id_XidaoBlade = #{id_XidaoBlade}
+    </delete>
+    
+    <!-- 保存详细图片  -->
+	<insert id="savePictureDetailBladeXidao" parameterType="java.util.HashMap" >
+	    insert into PictureDetailBladeXidao (
+	    	id_XidaoBlade, url_PictureDetailBladeXidao
+        )
+		values (  
+			#{id_XidaoBlade}, #{url_PictureDetailBladeXidao})
+	</insert>
+	
+	<!-- 清空详细图片路径  -->
+	<delete id="clearPictureDetailBladeXidaoByIdXidaoBlade"   parameterType="java.util.HashMap">
+    	delete from PictureDetailBladeXidao
+        where id_XidaoBlade = #{id_XidaoBlade}
+    </delete>
+    
+    <!-- 保存应用实例  -->
+	<insert id="saveApplicationBladeXidao" parameterType="java.util.HashMap" >
+	    insert into ApplicationBladeXidao (
+	    	id_XidaoBlade, url_ApplicationBladeXidao, name_ApplicationBladeXidao
+        )
+		values (  
+			#{id_XidaoBlade}, #{url_ApplicationBladeXidao}, #{name_ApplicationBladeXidao})
+	</insert>
+	
+	<!-- 清空应用实例路径  -->
+	<delete id="clearApplicationBladeXidaoByIdXidaoBlade"   parameterType="java.util.HashMap">
+    	delete from ApplicationBladeXidao
+        where id_XidaoBlade = #{id_XidaoBlade}
+    </delete>
+    
+    <!-- 保存详细信息  -->
+	<insert id="saveInformDetailBladeXidao" parameterType="java.util.HashMap" >
+	    insert into InformDetailBladeXidao (
+	    	id_XidaoBlade, url_InformDetailBladeXidao, name_InformDetailBladeXidao
+        )
+		values (  
+			#{id_XidaoBlade}, #{url_InformDetailBladeXidao}, #{name_InformDetailBladeXidao})
+	</insert>
+	
+	<!-- 清空详细信息路径  -->
+	<delete id="clearInformDetailBladeXidaoByIdXidaoBlade"   parameterType="java.util.HashMap">
+    	delete from InformDetailBladeXidao
+        where id_XidaoBlade = #{id_XidaoBlade}
+    </delete>
+    
+    <!--  删除刀片数据  -->
+	<delete id="deleteXidaoBlade"   parameterType="java.util.HashMap">
+    	delete from XidaoBlade
+        where id_XidaoBlade = #{id_XidaoBlade}
+    </delete>
+</mapper>

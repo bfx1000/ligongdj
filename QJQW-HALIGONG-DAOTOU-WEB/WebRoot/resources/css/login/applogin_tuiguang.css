@@ -1,0 +1,136 @@
+@charset "utf-8";
+body{
+    padding:0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+@media only screen and (min-width:1080px){
+    html{ font-size:150%}
+}
+@media only screen and (min-width:720px) and (max-width:1079px){
+    html{ font-size:100%}
+
+}
+@media only screen and (min-width:639px) and (max-width:719px){
+    html{ font-size:62.5%;}
+
+}
+@media only screen and (min-width:320px) and (max-width:639px){
+    html{ font-size:44%;}
+
+}
+@media only screen and (max-width:319px){
+    html{ font-size:37.5%}
+}
+
+/*  注册  */
+.zhu_ce{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+}
+.clear{
+    clear:both;
+}
+/*  导航栏  */
+.navbar{
+    width:100%;
+    height:6rem;
+    background-color:#5abbf4;
+    text-align:center;
+    font:bold 3rem "Microsoft Yahei", Arial;
+    line-height:6rem;
+    color:#fff;
+    display:block;
+    position:relative;
+    border-bottom: 1px solid #43acea;
+}
+.navbar span{
+    width:100%;
+    display:block;
+    text-align: center;
+}
+.zhu_ce_content{
+    margin: 3rem 0 0 0;
+    border-top: 1px solid #e1e1e1;
+}
+.zhu_ce_content input,.zhu_ce_content input:active,.zhu_ce_content input:link,.zhu_ce_content input:focus{
+    border:none;
+
+}
+/*  input 标签  */
+.zhu_ce_content input{
+    height: 5rem;
+    font:2.7rem "Microsoft Yahei", Arial;
+}
+
+
+.tel_num{
+    height: 6.3rem;
+    border-bottom: 1px solid #e1e1e1;
+}
+.tel_num div{
+    float: left;
+}
+.num_title{
+    width: 25%;
+    text-align: center;
+    font:2.7rem "Microsoft Yahei", Arial;
+    line-height:6.3rem;
+    color: #aaa;
+}
+/*  其他文本框  */
+.num_input{
+    width: 70%;
+    height: 5rem;
+    margin: 0.2rem 0 0 0;
+}
+.num_input input{
+    width: 100%;
+}
+/*  输入手机验证码文本框  */
+.yzm_input{
+    width:40% ;
+    height: 5.5rem;
+    font:2.7rem "Microsoft Yahei", Arial;
+}
+
+/*  获取验证码按钮  */
+.num_ipt_btn{
+    width: 30%;
+    height: 4rem;
+    background-color: #4bacf1;
+    color: #fff;
+    text-align: center;
+    font:2.7rem "Microsoft Yahei", Arial;
+    line-height: 4rem;
+    border-radius: 0.5rem;
+    margin: 0.7rem 0 0 2%;
+}
+
+/*  确定、取消 按钮  */
+.num_btn{
+    clear: both;
+    width: 41%;
+    margin: 3.33rem auto 0;
+}
+.num_btn div{
+    float: left;
+    width: 41%;
+    height:5.5rem;
+    background-color: #4bacf1;
+    color: #fff;
+    font:2.7rem "Microsoft Yahei", Arial;
+    line-height: 5.5rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+.zc_cancel{
+    margin: 0 6%;
+}

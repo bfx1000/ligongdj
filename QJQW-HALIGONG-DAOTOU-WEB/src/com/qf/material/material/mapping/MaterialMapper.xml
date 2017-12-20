@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.material.material.dao.MaterialMapper">
+	
+	<!-- 查询刀片列表   -->
+	<select id="queryMaterialList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_Material, NameMaterial, NumberMaterial, id_CategoryMaterial, ISOCuttingMaterial, 
+		   	   CategoryMaterial, CompanyMaterial, ConstituentsMaterial, MachineableMaterial, DensityMaterial, 
+	     	   ModulusMaterial, HardnessMaterial, ConductivityMaterial, SpecificheatMaterial, StrengthMaterial, 
+		   	   ThermalExpansionMaterial, JCMaterial, StrainRate, add_time, user_id
+		from WorkpieceMaterial
+		where 1 = 1
+		<if test="NameMaterial !=null  and NameMaterial !='' "> and NameMaterial like '%${NameMaterial}%'</if>
+		<if test="NumberMaterial !=null  and NumberMaterial !='' "> and NumberMaterial like '%${NumberMaterial}%'</if>
+		<if test="id_CategoryMaterial !=null  and id_CategoryMaterial !='' "> and id_CategoryMaterial like '%${id_CategoryMaterial}%'</if>
+		<if test="ISOCuttingMaterial !=null  and ISOCuttingMaterial !='' "> and ISOCuttingMaterial like '%${ISOCuttingMaterial}%'</if>
+		<if test="CategoryMaterial !=null  and CategoryMaterial !='' "> and CategoryMaterial like '%${CategoryMaterial}%'</if>
+		<if test="CompanyMaterial !=null  and CompanyMaterial !='' "> and CompanyMaterial like '%${CompanyMaterial}%'</if>
+		
+		order by id_Material desc
+	</select>
+	
+	<!--  查询材料图片列表 PictureMaterial  -->
+	<select id="queryPictureMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureMaterial, id_Material, url_PictureMaterial
+		from PictureMaterial
+		where id_Material = #{id_Material}
+	</select>
+	
+	<!--  查询详细信息列表 InformDetailMaterial  -->
+	<select id="queryInformDetailMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailMaterial, id_Material, url_InformDetailMaterial, name_InformDetailMaterial
+		from InformDetailMaterial
+		where id_Material = #{id_Material}
+	</select>
+	
+	<!--  查询应用实例列表 ApplicationMaterial  -->
+	<select id="queryApplicationMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ApplicationMaterial, id_Material, url_ApplicationMaterial, name_ApplicationMaterial
+		from ApplicationMaterial
+		where id_Material = #{id_Material}
+	</select>
+	
+	<!--  查询仿真参数列表 SimulationMaterial  -->
+	<select id="querySimulationMaterialList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_SimulationMaterial, id_Material, url_SimulationMaterial, name_SimulationMaterial
+		from SimulationMaterial
+		where id_Material = #{id_Material}
+	</select>
+	
+	<!-- 查询工件材料数据   -->
+	<select id="queryMaterialById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_Material, NameMaterial, NumberMaterial, id_CategoryMaterial, ISOCuttingMaterial, 
+		   	   CategoryMaterial, CompanyMaterial, ConstituentsMaterial, MachineableMaterial, DensityMaterial, 
+	     	   ModulusMaterial, HardnessMaterial, ConductivityMaterial, SpecificheatMaterial, StrengthMaterial, 
+		   	   ThermalExpansionMaterial, JCMaterial, StrainRate, add_time, user_id
+		from WorkpieceMaterial
+		where id_Material = #{id_Material}
+	</select>
+	
+	
+	<!-- 修改  -->
+	<update id="updateMaterial" parameterType="java.util.HashMap">
+		update WorkpieceMaterial set
+	    		NameMaterial = #{NameMaterial},
+	    		NumberMaterial = #{NumberMaterial},
+	    		id_CategoryMaterial = #{id_CategoryMaterial},
+	    		ISOCuttingMaterial = #{ISOCuttingMaterial},
+	    		CategoryMaterial = #{CategoryMaterial},
+	    		CompanyMaterial = #{CompanyMaterial},
+	    		ConstituentsMaterial = #{ConstituentsMaterial},
+	    		MachineableMaterial = #{MachineableMaterial},
+	    		DensityMaterial = #{DensityMaterial},
+	    		ModulusMaterial = #{ModulusMaterial},
+	    		HardnessMaterial = #{HardnessMaterial},
+	    		ConductivityMaterial = #{ConductivityMaterial},
+	    		SpecificheatMaterial = #{SpecificheatMaterial},
+	    		StrengthMaterial = #{StrengthMaterial},
+	    		ThermalExpansionMaterial = #{ThermalExpansionMaterial},
+	    		JCMaterial = #{JCMaterial},
+	    		StrainRate = #{StrainRate}
+		where id_Material = #{id_Material}
+	</update>
+	
+	<!-- 新增 -->
+	<insert id="saveMaterial" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_Material"  resultType="int">
+    		select ifnull((select (id_Material+1) id_Material from WorkpieceMaterial order by id_Material desc limit 1) ,1) id_Material from dual
+    	</selectKey>
+	    insert into WorkpieceMaterial (
+	    	id_Material, NameMaterial, NumberMaterial, id_CategoryMaterial, ISOCuttingMaterial, 
+		   	CategoryMaterial, CompanyMaterial, ConstituentsMaterial, MachineableMaterial, DensityMaterial, 
+	     	ModulusMaterial, HardnessMaterial, ConductivityMaterial, SpecificheatMaterial, StrengthMaterial, 
+		   	ThermalExpansionMaterial, JCMaterial, StrainRate, add_time, user_id
+        )
+		values (  
+			#{id_Material}, #{NameMaterial}, #{NumberMaterial}, #{id_CategoryMaterial}, #{ISOCuttingMaterial}, 
+		   	#{CategoryMaterial}, #{CompanyMaterial}, #{ConstituentsMaterial}, #{MachineableMaterial}, #{DensityMaterial}, 
+	     	#{ModulusMaterial}, #{HardnessMaterial}, #{ConductivityMaterial}, #{SpecificheatMaterial}, #{StrengthMaterial}, 
+		   	#{ThermalExpansionMaterial}, #{JCMaterial}, #{StrainRate}, #{add_time}, #{user_id}
+	    )
+	</insert>
+	
+	<!-- 清空材料图片路径 PictureMaterial -->
+	<delete id="clearPictureMaterialByIdMaterial"   parameterType="java.util.HashMap">
+    	delete from PictureMaterial
+        where id_Material = #{id_Material}
+    </delete>
+	
+	<!-- 保存刀柄图片 -->
+	<insert id="savePictureMaterial" parameterType="java.util.HashMap" >
+	    insert into PictureMaterial (
+			id_Material, url_PictureMaterial
+        )
+		values (  
+			#{id_Material}, #{url_PictureMaterial}
+		)
+	</insert>
+	
+	<!-- 清空详细信息路径 -->
+	<delete id="clearInformDetailMaterialByIdMaterial"   parameterType="java.util.HashMap">
+    	delete from InformDetailMaterial
+        where id_Material = #{id_Material}
+    </delete>
+    
+	<!-- 保存刀柄图片 -->
+	<insert id="saveInformDetailMaterial" parameterType="java.util.HashMap" >
+	    insert into InformDetailMaterial (
+			id_Material, url_InformDetailMaterial, name_InformDetailMaterial
+        )
+		values (  
+			#{id_Material}, #{url_InformDetailMaterial}, #{name_InformDetailMaterial}
+		)
+	</insert>
+	
+	<!-- 清空应用实例路径 -->
+	<delete id="clearApplicationMaterialByIdMaterial"   parameterType="java.util.HashMap">
+    	delete from ApplicationMaterial
+        where id_Material = #{id_Material}
+    </delete>
+	
+	<!-- 保存刀柄图片 -->
+	<insert id="saveApplicationMaterial" parameterType="java.util.HashMap" >
+	    insert into ApplicationMaterial (
+			id_Material, url_ApplicationMaterial, name_ApplicationMaterial
+        )
+		values (  
+			#{id_Material}, #{url_ApplicationMaterial}, #{name_ApplicationMaterial}
+		)
+	</insert>
+	
+	<!-- 清空仿真参数路径 -->
+	<delete id="clearSimulationMaterialByIdMaterial"   parameterType="java.util.HashMap">
+    	delete from SimulationMaterial
+        where id_SimulationMaterial = #{id_SimulationMaterial}
+    </delete>
+	
+	<!-- 保存刀柄图片 -->
+	<insert id="saveSimulationMaterial" parameterType="java.util.HashMap" >
+	    insert into SimulationMaterial (
+			id_Material, url_SimulationMaterial, name_SimulationMaterial
+        )
+		values (  
+			#{id_Material}, #{url_SimulationMaterial}, #{name_SimulationMaterial}
+		)
+	</insert>
+	
+	<!--  删除工件材料  -->
+	<delete id="deleteMaterial"   parameterType="java.util.HashMap">
+    	delete from WorkpieceMaterial
+        where id_Material = #{id_Material}
+    </delete>
+    
+    
+    <!-- 查询材料类别列表   -->
+    <select id="queryCategoryMaterialList" resultType="java.util.HashMap">
+		select id_CategoryMaterial, name_CategoryMaterial 
+		from CategoryMaterial
+		order by id_CategoryMaterial
+	</select>
+	
+	<!-- 根据名称查询材料类别 -->
+	<select id="queryCategoryMaterialById" resultType="java.util.HashMap">
+		select id_CategoryMaterial, name_CategoryMaterial 
+		from CategoryMaterial
+		where name_CategoryMaterial = #{name_CategoryMaterial}
+	</select>
+	
+	<!-- 保存新的材料类别 -->
+	<insert id="saveCategoryMaterial" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryMaterial"  resultType="int">
+    		select ifnull((select (id_CategoryMaterial+1) id_CategoryMaterial from CategoryMaterial order by id_CategoryMaterial desc limit 1) ,1) id_CategoryMaterial from dual
+    	</selectKey>
+	    insert into CategoryMaterial (
+	    	id_CategoryMaterial, name_CategoryMaterial
+        )
+		values (  
+			#{id_CategoryMaterial}, #{name_CategoryMaterial}
+	    )
+	</insert>
+	
+</mapper>

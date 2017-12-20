@@ -1,0 +1,51 @@
+@charset "utf-8";
+#shou_ye,#sec_srmy,#sec_gjpt,#sec_zcyq,#sec_lfyq,#sec_wish_tree,#sec_wzxx{
+	border-bottom: 0px solid #069dd5;
+}
+#sec_use_help{
+	border-bottom: 2px solid #069dd5;
+}
+#shou_ye {
+  border-bottom: none;
+}
+.user_choose  .user_choose_line{
+	margin: 5px auto 0;
+}
+.content_list_text {
+    width: 651px;
+    padding-left:20px;
+}
+.content_list_text .box_text {
+    width: 630px; 
+    height: 16px;
+    display:inline-block;
+}
+.content_list_text .box_text .title{
+	display:block;
+	float:left;
+ 	width:450px;
+	padding-right:0px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.box_text p{
+	display:none;
+}
+.content_list_text .box_text .time {
+	float:right;
+    text-align: left;
+    color: #777;
+    padding:0 20px;
+}
+.content_list_text>ul>li {
+	height:30px;
+    list-style: disc;
+    margin-top: 0px;
+    border-bottom: 0px solid #d8e0e4;
+    padding: 0px;
+    color:#069dd5;
+    overflow: visible;
+    clear:both;
+    *height:14px;
+}

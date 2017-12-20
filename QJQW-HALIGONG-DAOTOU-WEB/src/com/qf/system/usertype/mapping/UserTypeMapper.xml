@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.system.usertype.dao.UserTypeMapper">
+  	
+  	<!-- 用户角色列表   -->
+	<select id="queryUserTypeList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id, name from user_type
+		order by id desc
+	</select>
+	
+	
+	<!-- 新增角色   -->
+	<insert id="saveUserType" parameterType="java.util.HashMap">
+		insert into user_type (
+			name
+		) values (
+			#{name}
+		)
+	</insert>
+	
+	<!-- 修改角色   -->
+	<update id="updateUserType" parameterType="java.util.HashMap">
+		update  user_type
+			set name = #{name}				
+			where 
+				id = #{id}
+	</update>
+	
+	
+	<!-- 删除角色   -->
+	<delete id="deleteUserType"   parameterType="java.util.HashMap">
+    	delete from user_type
+        where id in (${id}) 
+    </delete>
+    
+    <!-- 角色菜单授权列表  -->
+    <select id="queryMenuListForUserType"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select menu.menu_id, menu_name, menu_url, parent_id, menu_order, menu_type, user_type, menu.level
+			 , (case when user_type_menu.type_menu_id is null then 0 else 1 end ) ismenu
+		from menu
+		left join user_type_menu on menu.menu_id = user_type_menu.menu_id and user_type_menu.user_type_id=#{user_type_id}
+		order by menu_order
+	</select>
+	
+	<!-- 将此用户所有可下载文件清空 -->
+	<insert id="saveMenuListForUserType" parameterType="java.util.HashMap">
+		insert into user_type_menu (
+			user_type_id, menu_id
+		) values (
+			#{user_type_id}, #{menu_id}
+		)
+	</insert>
+	
+	<!-- 清空此角色的授权信息  -->
+	<delete id="clearMenuListForUserType"   parameterType="java.util.HashMap">
+    	delete from user_type_menu
+        where user_type_id = #{user_type_id}
+    </delete>
+    
+    
+    
+    <!-- 查询用户角色   -->
+	<select id="queryUserTypeById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id, name 
+		from user_type
+		where id = #{id}
+	</select>
+    
+</mapper>

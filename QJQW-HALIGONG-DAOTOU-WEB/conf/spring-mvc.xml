@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd 
+
+		http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+             http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.1.xsd
+         http://www.springframework.org/schema/websocket
+        http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+
+	<context:component-scan base-package="com.qf.*.*.controller" />
+	<mvc:annotation-driven />
+	<aop:aspectj-autoproxy />
+
+
+
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" /><!-- json转换器 -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/" p:suffix=".jsp" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>524288000</value><!-- 上传文件大小限制为500M，31*1024*1024 -->
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+	<!-- 拦截器模块, 未添加 -->
+	<mvc:interceptors>
+
+		<!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
+		<!-- <bean class="com.qf.util.interceptor.LoginHandlerInterceptor"/> -->
+		<!-- <bean class="com.qf.util.interceptor.RightsHandlerInterceptor"/> -->
+
+		<!-- <mvc:interceptor> -->
+		<!-- <mvc:mapping path=""/> -->
+		<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
+		<!-- <bean class=""/> -->
+		<!-- </mvc:interceptor> -->
+		<!-- 配置Token拦截器，防止用户重复提交数据 -->
+		<!-- <mvc:interceptor> -->
+		<!-- <mvc:mapping path="/qjqwmain/**"/> -->
+		<!-- <bean class="com.qf.util.interceptor.LoginHandlerInterceptor"/> -->
+		<!-- </mvc:interceptor> -->
+		<bean class="com.qf.util.interceptor.UserSessionInterceptor" />
+		<bean class="com.qf.util.interceptor.TokenInterceptor" />
+	</mvc:interceptors>
+	<!-- 启用注解方式配置缓存 -->
+	<!-- 国际化的消息资源文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找 -->
+				<value>classpath:messages</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="60" />
+	</bean>
+
+
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/ueditor/**" location="/ueditor/" />
+	<mvc:resources mapping="/goods/**" location="/goods/" />
+	<mvc:resources mapping="/upload/**" location="/upload/" />
+	<mvc:resources mapping="/html/**" location="/html/" />
+
+	<!-- 会自动注册了validator ConversionService -->
+	<mvc:annotation-driven validator="validator"
+		conversion-service="conversion-service" />
+
+	<!-- 以下 validator ConversionService 在使用 mvc:annotation-driven 会 自动注册 -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	<bean id="conversion-service"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
+	<!-- 加载bean帮助 -->
+	<bean id="SpringContextUtil" class="com.qf.util.SpringContextUtil"
+		scope="singleton"></bean>
+	<!-- 控制器异常处理 -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">
+					/WEB-INF/system/error_all
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- <websocket:message-broker application-destination-prefix="/util"> -->
+	<!-- <websocket:stomp-endpoint path="/ws"> -->
+	<!-- <websocket:sockjs/> -->
+
+	<!-- </websocket:stomp-endpoint> -->
+	<!-- <websocket:simple-broker prefix="/topic,/queue"/> -->
+	<!-- </websocket:message-broker> -->
+
+	<!-- <bean id="websocket" class="com.qf.util.websocket.SystemWebSocketHandler"/> -->
+	<!-- <websocket:handlers> -->
+	<!-- <websocket:mapping path="/webSocketServer" handler="websocket"/> -->
+
+	<!-- <websocket:sockjs/> -->
+	<!-- </websocket:handlers> -->
+
+
+
+</beans>

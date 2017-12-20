@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.FixturePart.dao.FixturePartMapper">
+
+
+	<!-- 查询机床列表   -->
+	<select id="queryFixturePartList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_FixturePart, NameFixturePart, NumberFixturePart, TypeFixturePart, MachineFixturePart, ProcessPartFixturePart,
+			   AppCo, LocationFixturePart, RemarkFixturePart
+		from FixturePart
+		where 1 = 1
+		<if test="NumberFixturePart !=null  and NumberFixturePart !='' "> and NumberFixturePart like '%${NumberFixturePart}%'</if>
+		<if test="TypeFixturePart !=null and TypeFixturePart !='' "> and TypeFixturePart like '%${TypeFixturePart}%'</if>
+		<if test="MachineFixturePart !=null  and MachineFixturePart !='' "> and MachineFixturePart like '%${MachineFixturePart}%'</if>
+		<if test="ProcessPartFixturePart !=null  and ProcessPartFixturePart !='' "> and ProcessPartFixturePart like '%${ProcessPartFixturePart}%'</if>
+		<if test="NameFixturePart !=null  and NameFixturePart !='' "> and NameFixturePart like '%${NameFixturePart}%'</if>
+		order by id_FixturePart desc
+	</select>
+	
+	<select id="queryPictureFixturePartList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_FixturePartFile, id_FixturePart, url_FixturePartFile,name_FixturePartFile,ascription
+		from FixturePartFile
+		where id_FixturePart = #{id_FixturePart} and ascription = #{ascription}
+	</select>
+	
+	<select id="queryInformFixturePartList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_FixturePartFile, id_FixturePart, url_FixturePartFile,name_FixturePartFile,ascription
+		from FixturePartFile
+		where id_FixturePart = #{id_FixturePart} and ascription = #{ascription}
+	</select>
+
+	<select id="queryPartFixturePartList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_FixturePartFile, id_FixturePart, url_FixturePartFile,name_FixturePartFile,ascription
+		from FixturePartFile
+		where id_FixturePart = #{id_FixturePart} and ascription = #{ascription}
+	</select>
+
+    <select id="queryCategoryTypeFixturePartList" resultType="java.util.HashMap">
+		select id_CategoryTypeFixturePart, name_CategoryTypeFixturePart 
+		from CategoryTypeFixturePart
+		order by id_CategoryTypeFixturePart
+	</select>
+	
+	<!-- 删除  -->
+	<delete id="deleteFixturePartList"   parameterType="java.util.HashMap">
+    	delete from FixturePart
+        where id_FixturePart = #{id_FixturePart}
+    </delete>
+    
+    <!-- 删除  -->
+	<delete id="clearFixturePartFileById"   parameterType="java.util.HashMap">
+    	delete from FixturePartFile
+        where id_FixturePart = #{id_FixturePart}
+    </delete>
+
+	 
+	<!-- 查询机床列表   -->
+	<select id="queryFixturePartListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from FixturePart where id_FixturePart = #{id_FixturePart}
+	</select>
+	
+
+	<!--  修改   -->
+	<update id="updateFixturePart" parameterType="java.util.HashMap">
+		update FixturePart
+	    	<set> 
+	    		NameFixturePart = #{NameFixturePart},
+	    		NumberFixturePart = #{NumberFixturePart},
+	    		TypeFixturePart = #{TypeFixturePart},
+	    		MachineFixturePart = #{MachineFixturePart},
+	    		ProcessPartFixturePart = #{ProcessPartFixturePart},
+	    		AppCo = #{AppCo},
+	    		LocationFixturePart = #{LocationFixturePart},
+	    		RemarkFixturePart = #{RemarkFixturePart},
+			</set>
+		where id_FixturePart = #{id_FixturePart}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveFixturePart" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_FixturePart"  resultType="int">
+    		select ifnull((select (id_FixturePart+1) id_FixturePart from FixturePart order by id_FixturePart desc limit 1) ,1) id_FixturePart from dual
+    	</selectKey>
+	    insert into FixturePart (
+	    	id_FixturePart, NameFixturePart, NumberFixturePart, TypeFixturePart, MachineFixturePart, ProcessPartFixturePart,
+	    	AppCo, LocationFixturePart, RemarkFixturePart
+        )
+		values (  
+			#{id_FixturePart}, #{NameFixturePart}, #{NumberFixturePart}, #{TypeFixturePart}, #{MachineFixturePart},#{ProcessPartFixturePart}, 
+			#{AppCo}, #{LocationFixturePart}, #{RemarkFixturePart}
+	    )
+	</insert>
+	
+	<!-- 保存图  -->
+	<insert id="savePictureFixturePart" parameterType="java.util.HashMap" >
+	    insert into FixturePartFile (
+			id_FixturePart, url_FixturePartFile , ascription
+        )
+		values (  
+			#{id_FixturePart}, #{url_FixturePartFile} ,#{ascription}
+		)
+	</insert>
+	
+	<!-- 保存详细信息  -->
+	<insert id="saveInformFixturePart" parameterType="java.util.HashMap" >
+	    insert into FixturePartFile (
+			id_FixturePart, url_FixturePartFile, name_FixturePartFile, ascription
+        )
+		values (  
+			#{id_FixturePart}, #{url_FixturePartFile}, #{name_FixturePartFile},#{ascription}
+		)
+	</insert>
+	
+	<!-- 保存part  -->
+	<insert id="savePartFixturePart" parameterType="java.util.HashMap" >
+	    insert into FixturePartFile (
+			id_FixturePart, url_FixturePartFile, name_FixturePartFile, ascription
+        )
+		values (  
+			#{id_FixturePart}, #{url_FixturePartFile}, #{name_FixturePartFile},#{ascription}
+		)
+	</insert>
+
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryTypeFixturePartByName" resultType="java.util.HashMap">
+		select id_CategoryTypeFixturePart, name_CategoryTypeFixturePart 
+		from CategoryTypeFixturePart
+		where name_CategoryTypeFixturePart = #{name_CategoryTypeFixturePart}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryTypeFixturePart" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryTypeFixturePart"  resultType="int">
+    		select ifnull((select (id_CategoryTypeFixturePart+1) id_CategoryTypeFixturePart from CategoryTypeFixturePart order by id_CategoryTypeFixturePart desc limit 1) ,1) id_CategoryTypeFixturePart from dual
+    	</selectKey>
+	    insert into CategoryTypeFixturePart (
+	    	id_CategoryTypeFixturePart, name_CategoryTypeFixturePart
+        )
+		values (  
+			#{id_CategoryTypeFixturePart}, #{name_CategoryTypeFixturePart}
+	    )
+	</insert>
+
+
+
+</mapper>

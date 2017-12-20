@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.tool.toolBTAdrill.dao.ToolBTAdrillMapper">
+  	
+	<!-- 查询深孔钻列表   -->
+	<select id="queryToolBTAdrillList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_BTADrill, NumberBTADrill, TypeBTADrill, NameBTADrill, DiameterBTADrill
+			 , MateriaBTAlDrill, ToolMaterialBTADrill, ToolCoatBTADrill, BreakerBTADrill, CompanyBTADrill, isPMKNS
+			 , ISOPBTADrill, ISOPTextBTADrill, ISOMBTADrill, ISOMTextBTADrill, ISOKBTADrill
+			 , ISOKTextBTADrill, ISONBTADrill, ISONTextBTADrill, ISOSBTADrill, ISOSTextBTADrill
+		from ToolBTAdrill
+		where 1 = 1
+		<!-- mybatis动态sql语句，将不为空的属性作为where条件 -->
+		<if test="NumberBTADrill !=null  and NumberBTADrill !='' "> and NumberBTADrill like '%${NumberBTADrill}%'</if>
+		<if test="TypeBTADrill !=null  and TypeBTADrill !='' "> and TypeBTADrill like '%${TypeBTADrill}%'</if>
+		<if test="NameBTADrill !=null  and NameBTADrill !='' "> and NameBTADrill like '%${NameBTADrill}%'</if>
+		<if test="DiameterBTADrill !=null  and DiameterBTADrill !='' "> and DiameterBTADrill like '%${DiameterBTADrill}%'</if>
+		<if test="MateriaBTAlDrill !=null  and MateriaBTAlDrill !='' "> and MateriaBTAlDrill like '%${MateriaBTAlDrill}%'</if>
+		<if test="ToolMaterialBTADrill !=null  and ToolMaterialBTADrill !='' "> and ToolMaterialBTADrill like '%${ToolMaterialBTADrill}%'</if>
+		<if test="ToolCoatBTADrill !=null  and ToolCoatBTADrill !='' "> and ToolCoatBTADrill like '%${ToolCoatBTADrill}%'</if>
+		<if test="BreakerBTADrill !=null  and BreakerBTADrill !='' "> and BreakerBTADrill like '%${BreakerBTADrill}%'</if>
+		<if test="CompanyBTADrill !=null  and CompanyBTADrill !='' "> and CompanyBTADrill like '%${CompanyBTADrill}%'</if>
+		order by 
+		<choose>
+           <when test="order != null and order != '' ">
+                  ${order}
+           </when>
+           <otherwise>
+                  id_BTADrill
+            </otherwise>
+         </choose>
+		<choose>
+           <when test="asc != null and asc != '' ">
+                  
+           </when>
+           <otherwise>
+           		desc
+            </otherwise>
+         </choose>
+	</select>
+	
+	
+	<!-- choose when otherwise相当于java中的
+	if（）{
+		
+		else if（）{
+		}
+		
+		else{
+		}
+	} -->
+			
+	<!--  查询刀具图片列表 PictureBTADrill  -->
+	<select id="queryPictureBTADrillList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureBTADrill, id_BTADrill, url_PictureBTADrill 
+		from PictureBTADrill
+		where id_BTADrill = #{id_BTADrill}
+	</select>
+	
+	<!--  查询详细图片列表 PictureDetailBTADrill  -->
+	<select id="queryPictureDetailBTADrillList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureDetailBTADrill, id_BTADrill, url_PictureDetailBTADrill 
+		from PictureDetailBTADrill
+		where id_BTADrill = #{id_BTADrill}
+	</select>
+	
+	<!--  查询详细信息列表 InformDetailBTADrill  -->
+	<select id="queryInformDetailBTADrillList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailBTADrill, id_BTADrill, url_InformDetailBTADrill, name_InformDetailBTADrill
+		from InformDetailBTADrill
+		where id_BTADrill = #{id_BTADrill}
+	</select>
+	
+	<!--  查询应用实例列表 ApplicationBTADrill  -->
+	<select id="queryApplicationBTADrillList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ApplicationBTADrill, id_BTADrill, url_ApplicationBTADrill, name_ApplicationBTADrill
+		from ApplicationBTADrill
+		where id_BTADrill = #{id_BTADrill}
+	</select>
+	
+	
+	<!--   查询深孔钻   -->
+	<select id="queryToolBTAdrillById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_BTADrill, NumberBTADrill, TypeBTADrill, NameBTADrill, DiameterBTADrill
+			 , MateriaBTAlDrill, ToolMaterialBTADrill, ToolCoatBTADrill, BreakerBTADrill, CompanyBTADrill, isPMKNS
+			 , ISOPBTADrill, ISOPTextBTADrill, ISOMBTADrill, ISOMTextBTADrill, ISOKBTADrill
+			 , ISOKTextBTADrill, ISONBTADrill, ISONTextBTADrill, ISOSBTADrill, ISOSTextBTADrill
+		from ToolBTAdrill
+		where id_BTADrill = #{id_BTADrill}
+	</select>
+
+	<!--  修改   -->
+	<update id="updateToolBTAdrill" parameterType="java.util.HashMap">
+		update ToolBTAdrill
+	    	<set> 
+				NumberBTADrill = #{NumberBTADrill},
+				TypeBTADrill = #{TypeBTADrill},
+				NameBTADrill = #{NameBTADrill},
+				DiameterBTADrill = #{DiameterBTADrill},
+				MateriaBTAlDrill = #{MateriaBTAlDrill},
+				ToolMaterialBTADrill = #{ToolMaterialBTADrill},
+				ToolCoatBTADrill = #{ToolCoatBTADrill},
+				BreakerBTADrill = #{BreakerBTADrill},
+				CompanyBTADrill = #{CompanyBTADrill},
+				isPMKNS = #{isPMKNS},
+				ISOPBTADrill = #{ISOPBTADrill},
+				ISOPTextBTADrill = #{ISOPTextBTADrill},
+				ISOMBTADrill = #{ISOMBTADrill},
+				ISOMTextBTADrill = #{ISOMTextBTADrill},
+				ISOKBTADrill = #{ISOKBTADrill},
+				ISOKTextBTADrill = #{ISOKTextBTADrill},
+				ISONBTADrill = #{ISONBTADrill},
+				ISONTextBTADrill = #{ISONTextBTADrill},
+				ISOSBTADrill = #{ISOSBTADrill},
+				ISOSTextBTADrill = #{ISOSTextBTADrill},
+			</set>
+		where id_BTADrill = #{id_BTADrill}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveToolBTAdrill" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_BTADrill"  resultType="int">
+    		select ifnull((select (id_BTADrill+1) id_BTADrill from ToolBTAdrill order by id_BTADrill desc limit 1) ,1) id_BTADrill from dual
+    	</selectKey>
+	    insert into ToolBTAdrill (
+	    	id_BTADrill, NumberBTADrill, TypeBTADrill, NameBTADrill, DiameterBTADrill
+	      , MateriaBTAlDrill, ToolMaterialBTADrill, ToolCoatBTADrill, BreakerBTADrill, CompanyBTADrill, isPMKNS
+	      , ISOPBTADrill, ISOPTextBTADrill, ISOMBTADrill, ISOMTextBTADrill, ISOKBTADrill
+	      , ISOKTextBTADrill, ISONBTADrill, ISONTextBTADrill, ISOSBTADrill, ISOSTextBTADrill
+	      , add_time, user_id
+        )
+		values (  
+			#{id_BTADrill}, #{NumberBTADrill}, #{TypeBTADrill}, #{NameBTADrill}, #{DiameterBTADrill}
+	      , #{MateriaBTAlDrill}, #{ToolMaterialBTADrill}, #{ToolCoatBTADrill}, #{BreakerBTADrill}, #{CompanyBTADrill}, #{isPMKNS}
+	      , #{ISOPBTADrill}, #{ISOPTextBTADrill}, #{ISOMBTADrill}, #{ISOMTextBTADrill}, #{ISOKBTADrill}
+	      , #{ISOKTextBTADrill}, #{ISONBTADrill}, #{ISONTextBTADrill}, #{ISOSBTADrill}, #{ISOSTextBTADrill}
+	      , #{add_time}, #{user_id})
+	</insert>
+	
+	<!-- 保存刀具图片  -->
+	<insert id="savePictureBTADrill" parameterType="java.util.HashMap" >
+	    insert into PictureBTADrill (
+	    	id_BTADrill, url_PictureBTADrill
+        )
+		values (  
+			#{id_BTADrill}, #{url_PictureBTADrill})
+	</insert>
+	
+	
+	<!-- 清空刀具图片路径  -->
+	<delete id="clearPictureBTADrillByIdBTADrill"   parameterType="java.util.HashMap">
+    	delete from PictureBTADrill
+        where id_BTADrill = #{id_BTADrill}
+    </delete>
+    
+    
+    
+    
+    <!-- 保存详细图片  -->
+	<insert id="savePictureDetailBTADrill" parameterType="java.util.HashMap" >
+	    insert into PictureDetailBTADrill (
+	    	id_BTADrill, url_PictureDetailBTADrill
+        )
+		values (  
+			#{id_BTADrill}, #{url_PictureDetailBTADrill})
+	</insert>
+	
+	
+	<!-- 清空详细图片路径  -->
+	<delete id="clearPictureDetailBTADrillByIdBTADrill"   parameterType="java.util.HashMap">
+    	delete from PictureDetailBTADrill
+        where id_BTADrill = #{id_BTADrill}
+    </delete>
+    
+    
+    
+    
+    
+    <!-- 保存应用实例  -->
+	<insert id="saveApplicationBTADrill" parameterType="java.util.HashMap" >
+	    insert into ApplicationBTADrill (
+	    	id_BTADrill, url_ApplicationBTADrill, name_ApplicationBTADrill
+        )
+		values (  
+			#{id_BTADrill}, #{url_ApplicationBTADrill}, #{name_ApplicationBTADrill})
+	</insert>
+	
+	
+	<!-- 清空应用实例路径  -->
+	<delete id="clearApplicationBTADrillByIdBTADrill"   parameterType="java.util.HashMap">
+    	delete from ApplicationBTADrill
+        where id_BTADrill = #{id_BTADrill}
+    </delete>
+    
+    
+    
+    
+    
+    <!-- 保存详细信息  -->
+	<insert id="saveInformDetailBTADrill" parameterType="java.util.HashMap" >
+	    insert into InformDetailBTADrill (
+	    	id_BTADrill, url_InformDetailBTADrill, name_InformDetailBTADrill
+        )
+		values (  
+			#{id_BTADrill}, #{url_InformDetailBTADrill}, #{name_InformDetailBTADrill})
+	</insert>
+	
+	
+	<!-- 清空详细信息路径  -->
+	<delete id="clearInformDetailBTADrillByIdBTADrill"   parameterType="java.util.HashMap">
+    	delete from InformDetailBTADrill
+        where id_BTADrill = #{id_BTADrill}
+    </delete>
+    
+    <!-- 删除深孔钻数据  -->
+	<delete id="deleteToolBTAdrill"   parameterType="java.util.HashMap">
+    	delete from ToolBTAdrill
+        where id_BTADrill = #{id_BTADrill}
+    </delete>
+	
+	
+	<!-- 查询深孔钻列表   -->
+	<select id="queryToolBTAdrillListOfExport"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_BTADrill, NumberBTADrill, TypeBTADrill, NameBTADrill, DiameterBTADrill
+			 , MateriaBTAlDrill, ToolMaterialBTADrill, ToolCoatBTADrill, BreakerBTADrill, CompanyBTADrill, isPMKNS
+			 , ISOPBTADrill, ISOPTextBTADrill, ISOMBTADrill, ISOMTextBTADrill, ISOKBTADrill
+			 , ISOKTextBTADrill, ISONBTADrill, ISONTextBTADrill, ISOSBTADrill, ISOSTextBTADrill
+			  from ToolBTAdrill
+	</select>
+	
+	
+</mapper>

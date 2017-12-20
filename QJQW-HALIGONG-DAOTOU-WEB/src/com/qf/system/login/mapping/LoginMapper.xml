@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.system.login.dao.LoginMapper">
+     
+     <!-- 根据user_id查询一级菜单  -->
+     <select id="queryTopMenuListByUserId" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select menu.menu_id,
+		 		menu_name,
+		 		menu_url,
+		 		parent_id,
+		 		menu_order,
+		 		menu_type 
+		from menu 
+		left join user_menu on menu.menu_id = user_menu.menu_id 
+		where parent_id = '1' and user_id = #{user_id}
+		order by menu_order 
+	</select>
+	
+	<!-- 根据用户角色id查询一级菜单  -->
+	<select id="queryTopMenuListByUserTypeId" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select menu.menu_id,
+			 		menu_name,
+			 		menu_url,
+			 		parent_id,
+			 		menu_order,
+			 		menu_type 
+		from menu 
+		left join user_type_menu on menu.menu_id = user_type_menu.menu_id 
+		where parent_id = '1' and user_type_id = #{user_type_id}
+		order by menu_order 
+	</select>
+	
+	<select id="getUserInfo" parameterType="hashmap" resultType="java.util.HashMap">
+		select * from user 
+		where user_activation = 1
+		<if test="user_name != null and password != null">
+		  	and	(
+		  			(user_account = #{user_name} and user_pwd = #{password})
+		  		)
+		</if>
+		<if test="user_id != null and user_id != ''">
+			and user_id = #{user_id}
+		</if>
+	</select>
+	
+	
+	<!-- 修改用户密码   -->
+	<update id="updatePwdByUserId"  parameterType="java.util.HashMap">
+	 	update user
+		set user_pwd = #{pwd}
+		where user_id = #{user_id}
+	</update>
+	
+	<!-- 审核   -->
+	<update id="updateUserForUserPartnerStatus"  parameterType="java.util.HashMap">
+	 	update user_info
+		set user_partner_status = #{user_partner_status}
+		where user_id = #{user_id}
+	</update>
+	
+	
+
+	
+	<delete id="deleteAdviceByUserId"   parameterType="java.util.HashMap">
+    	delete from advice
+        where user_id = #{user_id} 
+    </delete>
+    
+    <delete id="deleteCommentByUserId"   parameterType="java.util.HashMap">
+    	delete from comment
+        where user_id = #{user_id} 
+    </delete>
+    
+    <delete id="deleteMsgByUserId"   parameterType="java.util.HashMap">
+    	delete from msg
+        where user_id = #{user_id} 
+    </delete>
+    
+    <delete id="deleteUserByUserId"   parameterType="java.util.HashMap">
+    	delete from user
+        where user_id in (${user_id}) 
+    </delete>
+    
+    <delete id="deleteUserInfoByUserId"   parameterType="java.util.HashMap">
+    	delete from user_info
+        where user_id = #{user_id} 
+    </delete>
+	
+     <!--  根据一级菜单查询二级菜单   -->
+     <select id="querySecondMenuListById" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select user_menu_id, user_id, user_menu.menu_id, menu_name, menu_url, parent_id, menu_order, menu_type, user_type, `level`
+		from user_menu
+		left join menu on user_menu.menu_id = menu.menu_id and user_menu.user_id = #{user_id}
+		where menu.parent_id = #{parent_id}
+		order by menu_order 
+	</select>
+</mapper>

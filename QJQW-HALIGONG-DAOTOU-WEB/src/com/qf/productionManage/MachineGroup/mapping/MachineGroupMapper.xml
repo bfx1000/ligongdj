@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.MachineGroup.dao.MachineGroupMapper">
+
+
+	<!-- 查询机床列表   -->
+	<select id="queryMachineGroupList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_MachineGroup, SuperiorMachineGroup, NameMachineGroup, NoMachineGroup, AddressMachineGroup, PrincipalMachineGroup,
+			   RemarkMachineGroup, LevelMachineGroup
+		from MachineGroup
+		where 1 = 1
+		<if test="SuperiorMachineGroup !=null  and SuperiorMachineGroup !='' "> and SuperiorMachineGroup like '%${SuperiorMachineGroup}%'</if>
+		<if test="NameMachineGroup !=null and NameMachineGroup !='' "> and NameMachineGroup like '%${NameMachineGroup}%'</if>
+		<if test="NoMachineGroup !=null  and NoMachineGroup !='' "> and NoMachineGroup like '%${NoMachineGroup}%'</if>
+		<if test="AddressMachineGroup !=null  and AddressMachineGroup !='' "> and AddressMachineGroup like '%${AddressMachineGroup}%'</if>
+		order by id_MachineGroup desc
+	</select>
+	
+	<!-- 删除  -->
+	<delete id="deleteMachineGroupList"   parameterType="java.util.HashMap">
+    	delete from MachineGroup
+        where id_MachineGroup = #{id_MachineGroup}
+    </delete>
+    
+	<!-- 查询机床列表   -->
+	<select id="queryMachineGroupListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from MachineGroup where id_MachineGroup = #{id_MachineGroup}
+	</select>
+	
+
+	<!--  修改   -->
+	<update id="updateMachineGroup" parameterType="java.util.HashMap">
+		update MachineGroup
+	    	<set> 
+	    		SuperiorMachineGroup = #{SuperiorMachineGroup},
+	    		NameMachineGroup = #{NameMachineGroup},
+	    		NoMachineGroup = #{NoMachineGroup},
+	    		AddressMachineGroup = #{AddressMachineGroup},
+	    		PrincipalMachineGroup = #{PrincipalMachineGroup},
+	    		RemarkMachineGroup = #{RemarkMachineGroup},
+	    		LevelMachineGroup = #{LevelMachineGroup}
+			</set>
+		where id_MachineGroup = #{id_MachineGroup}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveMachineGroup" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_MachineGroup"  resultType="int">
+    		select ifnull((select (id_MachineGroup+1) id_MachineGroup from MachineGroup order by id_MachineGroup desc limit 1) ,1) id_MachineGroup from dual
+    	</selectKey>
+	    insert into MachineGroup (
+	    	id_MachineGroup, SuperiorMachineGroup, NameMachineGroup, NoMachineGroup, AddressMachineGroup, PrincipalMachineGroup,
+	    	RemarkMachineGroup, LevelMachineGroup
+        )
+		values (  
+			#{id_MachineGroup}, #{SuperiorMachineGroup}, #{NameMachineGroup}, #{NoMachineGroup}, #{AddressMachineGroup},#{PrincipalMachineGroup}, 
+			#{RemarkMachineGroup}, #{LevelMachineGroup}
+	    )
+	</insert>
+	
+	<!-- 查询机床列表   -->
+	<select id="loadingMachineGroup"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_MachineGroup,SuperiorMachineGroup,NameMachineGroup,LevelMachineGroup from MachineGroup 
+	</select>
+	
+
+
+
+</mapper>

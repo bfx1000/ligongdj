@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.experimentControl.experimentParameterResult.dao.ExperimentParameterResultMapping">
+
+
+	<select id="ByExperimentNo" parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select *  from ExperimentManage 
+		where ExperimentNo = '${ExperimentNo}'
+	</select>
+
+	<insert id="saveExperimentParameterResult" parameterType="java.util.HashMap">
+		<selectKey order="BEFORE" keyProperty="id_ExperimentParameterResult"  resultType="int">
+    		select ifnull((select (id_ExperimentParameterResult+1) id_ExperimentParameterResult from ExperimentParameterResult order by id_ExperimentParameterResult desc limit 1) ,1) id_ExperimentParameterResult from dual
+    	</selectKey>
+	    insert into ExperimentParameterResult (
+	    	id_ExperimentParameterResult, id_ExperimentManage,ExperimentCuttingSpeed,ExperimentCuttingDepth,ExperimentCuttingWidth,
+	    	ExperimentFeedRate,ExperimentToolQianjiao,ExperimentToolHoujiao,ExperimentToolZhupianjiao,ExperimentToolRenqingjiao,
+	    	ExperimentToolNoseRadius,ExperimentToolBreakerBlade,ExperimentPara1,ExperimentPara2,ExperimentPara3,
+	    	ExperimentPara4,ExperimentPara5,ExperimentPara6,ExperimentPara7,ExperimentPara8,ExperimentPara9
+        )
+		values (  
+			#{id_ExperimentParameterResult}, #{id_ExperimentManage}, #{ExperimentCuttingSpeed}, #{ExperimentCuttingDepth}, #{ExperimentCuttingWidth},
+			#{ExperimentFeedRate}, #{ExperimentToolQianjiao}, #{ExperimentToolHoujiao}, #{ExperimentToolZhupianjiao}, #{ExperimentToolRenqingjiao},
+			#{ExperimentToolNoseRadius}, #{ExperimentToolBreakerBlade}, #{ExperimentPara1}, #{ExperimentPara2}, #{ExperimentPara3},
+			#{ExperimentPara4}, #{ExperimentPara5}, #{ExperimentPara6}, #{ExperimentPara7}, #{ExperimentPara8},#{ExperimentPara9}
+	    )
+	</insert>
+	
+	<insert id="saveKey" parameterType="java.util.HashMap">
+		insert into testParameterKey (
+			id_ExperimentManage,parameter
+		) values (
+			#{id_ExperimentManage},#{parameter}
+		)
+	</insert>
+
+	<delete id="cleanKey" parameterType="java.util.HashMap">
+		delete from testParameterKey
+        where id_ExperimentManage = #{id_ExperimentManage}
+	</delete>
+
+	<select id="selectKeys" parameterType="string"  resultType="string" >
+		select parameter from testParameterKey 
+		where id_ExperimentManage = #{id_ExperimentManage}
+	</select>
+	
+	<select id="ExperimentParameterResult" parameterType="java.util.List"  resultType="java.util.HashMap" >
+		select 	id_ExperimentParameterResult,
+			<foreach collection="parameters" item="item" index="index" separator=",">
+				${item}
+			</foreach>
+			from ExperimentParameterResult 
+		where id_ExperimentManage = #{id_ExperimentManage}
+	</select>
+	
+	<delete id="cleansaveExperimentParameterResult" parameterType="java.util.HashMap">
+		delete from ExperimentParameterResult
+        where id_ExperimentManage = #{id_ExperimentManage}
+	</delete>
+
+	<select id="CheckExperimentResultById" parameterType="string"  resultType="java.util.HashMap" >
+		select * from ExperimentParameterResult 
+		where id_ExperimentParameterResult = #{id_ExperimentParameterResult}
+	</select>
+	
+	<select id="CheckExperimentParameterToolWear" parameterType="string"  resultType="java.util.HashMap" >
+		select * from ExperimentParameterToolWear 
+		where id_ExperimentParameterResult = #{id_ExperimentParameterResult}
+	</select>
+
+	<select id="CheckExperimentResultFile" parameterType="string"  resultType="java.util.HashMap" >
+		select * from ExperimentResultFile 
+		where id_ExperimentParameterResult = #{id_ExperimentParameterResult}
+	</select>
+
+	<select id="CheckExperimentParameterToolWearPicture" parameterType="string"  resultType="java.util.HashMap" >
+		select * from ExperimentParameterToolWearPicture 
+		where id_ExperimentParameterToolWear = #{id_ExperimentParameterToolWear}
+	</select>
+	
+	<update id="saveResultInfo" parameterType="java.util.HashMap">
+		update ExperimentParameterResult set
+	    		ExReForceX = #{ExReForceX},
+	    		ExReForceY = #{ExReForceY},
+	    		ExReForceZ = #{ExReForceZ},
+	    		ExReTorque = #{ExReTorque},
+	    		ExReTemperature = #{ExReTemperature},
+	    		ExReSurfaceMorphology = #{ExReSurfaceMorphology},
+	    		ExReChipShape = #{ExReChipShape},
+	    		ExReSurfaceRoughness = #{ExReSurfaceRoughness},
+	    		ExReSurfaceHardness = #{ExReSurfaceHardness},
+	    		ExReSectionHardness = #{ExReSectionHardness},
+	    		ExReSurfaceStress = #{ExReSurfaceStress},
+	    		ExReSectionStress = #{ExReSectionStress},
+	    		ExReDefined1 = #{ExReDefined1},
+	    		ExReDefined1Value = #{ExReDefined1Value},
+	    		ExReDefined2 = #{ExReDefined2},
+	    		ExReDefined2Value = #{ExReDefined2Value},
+	    		ExReDefined3 = #{ExReDefined3},
+	    		ExReDefined3Value = #{ExReDefined3Value},
+	    		ExReDefined4 = #{ExReDefined4},
+	    		ExReDefined4Value = #{ExReDefined4Value},
+	    		ExReDefined5 = #{ExReDefined5},
+	    		ExReDefined5Value = #{ExReDefined5Value},
+	    		ExReToolLife = #{ExReToolLife},
+	    		ExReWearStandard = #{ExReWearStandard}
+	    		
+		where id_ExperimentParameterResult = #{id_ExperimentParameterResult}
+	</update>
+
+	<delete id="cleanResultFile" parameterType="java.util.HashMap">
+		delete from ExperimentResultFile
+        where id_ExperimentParameterResult = #{id_ExperimentParameterResult}
+	</delete>
+
+	<insert id="saveFileAll" parameterType="java.util.HashMap">
+		insert into ExperimentResultFile (
+			id_ExperimentParameterResult,url_ExperimentResultFile,name_ExperimentResultFile,ascription
+		) values (
+			#{id_ExperimentParameterResult},#{url_ExperimentResultFile},#{name_ExperimentResultFile},#{ascription}
+		)
+	</insert>
+	
+	<delete id="cleanlifeInfoById" parameterType="string">
+		delete from ExperimentParameterToolWear
+        where id_ExperimentParameterResult = #{id_ExperimentParameterResult}
+	</delete>
+	
+	<insert id="saveListInfo" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ExperimentParameterToolWear"  resultType="int">
+    		select ifnull((select (id_ExperimentParameterToolWear+1) id_ExperimentParameterToolWear from ExperimentParameterToolWear order by id_ExperimentParameterToolWear desc limit 1) ,1) id_ExperimentParameterToolWear from dual
+    	</selectKey>
+	    insert into ExperimentParameterToolWear (
+	    	id_ExperimentParameterToolWear, id_ExperimentParameterResult, ExReWearTime, ExReWearValue
+        )
+		values (  
+			#{id_ExperimentParameterToolWear}, #{id_ExperimentParameterResult}, #{ExReWearTime}, #{ExReWearValue}
+	    )
+	</insert>
+	
+	<insert id="saveLifePictureAll" parameterType="java.util.HashMap">
+		insert into ExperimentParameterToolWearPicture (
+			id_ExperimentParameterToolWear,url_ExperimentParameterToolWearPicture,ascription
+		) values (
+			#{id_ExperimentParameterToolWear},#{url_ExperimentParameterToolWearPicture},#{ascription}
+		)
+	</insert>
+	
+	<delete id="cleanLifePictureById" parameterType="string">
+		delete from ExperimentParameterToolWearPicture
+        where id_ExperimentParameterToolWear = #{id_ExperimentParameterToolWear}
+	</delete>
+	
+	<select id="queryResultList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select * from ExperimentManage
+		where 1 = 1
+		<if test="ExperimentNo !=null  and ExperimentNo !='' "> and ExperimentNo like '%${ExperimentNo}%'</if>
+		<if test="NumberMaterialExperimentPart !=null and NumberMaterialExperimentPart !='' "> and NumberMaterialExperimentPart like '%${NumberMaterialExperimentPart}%'</if>
+		<if test="ExperimentType !=null  and ExperimentType !='' "> and ExperimentType like '%${ExperimentType}%'</if>
+		<if test="ExperimentMachine !=null  and ExperimentMachine !='' "> and ExperimentMachine like '%${ExperimentMachine}%'</if>
+		<if test="ExperimentPart !=null  and ExperimentPart !='' "> and ExperimentPerson like '%${ExperimentPart}%'</if>
+		<if test="CategoryMaterialExperimentPart !=null  and CategoryMaterialExperimentPart !='' "> and CategoryMaterialExperimentPart like '%${CategoryMaterialExperimentPart}%'</if>
+		<if test="ExperimentTool !=null  and ExperimentTool !='' "> and ExperimentTool like '%${ExperimentTool}%'</if>
+		<if test="ExperimentToolMaterial !=null  and ExperimentToolMaterial !='' "> and ExperimentToolMaterial like '%${ExperimentToolMaterial}%'</if>
+		<if test="ExperimentCuttingFluid !=null  and ExperimentCuttingFluid !='' "> and ExperimentCuttingFluid like '%${ExperimentCuttingFluid}%'</if>
+		<if test="ExperimentMachiningType !=null  and ExperimentMachiningType !='' "> and ExperimentMachiningType like '%${ExperimentMachiningType}%'</if>
+		order by id_ExperimentManage desc
+	</select>
+	
+	<select id="queryExperimentReportList" parameterType="java.util.HashMap"  resultType="java.util.HashMap" >
+		select * from ExperimentReport 
+		where id_ExperimentManage = #{id_ExperimentManage}
+	</select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

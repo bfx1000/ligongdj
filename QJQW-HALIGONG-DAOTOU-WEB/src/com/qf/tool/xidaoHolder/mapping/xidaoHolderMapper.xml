@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.tool.xidaoHolder.dao.xidaoHolderMapper">
+
+  	
+  	<!-- 查询车刀数据-刀柄列表   where 1=1表示第一句sql存在and也能正常运行-->
+	<select id="queryXidaoHolderList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_XidaoHolder, numberXidaoHolder, nameXidaoHolder, typeXidaoHolder, isoBladeXidao
+			 , typeBlade, diameterXidaoHolder, companyXidaoHolder, featureXidaoHolder, typeCustomXidaoHolder, typeCustomBlade
+		from xidaoHolder
+		where 1 = 1
+		<if test="numberXidaoHolder !=null  and numberXidaoHolder !='' "> and numberXidaoHolder like '%${numberXidaoHolder}%'</if>
+		<if test="nameXidaoHolder !=null  and nameXidaoHolder !='' "> and nameXidaoHolder like '%${nameXidaoHolder}%'</if>
+		<if test="typeXidaoHolder !=null  and typeXidaoHolder !='' "> and typeXidaoHolder = #{typeXidaoHolder}</if>
+		<if test="isoBladeXidao !=null  and isoBladeXidao !='' "> and isoBladeXidao like '%${isoBladeXidao}%'</if>
+		<if test="typeBlade !=null  and typeBlade !='' "> and typeBlade = #{typeBlade}</if>
+		<if test="diameterXidaoHolder !=null  and diameterXidaoHolder !='' "> and diameterXidaoHolder like '%${diameterXidaoHolder}%'</if>
+		<if test="companyXidaoHolder !=null  and companyXidaoHolder !='' "> and companyXidaoHolder like '%${companyXidaoHolder}%'</if>
+		order by id_XidaoHolder desc
+	</select>
+	
+	
+	
+	
+	
+	<!--  查询刀柄图片列表 PictureXidaoHolder  -->
+	<select id="queryPictureXidaoHolderList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureXidaoHolder, id_XidaoHolder, url_PictureXidaoHolder
+		from pictureXidaoHolder
+		where id_XidaoHolder = #{id_XidaoHolder}
+	</select>
+	
+	<!--  查询详细图片列表 PictureDetailXidaoHolder  -->
+	<select id="queryPictureDetailXidaoHolderList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureDetailXidaoHolder, id_XidaoHolder, url_PictureDetailXidaoHolder
+		from PictureDetailXidaoHolder
+		where id_XidaoHolder = #{id_XidaoHolder}
+	</select>
+	
+	<!--  查询详细信息列表 InformDetailXidaoHolder  -->
+	<select id="queryInformDetailXidaoHolderList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailXidaoHolder, id_XidaoHolder, url_InformDetailXidaoHolder, name_InformDetailXidaoHolder
+		from informDetailXidaoHolder
+		where id_XidaoHolder = #{id_XidaoHolder}
+	</select>
+	
+	<!-- 查询车刀数据-刀柄数据   -->
+	<select id="queryXidaoHolderById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_XidaoHolder, numberXidaoHolder, nameXidaoHolder, typeXidaoHolder, isoBladeXidao
+			 , typeBlade, diameterXidaoHolder, companyXidaoHolder, featureXidaoHolder, typeCustomXidaoHolder, typeCustomBlade 
+		from XidaoHolder
+		where id_XidaoHolder = #{id_XidaoHolder}
+	</select>
+	
+	<!--  修改   -->
+	<update id="updateXidaoHolder" parameterType="java.util.HashMap">
+		update xidaoHolder
+	    	<set> 
+	    		numberXidaoHolder = #{numberXidaoHolder},
+	    		nameXidaoHolder = #{nameXidaoHolder},
+	    		typeXidaoHolder = #{typeXidaoHolder},
+	    		isoBladeXidao = #{isoBladeXidao},
+	    		typeBlade = #{typeBlade},
+	    		diameterXidaoHolder = #{diameterXidaoHolder},
+	    		companyXidaoHolder = #{companyXidaoHolder},
+	    		featureXidaoHolder = #{featureXidaoHolder},
+	    		add_time = #{add_time},
+	    		user_id = #{user_id},
+	    		typeCustomXidaoHolder = #{typeCustomXidaoHolder},
+	    		typeCustomBlade = #{typeCustomBlade},
+			</set>
+		where id_XidaoHolder = #{id_XidaoHolder}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveXidaoHolder" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_XidaoHolder"  resultType="int">
+    		select ifnull((select (id_XidaoHolder+1) id_XidaoHolder from XidaoHolder order by id_XidaoHolder desc limit 1) ,1) id_XidaoHolder from dual
+    	</selectKey>
+	    insert into xidaoHolder (
+	    	id_XidaoHolder, numberXidaoHolder, nameXidaoHolder, typeXidaoHolder, isoBladeXidao, 
+	    	typeBlade, diameterXidaoHolder, companyXidaoHolder, featureXidaoHolder, add_time, user_id, 
+	    	typeCustomXidaoHolder, typeCustomBlade
+        )
+		values (  
+			#{id_XidaoHolder}, #{numberXidaoHolder}, #{nameXidaoHolder}, #{typeXidaoHolder}, #{isoBladeXidao}, 
+	    	#{typeBlade}, #{diameterXidaoHolder}, #{companyXidaoHolder}, #{featureXidaoHolder}, #{add_time}, #{user_id}, 
+	    	#{typeCustomXidaoHolder}, #{typeCustomBlade}
+	    )
+	</insert>
+	
+	<!-- 保存刀柄图片  -->
+	<insert id="savePictureXidaoHolder" parameterType="java.util.HashMap" >
+	    insert into PictureXidaoHolder (
+			id_XidaoHolder, url_PictureXidaoHolder
+        )
+		values (  
+			#{id_XidaoHolder}, #{url_PictureXidaoHolder}
+		)
+	</insert>
+	
+	<!-- 清空刀柄图片路径  -->
+	<delete id="clearPictureXidaoHolderByIdXidaoHolder"   parameterType="java.util.HashMap">
+    	delete from PictureXidaoHolder
+        where id_XidaoHolder = #{id_XidaoHolder}
+    </delete>
+	
+    <!-- 保存详细图片  -->
+	<insert id="savePictureDetailXidaoHolder" parameterType="java.util.HashMap" >
+	    insert into PictureDetailXidaoHolder (
+			id_XidaoHolder, url_PictureDetailXidaoHolder
+        )
+		values (  
+			#{id_XidaoHolder}, #{url_PictureDetailXidaoHolder}
+		)
+	</insert>
+	
+	<!-- 清空详细图片路径  -->
+	<delete id="clearPictureDetailXidaoHolderByIdXidaoHolder"   parameterType="java.util.HashMap">
+    	delete from PictureDetailXidaoHolder
+        where id_XidaoHolder = #{id_XidaoHolder}
+    </delete>
+    
+    <!-- 保存详细信息  -->
+	<insert id="saveInformDetailXidaoHolder" parameterType="java.util.HashMap" >
+	    insert into InformDetailXidaoHolder (
+			id_XidaoHolder, url_InformDetailXidaoHolder, name_InformDetailXidaoHolder
+        )
+		values (  
+			#{id_XidaoHolder}, #{url_InformDetailXidaoHolder}, #{name_InformDetailXidaoHolder}
+		)
+	</insert>
+	
+	<!-- 清空详细信息路径  -->
+	<delete id="clearInformDetailXidaoHolderByIdXidaoHolder"   parameterType="java.util.HashMap">
+    	delete from InformDetailXidaoHolder
+        where id_XidaoHolder = #{id_XidaoHolder}
+    </delete>
+    
+    
+    
+    <!-- 删除车刀数据-刀柄数据  -->
+	<delete id="deleteXidaoHolder"   parameterType="java.util.HashMap">
+    	delete from xidaoHolder
+        where id_XidaoHolder = #{id_XidaoHolder}
+    </delete>
+
+	<!--  查询iso基准刀片 json   -->
+	<select id="queryIsoList"   parameterType="java.util.HashMap"  resultType="string">
+		select isoBladeXidao from xidaoHolder
+	</select>
+</mapper>

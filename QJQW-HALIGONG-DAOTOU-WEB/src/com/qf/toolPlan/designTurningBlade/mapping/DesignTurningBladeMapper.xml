@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.toolPlan.designTurningBlade.dao.DesignTurningBladeMapper">
+
+	<!-- 查询刀柄设计   -->
+	<select id="queryDesignTurningBladeList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_DesignTurningBlade, DesignNumberTurningBlade, DesignNameTurningBlade, DesignTypeBTADrill, DesignISOBladeTurning
+			 , DesignMachiningTypeBladeTurning, DesignCompanyTurningBlade, DesignToolBladeFeatureTurning, DesignQianjiaoBladeTurning,DesignHoujiaoBladeTurning,
+			 DesignRenqingjiaoBladeTurning,DesignNoseRadiusTurning,DesignBreakerBladeTurning,DesignHolderInfo
+		from DesignTurningBlade
+		where 1 = 1
+		<if test="DesignNumberTurningBlade !=null  and DesignNumberTurningBlade !='' "> and DesignNumberTurningBlade like '%${DesignNumberTurningBlade}%'</if>
+		<if test="DesignTypeBTADrill !=null  and DesignTypeBTADrill !='' "> and DesignTypeBTADrill like '%${DesignTypeBTADrill}%'</if>
+		<if test="DesignISOBladeTurning !=null  and DesignISOBladeTurning !='' "> and DesignISOBladeTurning = #{DesignISOBladeTurning}</if>
+		<if test="DesignMachiningTypeBladeTurning !=null  and DesignMachiningTypeBladeTurning !='' "> and DesignMachiningTypeBladeTurning like '%${DesignMachiningTypeBladeTurning}%'</if>
+		<if test="DesignCompanyTurningBlade !=null  and DesignCompanyTurningBlade !='' "> and DesignCompanyTurningBlade like '%${DesignCompanyTurningBlade}%'</if>
+		<if test="DesignToolBladeFeatureTurning !=null  and DesignToolBladeFeatureTurning !='' "> and DesignToolBladeFeatureTurning = #{DesignToolBladeFeatureTurning}</if>
+		order by id_DesignTurningBlade desc
+	</select>
+	
+	<!--  查询刀柄设计图片列表   -->
+	<select id="queryPictureDesignTurningBladeList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureDesignTurningBlade, id_DesignTurningBlade, url_PictureDesignTurningBlade
+		from PictureDesignTurningBlade
+		where id_DesignTurningBlade = #{id_DesignTurningBlade}
+	</select>
+	
+	<!--  查询详细信息列表  -->
+	<select id="queryInformDetailDesignTurningBladeList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_InformDetailDesignTurningBlade, id_DesignTurningBlade, url_InformDetailDesignTurningBlade,name_InformDetailDesignTurningBlade
+		from InformDetailDesignTurningBlade
+		where id_DesignTurningBlade = #{id_DesignTurningBlade}
+	</select>
+	
+	<!--  查询part  -->
+	<select id="queryPartDesignTurningBladeList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PartDesignTurningBlade, id_DesignTurningBlade, url_PartDesignTurningBlade, name_PartDesignTurningBlade
+		from PartDesignTurningBlade
+		where id_DesignTurningBlade = #{id_DesignTurningBlade}
+	</select>
+
+	<!-- 查询车刀数据-刀柄数据   -->
+	<select id="queryDesignTurningBladeById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_DesignTurningBlade, DesignNumberTurningBlade, DesignNameTurningBlade, DesignTypeBTADrill, DesignISOBladeTurning
+			 , DesignMachiningTypeBladeTurning, DesignCompanyTurningBlade, DesignToolBladeFeatureTurning, DesignQianjiaoBladeTurning,DesignHoujiaoBladeTurning,
+			 DesignRenqingjiaoBladeTurning,DesignNoseRadiusTurning,DesignBreakerBladeTurning,DesignHolderInfo
+		from DesignTurningBlade
+		where id_DesignTurningBlade = #{id_DesignTurningBlade}
+	</select>
+	
+	<!--  修改   -->
+	<update id="updateDesignTurningBlade" parameterType="java.util.HashMap">
+		update DesignTurningBlade
+	    	<set> 
+	    		DesignNumberTurningBlade = #{DesignNumberTurningBlade},
+	    		DesignNameTurningBlade = #{DesignNameTurningBlade},
+	    		DesignTypeBTADrill = #{DesignTypeBTADrill},
+	    		DesignISOBladeTurning = #{DesignISOBladeTurning},
+	    		DesignMachiningTypeBladeTurning = #{DesignMachiningTypeBladeTurning},
+	    		DesignCompanyTurningBlade = #{DesignCompanyTurningBlade},
+	    		DesignToolBladeFeatureTurning = #{DesignToolBladeFeatureTurning},
+	    		DesignQianjiaoBladeTurning = #{DesignQianjiaoBladeTurning},
+	    		DesignHoujiaoBladeTurning = #{DesignHoujiaoBladeTurning},
+	    		DesignRenqingjiaoBladeTurning = #{DesignRenqingjiaoBladeTurning},
+	    		DesignNoseRadiusTurning = #{DesignNoseRadiusTurning},
+	    		DesignBreakerBladeTurning = #{DesignBreakerBladeTurning},
+	    		DesignHolderInfo = #{DesignHolderInfo},
+	    		add_time = #{add_time},
+	    		user_id = #{user_id}
+			</set>
+		where id_DesignTurningBlade = #{id_DesignTurningBlade}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveDesignTurningBlade" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_DesignTurningBlade"  resultType="int">
+    		select ifnull((select (id_DesignTurningBlade+1) id_DesignTurningBlade from DesignTurningBlade order by id_DesignTurningBlade desc limit 1) ,1) id_DesignTurningBlade from dual
+    	</selectKey>
+	    insert into DesignTurningBlade (
+	    	id_DesignTurningBlade, DesignNumberTurningBlade, DesignNameTurningBlade, DesignTypeBTADrill, DesignISOBladeTurning, 
+	    	DesignMachiningTypeBladeTurning, DesignCompanyTurningBlade, DesignToolBladeFeatureTurning, DesignQianjiaoBladeTurning, DesignHoujiaoBladeTurning,
+	    	DesignRenqingjiaoBladeTurning, DesignNoseRadiusTurning, DesignBreakerBladeTurning,DesignHolderInfo, add_time, user_id 
+        )
+		values (  
+			#{id_DesignTurningBlade}, #{DesignNumberTurningBlade}, #{DesignNameTurningBlade}, #{DesignTypeBTADrill}, #{DesignISOBladeTurning}, 
+	    	#{DesignMachiningTypeBladeTurning}, #{DesignCompanyTurningBlade}, #{DesignToolBladeFeatureTurning}, #{DesignQianjiaoBladeTurning}, #{DesignHoujiaoBladeTurning},
+	    	#{DesignRenqingjiaoBladeTurning}, #{DesignNoseRadiusTurning}, #{DesignBreakerBladeTurning},#{DesignHolderInfo} ,#{add_time}, #{user_id} 
+	    )
+	</insert>
+	
+	<!-- 保存刀柄图片  -->
+	<insert id="savePictureDesignTurningBlade" parameterType="java.util.HashMap" >
+	    insert into PictureDesignTurningBlade (
+			id_DesignTurningBlade, url_PictureDesignTurningBlade
+        )
+		values (  
+			#{id_DesignTurningBlade}, #{url_PictureDesignTurningBlade}
+		)
+	</insert>
+	
+	<!-- 清空刀柄图片路径  -->
+	<delete id="clearPictureDesignTurningBladeById"   parameterType="java.util.HashMap">
+    	delete from PictureDesignTurningBlade
+        where id_DesignTurningBlade = #{id_DesignTurningBlade}
+    </delete>
+	
+    <!-- 保存part  -->
+	<insert id="savePartDesignTurningBlade" parameterType="java.util.HashMap" >
+	    insert into PartDesignTurningBlade (
+			id_DesignTurningBlade, url_PartDesignTurningBlade,name_PartDesignTurningBlade
+        )
+		values (  
+			#{id_DesignTurningBlade}, #{url_PartDesignTurningBlade},#{name_PartDesignTurningBlade}
+		)
+	</insert>
+	
+	<!-- 清空part路径  -->
+	<delete id="clearPartDesignTurningBladeById"   parameterType="java.util.HashMap">
+    	delete from PartDesignTurningBlade
+        where id_DesignTurningBlade = #{id_DesignTurningBlade}
+    </delete>
+    
+    <!-- 保存详细信息  -->
+	<insert id="saveInformDetailDesignTurningBlade" parameterType="java.util.HashMap" >
+	    insert into InformDetailDesignTurningBlade (
+			id_DesignTurningBlade, url_InformDetailDesignTurningBlade, name_InformDetailDesignTurningBlade
+        )
+		values (  
+			#{id_DesignTurningBlade}, #{url_InformDetailDesignTurningBlade}, #{name_InformDetailDesignTurningBlade}
+		)
+	</insert>
+	
+	<!-- 清空详细信息路径  -->
+	<delete id="clearInformDetailDesignTurningBladeById"   parameterType="java.util.HashMap">
+    	delete from InformDetailDesignTurningBlade
+        where id_DesignTurningBlade = #{id_DesignTurningBlade}
+    </delete>
+    
+    
+    
+    <!-- 删除车刀数据-刀柄数据  -->
+	<delete id="deleteDesignTurningBlade"   parameterType="java.util.HashMap">
+    	delete from DesignTurningBlade
+        where id_DesignTurningBlade = #{id_DesignTurningBlade}
+    </delete>
+
+	<!--  查询ISO基准刀片 json   -->
+	<select id="queryISOList"   parameterType="java.util.HashMap"  resultType="string">
+		select DesignISOBladeTurning from DesignTurningBlade
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

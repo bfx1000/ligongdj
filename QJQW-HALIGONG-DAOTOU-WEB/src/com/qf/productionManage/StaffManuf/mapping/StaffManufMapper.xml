@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.StaffManuf.dao.StaffManufMapper">
+
+
+	<!-- 查询机床列表   -->
+	<select id="queryStaffManufList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_StaffManuf, NameStaffManuf, DepartStaffManuf, NoStaffManuf, BirthStaffManuf, JobStaffManuf,
+			   TitlesStaffManuf, StatusStaffManuf, RemarkStaffManuf
+		from StaffManuf
+		where 1 = 1
+		<if test="NameStaffManuf !=null  and NameStaffManuf !='' "> and NameStaffManuf like '%${NameStaffManuf}%'</if>
+		<if test="DepartStaffManuf !=null and DepartStaffManuf !='' "> and DepartStaffManuf like '%${DepartStaffManuf}%'</if>
+		<if test="NoStaffManuf !=null  and NoStaffManuf !='' "> and NoStaffManuf like '%${NoStaffManuf}%'</if>
+		<if test="JobStaffManuf !=null  and JobStaffManuf !='' "> and JobStaffManuf like '%${JobStaffManuf}%'</if>
+		order by id_StaffManuf desc
+	</select>
+	
+    <select id="queryCategoryTitlesStaffManufList" resultType="java.util.HashMap">
+		select id_TitlesStaffManuf, name_TitlesStaffManuf 
+		from CategoryTitlesStaffManuf
+		order by id_TitlesStaffManuf
+	</select>
+	
+	<!-- 删除  -->
+	<delete id="deleteStaffManufList"   parameterType="java.util.HashMap">
+    	delete from StaffManuf
+        where id_StaffManuf = #{id_StaffManuf}
+    </delete>
+    
+	<!-- 查询机床列表   -->
+	<select id="queryStaffManufListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from StaffManuf where id_StaffManuf = #{id_StaffManuf}
+	</select>
+	
+
+	<!--  修改   -->
+	<update id="updateStaffManuf" parameterType="java.util.HashMap">
+		update StaffManuf
+	    	<set> 
+	    		NameStaffManuf = #{NameStaffManuf},
+	    		DepartStaffManuf = #{DepartStaffManuf},
+	    		NoStaffManuf = #{NoStaffManuf},
+	    		BirthStaffManuf = #{BirthStaffManuf},
+	    		JobStaffManuf = #{JobStaffManuf},
+	    		TitlesStaffManuf = #{TitlesStaffManuf},
+	    		StatusStaffManuf = #{StatusStaffManuf},
+	    		RemarkStaffManuf = #{RemarkStaffManuf},
+			</set>
+		where id_StaffManuf = #{id_StaffManuf}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveStaffManuf" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_StaffManuf"  resultType="int">
+    		select ifnull((select (id_StaffManuf+1) id_StaffManuf from StaffManuf order by id_StaffManuf desc limit 1) ,1) id_StaffManuf from dual
+    	</selectKey>
+	    insert into StaffManuf (
+	    	id_StaffManuf, NameStaffManuf, DepartStaffManuf, NoStaffManuf, BirthStaffManuf, JobStaffManuf,
+	    	TitlesStaffManuf, StatusStaffManuf, RemarkStaffManuf
+        )
+		values (  
+			#{id_StaffManuf}, #{NameStaffManuf}, #{DepartStaffManuf}, #{NoStaffManuf}, #{BirthStaffManuf},#{JobStaffManuf}, 
+			#{TitlesStaffManuf}, #{StatusStaffManuf}, #{RemarkStaffManuf}
+	    )
+	</insert>
+	
+	<!-- 根据名称查询类别 -->
+	<select id="queryCategoryTitlesStaffManufByName" resultType="java.util.HashMap">
+		select id_TitlesStaffManuf, name_TitlesStaffManuf 
+		from CategoryTitlesStaffManuf
+		where name_TitlesStaffManuf = #{name_TitlesStaffManuf}
+	</select>
+	
+	<!-- 保存新的类别 -->
+	<insert id="saveCategoryTitlesStaffManuf" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_TitlesStaffManuf"  resultType="int">
+    		select ifnull((select (id_TitlesStaffManuf+1) id_TitlesStaffManuf from CategoryTitlesStaffManuf order by id_TitlesStaffManuf desc limit 1) ,1) id_TitlesStaffManuf from dual
+    	</selectKey>
+	    insert into CategoryTitlesStaffManuf (
+	    	id_TitlesStaffManuf, name_TitlesStaffManuf
+        )
+		values (  
+			#{id_TitlesStaffManuf}, #{name_TitlesStaffManuf}
+	    )
+	</insert>
+
+
+
+
+</mapper>
+
+

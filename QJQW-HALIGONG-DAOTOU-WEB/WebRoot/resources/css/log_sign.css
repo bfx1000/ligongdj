@@ -1,0 +1,181 @@
+@charset "UTF-8";
+body{
+    padding:0;
+    margin: 0;
+    font:14px "Microsoft Yahei", Arial;
+}
+a{
+    text-decoration: none;
+}
+ul{
+    padding: 0;
+    margin: 0;
+}
+li{
+    list-style: none;
+}
+img,img:active{
+    border:none;
+}
+img:focus,input:focus{
+    outline:none;
+}
+/*内容部分*/
+.sign_main{
+    width: 100%;
+    height:70px;
+    margin: -25px auto 0;
+}
+.rz_title_btn{
+    height: 30px;
+    margin:40px 0 0 0;
+}
+.rz_title_btn div{
+    float: left;
+    width: 95px;
+    height: 28px;
+    border: 1px solid #069dd5;
+    background-color: white;
+    border-radius: 4px;
+    /*behavior: url(/resources/index/path/PIE.htc);*/
+    text-align: center;
+    margin: 0 0 0 13px;
+    cursor: pointer;
+}
+.rz_title_btn a{
+    display: block;
+    color: #069dd5;
+    font: 15px 'Microsoft YaHei';
+    line-height: 28px;
+}
+.rz_title_btn div.czrz_active{
+    background-color: #069dd5;
+}
+.rz_title_btn .czrz_active a{
+    color: #fff;
+}
+/*  日志列表标题  */
+.user_muyuan_table{
+    width: 984px;
+    height: 36px;
+    margin: 0 auto;
+    border-bottom: 1px solid #d8e0e4;
+}
+.user_muyuan_table>img{
+    margin-top:7px;
+    margin-left:18px;
+    float: left;
+}
+.user_muyuan_table>div{
+    float: left;
+    margin-bottom: 10px;
+    margin-left: 7px;
+}
+.user_muyuan_table>div{
+    margin-top:5px;
+}
+.user_muyuan_table{
+    clear: left;
+    margin-top:10px;
+}
+.user_muyuan_table select{
+    border: none;
+    font:16px  "Microsoft Yahei", Arial;
+    color: #666;
+}
+.user_muyuan_table>div.sign_log_msg{
+    float:right;
+    color:#999;
+    text-align:center;
+    font:14px 'Microsoft YaHei';
+}
+.search_btn{
+	display:inline-block;
+	width:60px;
+	height:24px;
+	background-color:#069dd5;
+	color:#fff;
+	text-align:center;
+	font:14px  "Microsoft Yahei", Arial;
+	line-height:24px;
+	border-radius:4px;
+	cursor:pointer;
+}
+/* 日历 */
+.time_title,.time_cont{
+    clear: both;
+    width: 984px;
+    margin: 0 auto;
+}
+.time_title li{
+    float: left;
+    width: 140px;
+    text-align: center;
+    height: 48px;
+    border-bottom: 1px solid #d8e0e4;
+    font:14px 'Microsoft YaHei';
+    line-height: 48px;
+}
+li.weekend{
+    color: #ff8f8f;
+}
+.time_cont ul{
+    clear: both;
+    width: 980px;
+    height:60px ;
+    padding: 18px 0 0 0 ;
+    border-bottom: 1px solid #d8e0e4;
+    margin: 0 auto;
+}
+.each_day{
+    float: left;
+    position: relative;
+    width: 140px;
+    height:60px;
+    text-align: center;
+}
+.date{
+    height: 40px;
+    font:18px 'Microsoft YaHei';
+    line-height: 40px;
+}
+.qiandao_time{
+    font:14px 'Microsoft YaHei';
+   color: #999;
+}
+/* 签到或未签到标识 */
+.qd_mark{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin: 0 0 0 -20px;
+}
+/* 分月页 */
+.time_footer{
+    clear: both;
+    width: 980px;
+    height: 35px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d8e0e4;
+    margin: 0 auto;
+}
+.page{
+    width: 300px;
+    height: 35px;
+    margin: 0 auto;
+}
+.page div{
+    float: left;
+    width: 80px;
+    height: 35px;
+    font:14px  "Microsoft Yahei", Arial;
+    line-height: 35px;
+    color: #666;
+    cursor: pointer;
+
+}
+.page div.pre_month,.page div.next_month{
+    width: 60px;
+    text-align: center;
+    margin: 0 5px;
+}

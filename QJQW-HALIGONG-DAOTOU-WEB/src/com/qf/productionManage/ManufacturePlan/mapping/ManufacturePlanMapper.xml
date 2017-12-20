@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.ManufacturePlan.dao.ManufacturePlanMapper">
+
+
+	<!-- 查询机床列表   -->
+	<select id="queryManufacturePlanList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ManufacturePlan, NoManufPlan, QuantityManufPlan, DateStartManufPlan, DateFinishManufPlan, RemarkManufPlan,
+			   PartNoManufPlan, NameManufPlan, NumberMaterialManufPlan, CategoryMaterialManufPlan, DeviceManufPlan,
+			   IDDeviceManufPlan, BranchManufPlan, StaffManufPlan, NoProcessManufPlan, NameProcessManufPlan, NoProcessStepManufPlan,
+			   NameProcessStepManufPlan, MachiningTypeManufPlan, MachiningLevelManufPlan, CuttingFluidManufPlan, CutterSpeedManufPlan,
+			   SpindleSpeedManufPlan, FeedManufPlan, CuttingDepthManufPlan, CuttingWidthManufPlan, FeedSpeedManufPlan, ToolHolderManufPlan,
+			   ToolbladeManufPlan, ToolMaterialManufPlan, CutterManufPlan
+		from ManufacturePlan
+		where 1 = 1
+		<if test="NoManufPlan !=null  and NoManufPlan !='' "> and NoManufPlan like '%${NoManufPlan}%'</if>
+		<if test="DateStartManufPlan !=null and DateStartManufPlan !='' "> and DateStartManufPlan like '%${DateStartManufPlan}%'</if>
+		<if test="DateFinishManufPlan !=null  and DateFinishManufPlan !='' "> and DateFinishManufPlan like '%${DateFinishManufPlan}%'</if>
+		<if test="PartNoManufPlan !=null  and PartNoManufPlan !='' "> and PartNoManufPlan like '%${PartNoManufPlan}%'</if>
+		<if test="DeviceManufPlan !=null  and DeviceManufPlan !='' "> and DeviceManufPlan like '%${DeviceManufPlan}%'</if>
+		order by id_ManufacturePlan desc
+	</select>
+	
+	<!-- 查询机床列表   -->
+	<select id="queryManufacturePlanById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select * from ManufacturePlan where id_ManufacturePlan = #{id_ManufacturePlan}
+	</select>
+	
+
+	<!--  修改   -->
+	<update id="updateManufacturePlan" parameterType="java.util.HashMap">
+		update ManufacturePlan
+	    	<set> 
+	    		NoManufPlan = #{NoManufPlan},
+	    		QuantityManufPlan = #{QuantityManufPlan},
+	    		DateStartManufPlan = #{DateStartManufPlan},
+	    		DateFinishManufPlan = #{DateFinishManufPlan},
+	    		RemarkManufPlan = #{RemarkManufPlan},
+	    		PartNoManufPlan = #{PartNoManufPlan},
+	    		NameManufPlan = #{NameManufPlan},
+	    		NumberMaterialManufPlan = #{NumberMaterialManufPlan},
+	    		CategoryMaterialManufPlan = #{CategoryMaterialManufPlan},
+	    		DeviceManufPlan = #{DeviceManufPlan},
+	    		IDDeviceManufPlan = #{IDDeviceManufPlan},
+	    		BranchManufPlan = #{BranchManufPlan},
+	    		StaffManufPlan = #{StaffManufPlan},
+	    		NoProcessManufPlan = #{NoProcessManufPlan},
+	    		NameProcessManufPlan = #{NameProcessManufPlan},
+	    		NoProcessStepManufPlan = #{NoProcessStepManufPlan},
+	    		NameProcessStepManufPlan = #{NameProcessStepManufPlan},
+	    		MachiningTypeManufPlan = #{MachiningTypeManufPlan},
+	    		MachiningLevelManufPlan = #{MachiningLevelManufPlan},
+	    		CuttingFluidManufPlan = #{CuttingFluidManufPlan},
+	    		CutterSpeedManufPlan = #{CutterSpeedManufPlan},
+	    		SpindleSpeedManufPlan = #{SpindleSpeedManufPlan},
+	    		FeedManufPlan = #{FeedManufPlan},
+	    		CuttingDepthManufPlan = #{CuttingDepthManufPlan},
+	    		CuttingWidthManufPlan = #{CuttingWidthManufPlan},
+	    		FeedSpeedManufPlan = #{FeedSpeedManufPlan},
+	    		ToolHolderManufPlan = #{ToolHolderManufPlan},
+	    		ToolbladeManufPlan = #{ToolbladeManufPlan},
+	    		ToolMaterialManufPlan = #{ToolMaterialManufPlan},
+	    		CutterManufPlan = #{CutterManufPlan}
+			</set>
+		where id_ManufacturePlan = #{id_ManufacturePlan}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveManufacturePlan" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ManufacturePlan"  resultType="int">
+    		select ifnull((select (id_ManufacturePlan+1) id_ManufacturePlan from ManufacturePlan order by id_ManufacturePlan desc limit 1) ,1) id_ManufacturePlan from dual
+    	</selectKey>
+	    insert into ManufacturePlan (
+	    	id_ManufacturePlan, NoManufPlan, QuantityManufPlan, DateStartManufPlan, DateFinishManufPlan, RemarkManufPlan,
+			   PartNoManufPlan, NameManufPlan, NumberMaterialManufPlan, CategoryMaterialManufPlan, DeviceManufPlan,
+			   IDDeviceManufPlan, BranchManufPlan, StaffManufPlan, NoProcessManufPlan, NameProcessManufPlan, NoProcessStepManufPlan,
+			   NameProcessStepManufPlan, MachiningTypeManufPlan, MachiningLevelManufPlan, CuttingFluidManufPlan, CutterSpeedManufPlan,
+			   SpindleSpeedManufPlan, FeedManufPlan, CuttingDepthManufPlan, CuttingWidthManufPlan, FeedSpeedManufPlan, ToolHolderManufPlan,
+			   ToolbladeManufPlan, ToolMaterialManufPlan, CutterManufPlan
+        )
+		values (  
+			#{id_ManufacturePlan}, #{NoManufPlan}, #{QuantityManufPlan}, #{DateStartManufPlan}, #{DateFinishManufPlan},#{RemarkManufPlan}, 
+			#{PartNoManufPlan}, #{NameManufPlan}, #{NumberMaterialManufPlan},#{CategoryMaterialManufPlan}, #{DeviceManufPlan},
+			#{IDDeviceManufPlan}, #{BranchManufPlan}, #{StaffManufPlan}, #{NoProcessManufPlan}, #{NameProcessManufPlan},#{NoProcessStepManufPlan}, 
+			#{NameProcessStepManufPlan}, #{MachiningTypeManufPlan}, #{MachiningLevelManufPlan},#{CuttingFluidManufPlan}, #{CutterSpeedManufPlan},
+			#{SpindleSpeedManufPlan}, #{FeedManufPlan}, #{CuttingDepthManufPlan}, #{CuttingWidthManufPlan}, #{FeedSpeedManufPlan},#{ToolHolderManufPlan}, 
+			#{ToolbladeManufPlan}, #{ToolMaterialManufPlan}, #{CutterManufPlan}
+	    )
+	</insert>
+
+	<!-- 删除  -->
+	<delete id="deleteManufacturePlanList"   parameterType="java.util.HashMap">
+    	delete from ManufacturePlan
+        where id_ManufacturePlan = #{id_ManufacturePlan}
+    </delete>
+
+	<!-- 查询工序   -->
+	<select id="queryWorkingProcedureList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_WorkingProcedure, id_ProcessFlow, NoProcedureProcessFlow,NameProcedureProcessFlow,ContentProcedureProcessFlow,
+		EquipmentType, TimeProcessFlow, MachineProcessFlow,MachineProcessCode,CuttingFluidProcessFlow,RemarkProcessFlow
+		from WorkingProcedure
+		where 1 = 1
+		<if test="NoProcedureProcessFlow !=null  and NoProcedureProcessFlow !='' "> and NoProcedureProcessFlow like '%${NoProcedureProcessFlow}%'</if>
+		<if test="NameProcedureProcessFlow !=null and NameProcedureProcessFlow !='' "> and NameProcedureProcessFlow like '%${NameProcedureProcessFlow}%'</if>
+		<if test="ContentProcedureProcessFlow !=null  and ContentProcedureProcessFlow !='' "> and ContentProcedureProcessFlow like '%${ContentProcedureProcessFlow}%'</if>
+		<if test="EquipmentType !=null  and EquipmentType !='' "> and EquipmentType like '%${EquipmentType}%'</if>
+		<if test="TimeProcessFlow !=null  and TimeProcessFlow !='' "> and TimeProcessFlow like '%${TimeProcessFlow}%'</if>
+		order by id_WorkingProcedure desc
+	</select>
+	
+	<!-- 查询工步   -->
+	<select id="queryProcessStepList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ProcessStep, id_WorkingProcedure, NoProcessStep, MachiningTypeProcessStep, MachiningLevelProcessStep, NameProcessStep,
+			   ContentProcessStep, MeasureProcessStep, ToolHolderProcessStep, ToolbladeProcessStep, ToolMaterialProcessStep, CutterProcessStep,
+			   CutterSpeedProcessStep, SpindlespeedProcessStep, FeedProcessStep, FeedSpeedProcessStep, CuttingDepthProcessStep, CuttingWidthProcessStep,
+			   TimeMachiningProcessStep, TimeAssistProcessStep ,RemarkProcessStep, DeviceProcessStep, FixtureProcessStep, CuttingFluidProcessStep
+		from ProcessStep
+		where 1=1
+		<if test="NoProcessStep !=null  and NoProcessStep !='' "> and NoProcessStep like '%${NoProcessStep}%'</if>
+		<if test="MachiningTypeProcessStep !=null and MachiningTypeProcessStep !='' "> and MachiningTypeProcessStep like '%${MachiningTypeProcessStep}%'</if>
+		<if test="MachiningLevelProcessStep !=null  and MachiningLevelProcessStep !='' "> and MachiningLevelProcessStep like '%${MachiningLevelProcessStep}%'</if>
+		<if test="NameProcessStep !=null  and NameProcessStep !='' "> and NameProcessStep like '%${NameProcessStep}%'</if>
+		<if test="ContentProcessStep !=null  and ContentProcessStep !='' "> and ContentProcessStep like '%${ContentProcessStep}%'</if>
+		order by id_ProcessStep desc
+	</select>
+	
+	<!--  修改   -->
+	<update id="updateMachineUseRecord" parameterType="java.util.HashMap">
+		update MachineUseRecord
+	    	<set> 
+	    		NumberMachGrNode = #{NumberMachGrNode},
+	    		DateStartManufGr = #{DateStartManufGr},
+	    		DateFinishManufGr = #{DateFinishManufGr},
+			</set>
+		where id_ManufacturePlan = #{id_ManufacturePlan}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveMachineUseRecord" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_MachineUseRecord"  resultType="int">
+    		select ifnull((select (id_MachineUseRecord+1) id_MachineUseRecord from MachineUseRecord order by id_MachineUseRecord desc limit 1) ,1) id_MachineUseRecord from dual
+    	</selectKey>
+	    insert into MachineUseRecord (
+	    	id_MachineUseRecord, id_ManufacturePlan, NumberMachGrNode, DateStartManufGr, DateFinishManufGr
+        )
+		values (  
+			#{id_MachineUseRecord}, #{id_ManufacturePlan}, #{NumberMachGrNode}, #{DateStartManufGr}, #{DateFinishManufGr}
+	    )
+	</insert>
+
+	<!-- 删除  -->
+	<delete id="deleteMachineUseRecord"   parameterType="java.util.HashMap">
+    	delete from MachineUseRecord
+        where id_ManufacturePlan = #{id_ManufacturePlan}
+    </delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

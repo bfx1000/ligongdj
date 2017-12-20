@@ -1,0 +1,251 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: #000000;
+}
+.main{
+    width: 1024px;
+    height:768px;
+    margin: 0 auto;
+    position: relative;
+    background-color: #ffffff;
+}
+
+/*澶撮儴*/
+.header{
+    height: 35px;
+    background-color: #777;
+}
+.header>ul{
+    margin-top: 4px;
+    position: absolute;
+    left:701px;
+}
+.header>ul,.header>ul>li{
+    float: left;
+}
+.header>ul>li>a{
+    color: #ffffff;
+    font:12px '瀹嬩綋';
+    border-right: 1px solid #ffffff;
+    padding: 0px 11px;
+}
+.header>ul>li.help>a{
+    border-right:none;
+}
+
+/*钃濊壊鑳屾櫙 + logo鏍� 閮ㄥ垎*/
+.banner{
+    background-color: #89ccda;
+    height: 291px;
+}
+.logo{
+    margin-left: 339px;
+    margin-top: 40px;
+}
+/*绌虹櫧閮ㄥ垎*/
+.kongbai{
+    height:60px ;
+}
+/*娓愬彉閮ㄥ垎*/
+.jianbian{
+    width: 100%;
+    height: 66px;
+    background: url("../images/denglu_jianbian.png") repeat-x;
+}
+/*搴曢儴鍏徃淇℃伅*/
+.footer{
+    font: 12px '瀹嬩綋';
+    color:#777;
+    margin-top: 262px;
+    text-align: center;
+}
+.footer>div{
+    margin-bottom: 10px;
+}
+
+
+/*鐧诲綍銆佹敞鍐屾暣涓ā鍧楅儴鍒�*/
+.denglu_center{
+    width: 591px;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius:3px;
+    position: absolute;
+    left:216px;
+    top: 220px;
+    background-color: #7bb7c4;
+}
+
+/*Tab椤佃彍鍗曢儴鍒�*/
+.denglu_tab_menu{
+    margin-top:0px;
+    margin-left: -40px;
+}
+.denglu_tab_menu>li{
+    list-style: none;
+    float: left;
+    font: 24px '寰蒋闆呴粦';
+    color: #ffffff;
+    padding:10px 21px 9px;
+}
+
+/*Tab鍐呭閮ㄥ垎*/
+.denglu_tab_content>div{
+    width: 350px;
+    height: auto;
+    /*height:250px ;*/
+    margin-left: 31px;
+}
+.denglu_tab_content>div.denglu_zhuce{
+    height: auto;
+    /*height: 323px;*/
+    margin-top: -2px;
+}
+
+/*鐧诲綍鍐呭閮ㄥ垎*/
+.denglu_tab_content{
+    border-top: 1px solid #cccccc;
+    background-color: #fff;
+    height:auto;
+    margin-top: 50px;
+}
+
+/*鐢ㄦ埛鐧诲綍閮ㄥ垎*/
+.denglu_tab_menu>li.denglu_yhdl{
+    color:#555555;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+    border-right: 1px solid #cccccc;
+}
+.denglu_content_hide{
+    display:none
+}
+.denglu_tab_content>div>div{
+    border-bottom: 1px solid #cccccc;
+}
+/*鐢ㄦ埛鍚�*/
+.denglu_user{
+    padding: 33px 0 4px;
+}
+/*瀵嗙爜銆侀獙璇佺爜*/
+.denglu_pwd>input,.denglu_yzm>input{
+    padding: 26px 0 3px;
+}
+.denglu_tab_content input{
+    font: 16px 'Microsoft YaHei';
+    color: #989898;
+    margin-left: 14px;
+    margin-left:0px \9;
+    border: none;
+    width: 312px;
+}
+/*鐢ㄦ埛鍚�*/
+.denglu_user>input{
+    position: absolute;
+    margin-top: -5px;
+}
+/*鐢ㄦ埛瀵嗙爜鍜岄獙璇佺爜*/
+.denglu_tab_content>div>div.denglu_btn{
+    border-bottom: none;
+}
+.denglu_btn>input{
+    width: 100%;
+    height: 45px;
+    background-color: #5abbf4 ;
+    color: #ffffff;
+    margin-left: 0;
+    margin-top: 21px;
+    letter-spacing:25px;
+    border: none;
+    border-radius: 3px;
+}
+.denglu_yzm_01{
+    position: relative;
+}
+.denglu_yzm>span{
+    position: absolute;
+    left:300px;
+    top: 20px;
+}
+.denglu_tab_content>div>div.denglu_forget{
+    height: 42px;
+    border: none;
+}
+.denglu_forget>input{
+    width:13px;
+    height:13px;
+    margin-left:8px;
+    border: none;
+}
+.denglu_forget>span{
+    font: 12px '寰蒋闆呴粦';
+}
+.denglu_forget>input,.denglu_forget>span{
+    float: left;
+    margin-top: 15px;
+}
+.denglu_forget>span.forget_pwd{
+    float: right;
+    margin-right:8px;
+}
+/*蹇樿瀵嗙爜*/
+.denglu_forget>span>a{
+    color: #e12e3b;
+    font: 12px '寰蒋闆呴粦';
+}
+.denglu_forget{
+    border: 1px solid black;
+    padding: 10px 0 16px;
+}
+/*绗笁鏂圭櫥褰�*/
+.denglu_three{
+    width: 210px;
+    height: 247px;
+    background-color: #ffffff;
+    position: absolute;
+    top:51px;
+    right: 0;
+}
+.denglu_three>div{
+    width: 120px;
+    height: 35px;
+    background-color: #89ccda;
+    border-radius: 3px;
+    margin-left: 60px;
+    text-align: center;
+    line-height: 35px;
+}
+/*绗笁鏂圭櫥褰曟爣棰�*/
+.denglu_three>div.denglu_three_title{
+    margin-top: 12px;
+    background-color: #ffffff;
+}
+/*绗笁鏂圭櫥褰曚笅鐨勮摑鑹茬櫥褰曟*/
+.denglu_three>div.denglu_three_btn{
+    margin-bottom: 14px;
+    font: 12px '寰蒋闆呴粦';
+    color: #ffffff;
+    position: relative;
+    cursor: pointer;
+}
+/*绗笁鏂圭櫥褰曚笅鐨勭櫥褰曟灏忔爣*/
+.denglu_three img{
+    height: 20px;
+    position: absolute;
+    left:10px;
+    top:7px;
+}
+/*绗笁鏂圭櫥褰曚笅鐨勭櫥褰曟鍐呭*/
+.denglu_three span{
+    position: absolute;
+    top: 8px;
+    left:40px;
+}
+

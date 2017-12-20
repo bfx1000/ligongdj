@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.productionManage.ProcessStep.dao.ProcessStepMapper">
+
+	<!-- 查询工步信息   -->
+	<select id="queryProcessStepList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_ProcessStep, id_WorkingProcedure, NoProcessStep, MachiningTypeProcessStep, MachiningLevelProcessStep, NameProcessStep,
+			   ContentProcessStep, MeasureProcessStep, ToolHolderProcessStep, ToolbladeProcessStep, ToolMaterialProcessStep, CutterProcessStep,
+			   CutterSpeedProcessStep, SpindlespeedProcessStep, FeedProcessStep, FeedSpeedProcessStep, CuttingDepthProcessStep, CuttingWidthProcessStep,
+			   TimeMachiningProcessStep, TimeAssistProcessStep ,RemarkProcessStep, DeviceProcessStep, FixtureProcessStep, CuttingFluidProcessStep
+		from ProcessStep
+		where 1 = 1 and id_WorkingProcedure = #{id_WorkingProcedure}
+		<if test="NoProcessStep !=null  and NoProcessStep !='' "> and NoProcessStep like '%${NoProcessStep}%'</if>
+		<if test="MachiningTypeProcessStep !=null and MachiningTypeProcessStep !='' "> and MachiningTypeProcessStep like '%${MachiningTypeProcessStep}%'</if>
+		<if test="MachiningLevelProcessStep !=null  and MachiningLevelProcessStep !='' "> and MachiningLevelProcessStep like '%${MachiningLevelProcessStep}%'</if>
+		<if test="NameProcessStep !=null  and NameProcessStep !='' "> and NameProcessStep like '%${NameProcessStep}%'</if>
+		<if test="ContentProcessStep !=null  and ContentProcessStep !='' "> and ContentProcessStep like '%${ContentProcessStep}%'</if>
+		order by id_ProcessStep desc
+	</select>
+	
+	<!-- 查询工序信息   -->
+	<select id="queryWorkingProcedureList"   parameterType="string"  resultType="java.util.HashMap">
+		select id_WorkingProcedure, id_ProcessFlow, NoProcedureProcessFlow,NameProcedureProcessFlow,ContentProcedureProcessFlow,EquipmentType,
+		TimeProcessFlow, MachineProcessFlow, MachineProcessCode, CuttingFluidProcessFlow,RemarkProcessFlow
+		from WorkingProcedure
+		where NoProcedureProcessFlow = #{NoProcedureProcessFlow}
+	</select>
+	
+	<!-- 查询工艺流程信息   -->
+	<select id="queryProcessFlowList"   parameterType="string"  resultType="java.util.HashMap">
+		select id_ProcessFlow, NoProcessFlow, CompanyProcessFlow,NameProcessFlow,PartNameProcessFlow, PartNumberProcessFlow, PartNoMaterialProcessFlow,
+		PartCategoryMaterialProcessFlow , PartAssemblyProcessFlow, PartNoAssemblyProcessFlow , PartTypeProcessFlow
+		from ProcessFlow
+		where id_ProcessFlow = #{id_ProcessFlow}
+	</select>
+
+	<!-- 查询工步图片   -->
+	<select id="queryPictureProcessStepList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_PictureProcessStep, id_ProcessStep, url_PictureProcessStep
+		from PictureProcessStep
+		where id_ProcessStep = #{id_ProcessStep} 
+	</select>
+
+	<!-- 删除  -->
+	<delete id="deleteProcessStepList"   parameterType="java.util.HashMap">
+    	delete from ProcessStep
+        where id_ProcessStep = #{id_ProcessStep}
+    </delete>
+    
+    <!-- 删除  -->
+	<delete id="clearPictureProcessStep"   parameterType="java.util.HashMap">
+    	delete from PictureProcessStep
+        where id_ProcessStep = #{id_ProcessStep}
+    </delete>
+
+	<!-- 查询工步信息（用于去添加）   -->
+	<select id="queryProcessStepListById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_ProcessStep, id_WorkingProcedure, NoProcessStep, MachiningTypeProcessStep, MachiningLevelProcessStep, NameProcessStep,
+			   ContentProcessStep, MeasureProcessStep, ToolHolderProcessStep, ToolbladeProcessStep, ToolMaterialProcessStep, CutterProcessStep,
+			   CutterSpeedProcessStep, SpindlespeedProcessStep, FeedProcessStep, FeedSpeedProcessStep, CuttingDepthProcessStep, CuttingWidthProcessStep,
+			   TimeMachiningProcessStep, TimeAssistProcessStep ,RemarkProcessStep, DeviceProcessStep, FixtureProcessStep, CuttingFluidProcessStep
+		from ProcessStep
+		where 1 = 1 and id_ProcessStep = #{id_ProcessStep}
+	</select>
+
+	<!--  修改   -->
+	<update id="updateProcessStep" parameterType="java.util.HashMap">
+		update ProcessStep
+	    	<set> 
+	    		id_WorkingProcedure = #{id_WorkingProcedure},
+	    		NoProcessStep = #{NoProcessStep},
+	    		MachiningTypeProcessStep = #{MachiningTypeProcessStep},
+	    		MachiningLevelProcessStep = #{MachiningLevelProcessStep},
+	    		NameProcessStep = #{NameProcessStep},
+	    		ContentProcessStep = #{ContentProcessStep},
+	    		MeasureProcessStep = #{MeasureProcessStep},
+	    		ToolHolderProcessStep = #{ToolHolderProcessStep},
+	    		ToolbladeProcessStep = #{ToolbladeProcessStep},
+	    		ToolMaterialProcessStep = #{ToolMaterialProcessStep},
+	    		CutterProcessStep = #{CutterProcessStep},
+	    		CutterSpeedProcessStep = #{CutterSpeedProcessStep},
+	    		SpindlespeedProcessStep = #{SpindlespeedProcessStep},
+	    		FeedProcessStep = #{FeedProcessStep},
+	    		FeedSpeedProcessStep = #{FeedSpeedProcessStep},
+	    		CuttingDepthProcessStep = #{CuttingDepthProcessStep},
+	    		CuttingWidthProcessStep = #{CuttingWidthProcessStep},
+	    		TimeMachiningProcessStep = #{TimeMachiningProcessStep},
+	    		TimeAssistProcessStep = #{TimeAssistProcessStep},
+	    		RemarkProcessStep = #{RemarkProcessStep},
+	    		DeviceProcessStep = #{DeviceProcessStep},
+	    		FixtureProcessStep = #{FixtureProcessStep},
+	    		CuttingFluidProcessStep = #{CuttingFluidProcessStep}
+			</set>
+		where id_ProcessStep = #{id_ProcessStep}
+	</update>
+	
+	<!-- 新增   -->
+	<insert id="saveProcessStep" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_ProcessStep"  resultType="int">
+    		select ifnull((select (id_ProcessStep+1) id_ProcessStep from ProcessStep order by id_ProcessStep desc limit 1) ,1) id_ProcessStep from dual
+    	</selectKey>
+	    insert into ProcessStep (
+	    	id_ProcessStep, id_WorkingProcedure, NoProcessStep, MachiningTypeProcessStep, MachiningLevelProcessStep, NameProcessStep,
+	    	ContentProcessStep, MeasureProcessStep, ToolHolderProcessStep, ToolbladeProcessStep, ToolMaterialProcessStep, CutterProcessStep, 
+	    	CutterSpeedProcessStep, SpindlespeedProcessStep, FeedProcessStep,FeedSpeedProcessStep, CuttingDepthProcessStep, CuttingWidthProcessStep,
+	    	TimeMachiningProcessStep, TimeAssistProcessStep, RemarkProcessStep, DeviceProcessStep, FixtureProcessStep, CuttingFluidProcessStep
+        )
+		values (  
+			#{id_ProcessStep}, #{id_WorkingProcedure}, #{NoProcessStep}, #{MachiningTypeProcessStep}, #{MachiningLevelProcessStep},#{NameProcessStep}, 
+			#{ContentProcessStep}, #{MeasureProcessStep}, #{ToolHolderProcessStep}, #{ToolbladeProcessStep}, #{ToolMaterialProcessStep}, #{CutterProcessStep}, 
+			#{CutterSpeedProcessStep}, #{SpindlespeedProcessStep},#{FeedProcessStep}, #{FeedSpeedProcessStep}, #{CuttingDepthProcessStep}, #{CuttingWidthProcessStep},
+			#{TimeMachiningProcessStep}, #{TimeAssistProcessStep}, #{RemarkProcessStep}, #{DeviceProcessStep}, #{FixtureProcessStep},#{CuttingFluidProcessStep}
+	    )
+	</insert>
+	
+	<!-- 保存图  -->
+	<insert id="savePictureProcessStep" parameterType="java.util.HashMap" >
+	    insert into PictureProcessStep (
+			id_ProcessStep, url_PictureProcessStep
+        )
+		values (  
+			#{id_ProcessStep}, #{url_PictureProcessStep}
+		)
+	</insert>
+
+
+
+
+
+</mapper>
+
+
+

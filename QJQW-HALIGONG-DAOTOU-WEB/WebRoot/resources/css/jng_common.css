@@ -1,0 +1,49 @@
+@charset "utf-8";
+a{
+    text-decoration: none;
+}
+.user_choose{
+    float:left;
+    margin:20px 0 0 10px;
+}
+.user_ni_cheng{
+    font-family: 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color:#6FB5DE;
+    font-size: 14px;
+}
+.user_ni_cheng,.user_nc_img{
+    float:left;
+    display:block;
+}
+.user_nc_img{
+    margin:7px 0 0 5px;
+}
+.user_choose_cont{
+    display:none;
+    width:82px;
+    height:94px;
+    background:url("../../images/index_user_choose_bg.png") no-repeat;
+    margin:22px 0 0 26px;
+}
+.user_choose_line{
+    width:60px;
+    margin:0px auto 0;
+    border-bottom:1px solid #777;
+}
+.user_choose_cont a{
+    width:60px;
+    margin:0 auto;
+    display:block;
+    font-family: 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color:#777;
+    font-size: 14px;
+    height:35px;
+    line-height:35px;
+}
+.user_choose_cont a.user_hou_tai{
+    padding-top:15px;
+}
+.user_choose_cont a:hover{
+    text-decoration: none;
+    color:#069dd5;
+}

@@ -1,0 +1,324 @@
+@charset "utf-8";
+body{
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+    font-family: 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: black;
+    font-size: 14px;
+}
+ul{
+    padding: 0;
+    margin: 0;
+}
+li{
+    list-style: none;
+}
+img{
+    border: none;
+}
+img:focus{
+    outline: none;
+}
+.main{
+    width: 1280px;
+    height:auto;
+    background-color: white;
+    position: relative;
+    margin: 0 auto;
+    font-family: 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    font-size: 14px;
+    padding: 0 0 55px 0;
+}
+.user_choose_cont  .user_nc_img{
+  margin: -2px 0 0 5px;
+}
+.user_choose_cont  .user_choose_line {
+  width: 60px;
+  margin: 5px auto 0;
+  border-bottom: 1px solid #777;
+}
+
+.second_menu {
+  width: 100%;
+  height: 35px;
+  background-color: #4097ca;
+  margin: 58px 0 0 0;
+}
+/*content*/
+.srmy_content{
+    width: 1000px;
+    height: auto;
+    margin: 0 auto;
+    padding: 20px 0 0 0;
+}
+
+
+
+/*   content  ->  second  最新祭祀  +  追思留言  +  纪念文集  */
+.cont_second{
+    clear: both;
+    padding: 20px 0 0 0;
+}
+.cont_second_center,.cont_second_right{
+    float: left;
+    height: 249px;
+    border: 1px solid #d8e0e4;
+    border-radius: 3px;
+    behavior: url(path/PIE.htc);
+    width: 678px;
+}
+
+.cont_second_right{
+    width: 308px;
+    float: right;
+}
+.second_title{
+    padding: 9px;
+    height:15px;
+}
+.title_img{
+    padding: 0 5px 0 0;
+}
+.title_img,.title_name,.title_more{
+    float: left;
+    font: 16px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #333;
+    line-height: 15px;
+}
+.title_name{
+    display: inline;
+}
+.title_more{
+    float: right;
+    font: 12px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #aaa;
+    padding:0  5px;
+}
+.title_more a{
+	font: 12px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #aaa;
+}
+
+/*  最新祭祀  */
+.cont_second_left ul,.cont_second_center ul,.cont_second_right ul,.cont_third_right ul{
+    margin: 0 0 0 7px;
+    clear: both;
+}
+.cont_second_left li,.cont_second_center li,.cont_second_right li,.cont_third_right li{
+    float: left;
+    height: 34px;
+    font: 14px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #333;
+    line-height: 34px;
+
+}
+.ji_si_log{
+    width: 17px;
+    height: 15px;
+}
+.js_img{
+    width:32px;
+}
+.js_name{
+    width: 110px;
+}
+.js_goods{
+    width: 110px;
+}
+.zhui_si_left{
+	clear:both;
+	float: left;
+}
+.zhui_si_right,.zhui_si_left{
+    float: left;
+}
+.zhui_si_right{
+    float: right;
+    margin: 0 10px 0 0;
+}
+.cont_second_center ul{
+    width: 313px;
+    height: 34px;
+    border-bottom:1px dotted #eee;
+}
+.liu_yan_log{
+    width: 16px;
+    height: 16px;
+    margin: 10px 0 0 0;
+}
+.ly_log{
+    width: 20px;
+}
+.cont_second_right li.ly_log{
+    width: 24px;
+    padding: 0 0 0 5px;
+}
+.lf_cont{
+    width: 259px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.cont_second_right .liu_yan_log{
+    margin:9px 0 0 0;
+}
+.ly_log img.help_light{
+    margin: 9px 0 0 0;
+}
+.ly_cont a,.ly_cont div{
+    float: left;
+}
+.xin_jian,.pai_hang_top,.new_wen_zi{
+    margin: 0 5px;
+}
+.xin_jian{
+	*margin: 12px 5px 0;
+}
+.pai_hang_top,.new_wen_zi{
+    margin: 2px 5px 0;
+}
+
+/*   民间习俗   */
+.cont_third{
+    margin: 20px 0 0 0;
+}
+.third_left_top,.third_left_bottom,.cont_third_right,.cont_fourth,.cont_fifth_left,.cont_fifth_right{
+    border: 1px solid #d8e0e4;
+    border-radius: 3px;
+    behavior: url(path/PIE.htc);
+    margin: 20px 0 0 0;
+}
+.cont_third_left{
+    float: left;
+}
+.cont_third_right{
+    float: right;
+    width: 308px;
+    height: 588px;
+}
+.third_left_top,.third_left_bottom{
+    width: 678px;
+    height: 298px;
+}
+.third_left_bottom{
+    height: 268px;
+}
+.third_title{
+    padding: 10px;
+}
+.third_title_name{
+    float: left;
+    font: 16px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #333;
+}
+.third_title_more{
+    float: right;
+}
+.third_title_more a{
+    font: 12px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #aaa;
+}
+.cont_fifth{
+    clear: both;
+    margin: 20px 0 0 0;
+}
+.cont_fifth_left,.cont_fifth_right{
+    height: 218px;
+}
+.cont_fifth_left{
+    float: left;
+    width: 678px;
+}
+.cont_fifth_right{
+    float: right;
+    width: 308px;
+}
+.xi_su_cont{
+    clear: both;
+}
+.mjxs_left,.mjxs_right{
+    float: left;
+    padding: 10px;
+}
+.jie_ri{
+    clear: both;
+
+}
+.jie_ri_log, .jie_ri_infor,.jr_log,.jr_name{
+    float: left;
+}
+.jie_ri_log{
+    width: 104px;
+    height: 65px;
+    padding: 3px 10px 20px 0;
+}
+.jr_name a{
+    font: 14px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #069dd5;
+}
+.jr_intro{
+    clear: both;
+    width: 225px;
+    height:41px;
+    font: 14px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #333;
+    line-height: 24px;
+}
+.mjxs_right li{
+    width: 280px;
+    height:32px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    border-bottom:1px dotted #d4d4d4;
+}
+.mjxs_right li a{
+    font: 14px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #333;
+    line-height: 32px;
+}
+.cont_fifth_right li{
+    float: left;
+    height:34px;
+    font: 14px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #333;
+    line-height: 35px;
+    border-bottom:1px dotted #d4d4d4;
+}
+.cont_fifth_right ul{
+	clear:both;
+    margin: 0 0 0 10px;
+}
+.hots_title {
+    width:195px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.hots_title a{
+    font: 14px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    color: #333;
+    line-height: 35px;
+}
+.hots_log{
+    width:20px;
+    padding: 0 0 0 20px;
+}
+.hots_num{
+    width: 50px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+#shou_ye{
+	border-bottom: none;
+}
+#sec_wzxx{
+	border-bottom: 2px solid #6fb5de;
+}

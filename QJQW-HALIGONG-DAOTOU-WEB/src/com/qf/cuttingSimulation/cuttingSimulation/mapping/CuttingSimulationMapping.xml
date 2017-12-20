@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.cuttingSimulation.cuttingSimulation.dao.CuttingSimulationMapping">
+
+	<!-- 查询列表   -->
+	<select id="queryCuttingSimulationList"   parameterType="com.qf.util.PageData"  resultType="java.util.HashMap">
+		select id_CuttingSimulation, IDCutSim, NameCutSim, TypeCutSim, MaterialWorkpieceCutSim, 
+		   	   ToolType, MaterialToolCutSim, MaterialToolCutSimNum, QianjiaoCutSim, HoujiaoCutSim,
+		   	   RenqingCutSim, NoseRadiusCutSim, BreakerBladeCutSim, CuttingSpeedCutSim, RoatingSpeedCutSim, 
+		   	   FeedCutSim, FeedSpeedCutSim, CuttingDepthCutSim, CuttingWidthCutSim, SoftwareCutSim,
+		   	   ForceXCutSim,ForceYCutSim,ForceZCutSim,TorqueCutSim,TemperatureCutSim,
+		   	   ChipShapeCutSim,SurfaceStressCutSim,ExReToolLife,ExReWearTimeAndValue,
+		   	   CutSimDefined1,CutSimDefined1Value,CutSimDefined2,CutSimDefined2Value,
+		   	   CutSimDefined3,CutSimDefined3Value
+		   	   
+		from CuttingSimulation
+		where 1 = 1
+		<if test="IDCutSim !=null  and IDCutSim !='' "> and IDCutSim like '%${IDCutSim}%'</if>
+		<if test="NameCutSim !=null  and NameCutSim !='' "> and NameCutSim like '%${NameCutSim}%'</if>
+		<if test="TypeCutSim !=null  and TypeCutSim !='' "> and TypeCutSim like '%${TypeCutSim}%'</if>
+		<if test="MaterialWorkpieceCutSim !=null  and MaterialWorkpieceCutSim !='' "> and MaterialWorkpieceCutSim like '%${MaterialWorkpieceCutSim}%'</if>
+		<if test="ToolType !=null  and ToolType !='' "> and ToolType like '%${ToolType}%'</if>
+		<if test="MaterialToolCutSim !=null  and MaterialToolCutSim !='' "> and MaterialToolCutSim like '%${MaterialToolCutSim}%'</if>
+		<if test="MaterialToolCutSimNum !=null  and MaterialToolCutSimNum !='' "> and MaterialToolCutSimNum like '%${MaterialToolCutSimNum}%'</if>
+		<if test="SoftwareCutSim !=null  and SoftwareCutSim !='' "> and SoftwareCutSim like '%${SoftwareCutSim}%'</if>
+		order by id_CuttingSimulation desc
+	</select>
+
+	<select id="queryModelPictureCutSimList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_CuttingSimulationFile, id_CuttingSimulation, url_CuttingSimulationFile
+		from CuttingSimulationFile
+		where id_CuttingSimulation = #{id_CuttingSimulation} and ascription = #{ascription}
+	</select>
+	
+	<select id="queryFileCutSimList"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select id_CuttingSimulationFile, id_CuttingSimulation, url_CuttingSimulationFile, name_CuttingSimulationFile
+		from CuttingSimulationFile
+		where id_CuttingSimulation = #{id_CuttingSimulation} and ascription = #{ascription}
+	</select>
+
+    <select id="queryCategoryTypeCutSimList" resultType="java.util.HashMap">
+		select id_CategoryTypeCutSim, name_CategoryTypeCutSim 
+		from CategoryTypeCutSim
+		order by id_CategoryTypeCutSim
+	</select>
+
+    <select id="queryCategorySoftwareCutSimList" resultType="java.util.HashMap">
+		select id_CategorySoftwareCutSim, name_CategorySoftwareCutSim 
+		from CategorySoftwareCutSim
+		order by id_CategorySoftwareCutSim
+	</select>
+
+	<delete id="cleanCuttingSimulationFileById"   parameterType="java.util.HashMap">
+    	delete from CuttingSimulationFile
+        where id_CuttingSimulation = #{id_CuttingSimulation}
+    </delete>
+    
+	<delete id="deleteCuttingSimulationById"   parameterType="java.util.HashMap">
+    	delete from CuttingSimulation
+        where id_CuttingSimulation = #{id_CuttingSimulation}
+    </delete>
+	
+	<select id="queryCuttingSimulationById"   parameterType="java.util.HashMap"  resultType="java.util.HashMap">
+		select *
+		from CuttingSimulation
+		where id_CuttingSimulation = #{id_CuttingSimulation}
+	</select>
+	
+	<select id="queryCategoryTypeCutSimByName" resultType="java.util.HashMap">
+		select id_CategoryTypeCutSim, name_CategoryTypeCutSim 
+		from CategoryTypeCutSim
+		where name_CategoryTypeCutSim = #{name_CategoryTypeCutSim}
+	</select>
+	
+	<insert id="saveCategoryTypeCutSim" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategoryTypeCutSim"  resultType="int">
+    		select ifnull((select (id_CategoryTypeCutSim+1) id_CategoryTypeCutSim from CategoryTypeCutSim order by id_CategoryTypeCutSim desc limit 1) ,1) id_CategoryTypeCutSim from dual
+    	</selectKey>
+	    insert into CategoryTypeCutSim (
+	    	id_CategoryTypeCutSim, name_CategoryTypeCutSim
+        )
+		values (  
+			#{id_CategoryTypeCutSim}, #{name_CategoryTypeCutSim}
+	    )
+	</insert>
+	
+	<select id="queryCategorySoftwareCutSimByName" resultType="java.util.HashMap">
+		select id_CategorySoftwareCutSim, name_CategorySoftwareCutSim 
+		from CategorySoftwareCutSim
+		where name_CategorySoftwareCutSim = #{name_CategorySoftwareCutSim}
+	</select>
+	
+	<insert id="saveCategorySoftwareCutSim" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CategorySoftwareCutSim"  resultType="int">
+    		select ifnull((select (id_CategorySoftwareCutSim+1) id_CategorySoftwareCutSim from CategorySoftwareCutSim order by id_CategorySoftwareCutSim desc limit 1) ,1) id_CategorySoftwareCutSim from dual
+    	</selectKey>
+	    insert into CategorySoftwareCutSim (
+	    	id_CategorySoftwareCutSim, name_CategorySoftwareCutSim
+        )
+		values (  
+			#{id_CategorySoftwareCutSim}, #{name_CategorySoftwareCutSim}
+	    )
+	</insert>
+	
+	<!-- 修改  -->
+	<update id="updateCuttingSimulation" parameterType="java.util.HashMap">
+		update CuttingSimulation set
+	    		IDCutSim = #{IDCutSim},
+	    		NameCutSim = #{NameCutSim},
+	    		TypeCutSim = #{TypeCutSim},
+	    		MaterialWorkpieceCutSim = #{MaterialWorkpieceCutSim},
+	    		ToolType = #{ToolType},
+	    		MaterialToolCutSim = #{MaterialToolCutSim},
+	    		MaterialToolCutSimNum = #{MaterialToolCutSimNum},
+	    		QianjiaoCutSim = #{QianjiaoCutSim},
+	    		HoujiaoCutSim = #{HoujiaoCutSim},
+	    		RenqingCutSim = #{RenqingCutSim},
+	    		NoseRadiusCutSim = #{NoseRadiusCutSim},
+	    		BreakerBladeCutSim = #{BreakerBladeCutSim},
+	    		CuttingSpeedCutSim = #{CuttingSpeedCutSim},
+	    		RoatingSpeedCutSim = #{RoatingSpeedCutSim},
+	    		FeedCutSim = #{FeedCutSim},
+	    		FeedSpeedCutSim = #{FeedSpeedCutSim},
+	    		CuttingDepthCutSim = #{CuttingDepthCutSim},
+	    		CuttingWidthCutSim = #{CuttingWidthCutSim},
+	    		SoftwareCutSim = #{SoftwareCutSim},
+	    		ForceXCutSim = #{ForceXCutSim},	 
+	    		ForceYCutSim = #{ForceYCutSim},	
+	    		ForceZCutSim = #{ForceZCutSim},	
+	    		TorqueCutSim = #{TorqueCutSim},	
+	    		TemperatureCutSim = #{TemperatureCutSim},
+	    		ChipShapeCutSim = #{ChipShapeCutSim},
+	    		SurfaceStressCutSim = #{SurfaceStressCutSim},
+	    		ExReToolLife = #{ExReToolLife},
+	    		ExReWearTimeAndValue = #{ExReWearTimeAndValue},
+		   		CutSimDefined1 = #{CutSimDefined1},
+		   		CutSimDefined1Value = #{CutSimDefined1Value},
+		   		CutSimDefined2 = #{CutSimDefined2},
+		   		CutSimDefined2Value = #{CutSimDefined2Value},
+		   		CutSimDefined3 = #{CutSimDefined3},
+		   		CutSimDefined3Value = #{CutSimDefined3Value}
+	    			 
+	    		  		
+		where id_CuttingSimulation = #{id_CuttingSimulation}
+	</update>
+	
+	<!-- 新增 -->
+	<insert id="saveCuttingSimulation" parameterType="java.util.HashMap" >
+		<selectKey order="BEFORE" keyProperty="id_CuttingSimulation"  resultType="int">
+    		select ifnull((select (id_CuttingSimulation+1) id_CuttingSimulation from CuttingSimulation order by id_CuttingSimulation desc limit 1) ,1) id_CuttingSimulation from dual
+    	</selectKey>
+	    insert into CuttingSimulation (
+	    	id_CuttingSimulation, IDCutSim, NameCutSim, TypeCutSim, MaterialWorkpieceCutSim, 
+		   	ToolType, MaterialToolCutSim, MaterialToolCutSimNum, QianjiaoCutSim, HoujiaoCutSim,
+		   	RenqingCutSim, NoseRadiusCutSim, BreakerBladeCutSim, CuttingSpeedCutSim, RoatingSpeedCutSim,
+		   	FeedCutSim, FeedSpeedCutSim, CuttingDepthCutSim, CuttingWidthCutSim, SoftwareCutSim,
+		   	ForceXCutSim, ForceYCutSim, ForceZCutSim, TorqueCutSim, TemperatureCutSim,
+		   	ChipShapeCutSim,SurfaceStressCutSim,ExReToolLife,ExReWearTimeAndValue,
+		   	CutSimDefined1,CutSimDefined1Value,CutSimDefined2,CutSimDefined2Value,
+		   	CutSimDefined3,CutSimDefined3Value
+        )
+		values (  
+			#{id_CuttingSimulation}, #{IDCutSim}, #{NameCutSim}, #{TypeCutSim}, #{MaterialWorkpieceCutSim}, 
+		   	#{ToolType}, #{MaterialToolCutSim}, #{MaterialToolCutSimNum}, #{QianjiaoCutSim}, #{HoujiaoCutSim},
+		   	#{RenqingCutSim}, #{NoseRadiusCutSim}, #{BreakerBladeCutSim}, #{CuttingSpeedCutSim}, #{RoatingSpeedCutSim},
+		   	#{FeedCutSim}, #{FeedSpeedCutSim}, #{CuttingDepthCutSim}, #{CuttingWidthCutSim}, #{SoftwareCutSim},
+		   	#{ForceXCutSim}, #{ForceYCutSim}, #{ForceZCutSim}, #{TorqueCutSim}, #{TemperatureCutSim},
+		   	#{ChipShapeCutSim},#{SurfaceStressCutSim},#{ExReToolLife},#{ExReWearTimeAndValue},
+		   	#{CutSimDefined1},#{CutSimDefined1Value},#{CutSimDefined2},#{CutSimDefined2Value},
+		   	#{CutSimDefined3},#{CutSimDefined3Value}
+	    )
+	</insert>
+	
+	<insert id="saveModelPictureCutSim" parameterType="java.util.HashMap" >
+	    insert into CuttingSimulationFile (
+			id_CuttingSimulation, url_CuttingSimulationFile,ascription
+        )
+		values (  
+			#{id_CuttingSimulation}, #{url_CuttingSimulationFile},#{ascription}
+		)
+	</insert>
+	
+	<insert id="saveFileCutSim" parameterType="java.util.HashMap" >
+	    insert into CuttingSimulationFile (
+			id_CuttingSimulation, url_CuttingSimulationFile, name_CuttingSimulationFile,ascription
+        )
+		values (  
+			#{id_CuttingSimulation}, #{url_CuttingSimulationFile}, #{name_CuttingSimulationFile},#{ascription}
+		)
+	</insert>
+	
+	
+	
+	
+	
+
+
+
+
+</mapper>

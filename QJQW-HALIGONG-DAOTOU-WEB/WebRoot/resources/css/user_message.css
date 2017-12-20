@@ -1,0 +1,324 @@
+@charset "UTF-8";
+body{
+    padding: 0;
+    margin: 0;
+    font:13px 'Microsoft YaHei';
+}
+a{
+    text-decoration: none;
+}
+img{
+    border: none;
+}
+li{
+	list-style:none;
+}
+.shortcut_create a{
+    text-decoration: none;
+    font: 14px 'Microsoft YaHei';
+    color:#666666;
+}
+.shortcut_create>div{
+    float: left;
+    margin-top: 6px;
+    height: 17px;
+    line-height: 17px;
+}
+.shortcut_logo{
+    width: 3px;
+    background-color: #57a7dc;
+    margin-right: 10px;
+}
+.message_container{
+    padding: 21px 0 0 0;
+    clear: both;
+}
+.mess_title{
+    padding:0 0 0 9px;
+    width: 975px;
+    height:53px;
+    border-bottom: 1px solid #d8e0e4;
+}
+.mess_title div{
+    float: left;
+    width:100px;
+    height:30px;
+    border:1px solid #069dd5;
+    background-color:#fff;
+    font: 14px 'Microsoft YaHei';
+    color:#069dd5;
+    text-align:center;
+    line-height:30px;
+    border-radius:4px;
+    margin-right:20px;
+}
+.mess_title div a{
+	display:block;
+	width:100px;
+    height:30px;
+	font: 14px 'Microsoft YaHei';
+    color:#069dd5;
+    text-align:center;
+    line-height:30px;
+}
+.mess_title img{
+    margin-right: 5px;
+}
+.message_container ul{
+    padding: 0;
+    margin: 0;
+    clear: both;
+    width: 984px;
+    height: 50px;
+    border-bottom: 1px solid #d8e0e4;
+}
+.message_container li{
+    list-style: none;
+    float: left;
+    height: 50px;
+    font: 14px 'Microsoft YaHei';
+    line-height: 50px;
+}
+.message_container li div{
+    width: 24px;
+    height: 25px;
+    margin:8px 10px 0 0;
+    float: left;
+}
+.mess_list_1{
+    width: 240px;
+    padding-left: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.mess_list_title .mess_list_1{
+    width: 204px;
+    padding-left: 50px;
+}
+.mess_list_title li{
+    color: #000;
+}
+.mess_list_2{
+    width: 390px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #777;
+}
+.mess_list_2 a{
+	color: #069dd5;
+}
+.mess_list_3,.mess_list_4{
+    text-align: center;
+    color: #aaa;
+}
+.mess_list_3{
+    width: 140px;
+    padding-left:80px;
+}
+.mess_noread{
+	color: #069dd5;
+}
+.mess_list_4{
+    width: 110px;
+}
+.message_container li span{
+    color: #fd844e;
+    margin-right: 10px;
+}
+.send_msg_list_title .mess_list_2,.send_msg_cont  .mess_list_2{
+	width: 634px;
+	padding-left:20px;
+}
+.send_msg_list_title .mess_list_3,.send_msg_cont  .mess_list_3{
+	width: 140px;
+}
+.send_msg_list_title .mess_list_4,.send_msg_cont  .mess_list_4{
+	width: 110px;
+}
+.msg_cont_bg{
+	display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:999999999999999990;
+    -moz-opacity: 0.6;
+    opacity:.60;
+    filter: alpha(opacity=60);
+}
+#msg_div{
+    display: none;
+    width:600px;
+    position: absolute;
+    top: 20%;
+    left:50%;
+    margin: 0 0 0 -250px; 
+    z-index:9999999999999999999;
+    overflow: auto;
+    border-radius: 3px;
+}
+.msg_window_content{
+    width:570px;
+    height:auto;
+    min-height:200px;
+    position: relative;
+    background-color:white;
+    padding: 13px 15px;
+    font: 14px 'Microsoft YaHei';
+    color: #333;
+    overflow: hidden;
+}
+.msg_cont_title{
+	font: 16px 'Microsoft YaHei';
+	line-height:30px;
+}
+#msg_div_photo{
+	width:570px;
+	height:auto;
+	margin-bottom:20px;
+}
+#msg_div_photo img{
+	width:98px;
+	height:98px;
+	margin:10px 10px 10px 0;
+	border:1px solid #ccc;
+}
+#msg_div_advice_content,#msg_div_back_info{
+	width:560px;
+	height:auto;
+	min-height:50px;
+	border:1px solid #ccc;
+}
+/*消息弹窗*/
+/* 所有  关闭窗口  的  “X” */
+.window_close{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+/*所有蓝色条*/
+.window_title{
+    height:39px;
+    background-color: #5abbf4;
+    text-align: center;
+    font:bold 18px 'Microsoft YaHei';
+    color: white;
+    line-height:39px;
+    border-bottom: 1px solid #2a95d4;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+/*所有灰色遮罩*/
+.bg{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:999999999999999990;
+    -moz-opacity: 0.6;
+    opacity:.60;
+    filter: alpha(opacity=60);
+}
+.message_content{
+    display: none;
+    position: absolute;
+    top:50%;
+    left:50%;
+    width:492px;
+    z-index:999999999999999991;
+    margin: -135px 0 0 -246px;
+}
+.message_window_content{
+    width:470px;
+    height: 230px;
+    position: relative;
+    background-color:white;
+    padding: 16px 0 0 22px;
+    font: 14px 'Microsoft YaHei';
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.message_kind div{
+    float: left;
+}
+.kind_title{
+    height: 25px;
+    line-height: 25px;
+    color: #333;
+    margin:0 0 0 10px;
+}
+.message_time{
+    clear: both;
+    font: 12px 'Microsoft YaHei';
+    color: #333;
+    padding: 19px 0 20px 0;
+}
+.message_infor{
+    width: 426px;
+    height:105px;
+    border: 1px solid #ccc;
+    padding: 15px 0 0 20px;
+}
+.infor_cont{
+    color:#333;
+}
+.infor_cont span{
+    color: #fd844e;
+}
+.infor_btn{
+    height: 30px;
+    margin: 43px 0 0 0;
+}
+.infor_btn div{
+    float: left;
+    width: 80px;
+    height: 30px;
+    font: 14px 'Microsoft YaHei';
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #5abbf4;
+    margin: 0 20px 0 0;
+}
+
+/*上一页和下一页*/
+.number_page_bottomx{
+    text-align: center;
+    margin: 0 auto;
+    width:710px;
+    height:30;
+}
+.number_page_bottomx>ul>li{
+    width: 65px;
+    height: 28px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    behavior: url(path/PIE.htc);
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+    line-height: 28px;
+}
+.number_page_bottomx>ul>li>a{
+    color:#666666;
+}
+
+
+
+a:focus{
+    outline:none;
+}
+.mess_title a.message_active{
+	color:#fff;
+	background-color:#069dd5;
+}

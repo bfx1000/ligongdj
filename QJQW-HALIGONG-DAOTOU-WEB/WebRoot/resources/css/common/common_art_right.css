@@ -1,0 +1,8 @@
+@charset "utf-8";
+.art_right_more a{
+	float:right;
+	font:12px 'Microsoft YaHei', Verdana, Geneva, sans-serif;
+    font-size: 14px;
+	color:#aaa;
+  	padding: 0 5px;
+}

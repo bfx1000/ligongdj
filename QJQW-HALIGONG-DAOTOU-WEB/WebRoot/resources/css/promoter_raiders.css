@@ -1,0 +1,260 @@
+html,body,h1,h2,h3,h4,h5,h6,p,blockquote,ul,li,form,input,figure{margin:0;padding:0;}
+ul,li,p,i{list-style:none;font-style:normal; padding:0; margin:0;}
+html,body{font:14px "Microsoft Yahei", Arial; padding:0; margin:0;}
+
+/* 老样式套用*/
+.user_apply_table{
+	border-bottom:1px solid #d8e0e4;
+	padding-bottom:0;
+	padding-right:0;
+	padding-top:20px;
+	margin:0 0 30px;
+	padding-left:0;
+	width:100%;
+	height:25px;
+	clear:both;
+}
+.user_apply_table > img {
+    float: left;
+}
+.user_apply_table > div {
+    float: left;
+    font: bold 14px "Microsoft Yahei", Arial;
+    line-height: 14px;
+    margin: 0 0 0 10px;
+}
+
+
+/*新添加样式*/
+.gonglue_main{
+	width:1000px;
+	margin:0 auto;
+}
+.gonglue_content_title {
+    width: 960px;
+    margin: 62px auto 0;
+}
+.gonglue_title {
+    width: 100%;
+    height: 84px;
+    font: 34px "Microsoft Yahei", Arial;
+    color: #009cd7;
+    text-align: center;
+}
+
+.gonglue_content_wrap{
+	width:1000px;
+}
+.gonglue_content_wrap p{
+	line-height:40px;
+	  font-size:14px;
+	  color:#333;
+	  margin-top:20px;
+	  text-indent:2em;
+	  display:block;
+}
+.top20{
+	 margin-top:20px;
+}
+.top40{
+	 margin-top:40px;
+}
+.top60{
+	 margin-top:60px;
+}
+
+/* 三个圈*/
+.box_img{
+	 margin:0 auto;
+	  width:640px;
+	  height:200px;
+	  margin-top:35px;
+	  display:block;
+}
+.box_img li{
+	 float:left;
+	  margin-right:95px;
+	  width:150px;
+	  height:185px;
+	  background-repeat:no-repeat;
+	  display:block;
+	  background-position: left top;
+}
+.box_img li a{
+	 width:100%;
+	  height:185px;
+	  text-decoration:none;
+}
+.box_img .img_pc{
+	 background-image:url("../images/img_pc.png");
+}
+.box_img .img_app{
+	 background-image:url("../images/img_app.png");
+}
+.box_img .img_xx{
+	 background-image:url("../images/img_xx.png");
+	  margin-right:0;
+}
+
+.box_img li span{
+	 margin-top:165px;
+	 text-align:center;
+	 font-size:16px;
+	 font-weight:bold;
+	 color:#000;
+	 display:block;
+}
+
+/* 渠道样式 */
+.way_title{
+	 display:block;
+	 width:100%;
+	 line-height:30px;
+	 margin-top:30px;
+	 font-size:16px;
+}
+
+.way_bg{
+	 width:90px;height:30px;line-height:30px;
+	 color:#fff;
+	 text-align:center;
+	 font-size:16px;
+	 background:#069dd5;
+	 border-radius:3px;
+	 float:left;
+	 margin-right:10px;
+}
+.way1_1{
+	margin-top:20px;
+}
+.way1_1 span{
+	 color:#069dd5;
+}
+.way1_1_img{
+	 background:url("../images/img1_pc.png") no-repeat center top;
+	  width:922px;
+	  height:300px;
+	  margin:40px auto 0;
+}
+
+/* 方式一中的第二种 */
+.way1_2_box{
+	}
+.way1_2_box p{
+	line-height:30px;
+	  font-size:14px;
+	  margin-top:0px;text-indent:2em;
+	  display:block;
+}
+.way1_2_title{
+	 background:url("../images/img1_2_title.png") no-repeat left center;
+	  width:100%;
+	  height:40px;
+	  line-height:40px;margin-top:30px;
+	  text-indent:10px;
+}
+
+.box_switch{
+	 width:700px;
+	  height:197px;
+	  margin:10px auto 0;
+	  border:1px solid #72c9ff;
+}
+
+
+/*  按钮  */
+.btndiv {
+	width:200px;
+	float:right;
+	height:54px;
+	position:relative;
+	z-index:10;
+
+}
+a.abtn {
+	display:block;
+	height:27px;
+	width:62px;
+	position:absolute;
+	overflow:hidden;
+	border-radius:3px;
+	font-size:14px;
+	color:#069dd5;
+	text-align:center;
+	background:#fff;
+	line-height:27px;
+	text-decoration:none;
+	margin-top:14px;
+	text-indent:-9000px;
+	background:url("../images/btn.png");
+	
+}
+a.aleft {
+	right:93px;
+	background-position:0 -37px;
+}
+a.agrayleft {
+	cursor:default;
+	background-position:0 0;
+}
+a.aright {
+	right:21px;
+	background-position:-67px 0;
+}
+a.agrayright {
+	cursor:default;
+	background-position:-67px -101px;
+}
+
+
+.way2_img{
+	background:url("../images/img2_app.png") no-repeat center top;
+	width:710px;
+	height:551px;
+	margin:40px auto 0;
+}
+
+.way3_box p{
+	line-height:30px;
+	font-size:14px;
+	margin-top:20px;
+	text-indent:2em;
+	margin-bottom:20px;
+	display:block;
+}
+
+/*  图片  */
+
+.uldiv {
+	width:700px;
+	height:198px;
+	padding:0px;
+	margin:0 auto;
+	position:relative;
+	text-align:center;
+	border-radius:0px;
+	z-index:0;
+}
+.scrollcontainer {
+	width:700px;
+	height:198px;
+	overflow:hidden;
+	position:relative;
+	margin:0 auto;
+	top:-55px;	
+}
+.scrollcontainer ul {
+	/*width:20000px;*/
+	position:absolute;
+	left:0px;
+	top:0px;
+	height:198px;
+}
+.scrollcontainer ul li{
+	width:700px;
+	height:198px;
+	float:left;
+}
+.scrollcontainer li img{
+	width:700px;
+}
